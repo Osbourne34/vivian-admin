@@ -9,16 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
+    "@mantine/core": "^7.1.1",
+    "@mantine/hooks": "^7.1.1",
+    "next": "13.5.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
-    "@types/node": "latest",
-    "@types/react-dom": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest"
+    "@types/node": "20.8.2",
+    "@types/react": "18.2.24",
+    "@types/react-dom": "18.2.8",
+    "eslint": "8.50.0",
+    "eslint-config-next": "13.5.4",
+    "postcss": "^8.4.31",
+    "postcss-preset-mantine": "^1.8.0",
+    "postcss-simple-vars": "^7.0.1",
+    "typescript": "5.2.2"
   }
 }
