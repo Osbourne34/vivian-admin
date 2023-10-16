@@ -1,0 +1,50 @@
+.scrollArea {
+  position: relative;
+  border-top: rem(1px) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-3));
+  border-bottom: rem(1px) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-3));
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.center {
+  position: absolute;
+  top: 55px;
+  width: 100%;
+  height: 543px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thead {
+  position: sticky;
+  top: 0;
+
+  z-index: 1;
+
+  background-color: var(--_card-bg);
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: calc(0.0625rem * var(--mantine-scale)) solid
+      var(--_table-border-color);
+  }
+}

@@ -1,0 +1,14 @@
+.root {
+  min-height: 100vh;
+  background-image: url('/bg/main-bg.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  flex-grow: 1;
+}

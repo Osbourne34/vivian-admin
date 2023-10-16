@@ -1,0 +1,10 @@
+.pagination {
+  padding: var(--mantine-spacing-md);
+  justify-content: flex-end;
+
+  @media (max-width: $mantine-breakpoint-lg) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
+}
