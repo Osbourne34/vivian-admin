@@ -10,7 +10,7 @@ import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 
 const EmployeeUpdatePage = () => {
   return (
-    <div>
+    <>
       <Group justify="space-between" mb="lg">
         <Title order={3}>Редактирование сотрудника</Title>
 
@@ -26,7 +26,7 @@ const EmployeeUpdatePage = () => {
       <Card withBorder shadow="sm">
         <UpdateEmployee />
       </Card>
-    </div>
+    </>
   )
 }
 

@@ -70,7 +70,7 @@ export const routes: Route[] = [
   },
   {
     id: nanoid(),
-    title: 'Продукты',
+    title: 'Продукция',
     icon: IconBuildingFactory2,
     children: [
       {
