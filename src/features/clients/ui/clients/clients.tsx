@@ -7,15 +7,15 @@ import { notifications } from '@mantine/notifications'
 import { useQueryClient } from '@tanstack/react-query'
 import debounce from 'lodash.debounce'
 
-import { useDeleteEmployee, useFetchEmployees } from '../../queries/queries'
-import { EmployeeFilters } from '../employee-filters/employee-filters'
+import { ClientFilters } from '../client-filters/client-filters'
+import { useDeleteClient, useFetchClients } from '../../queries/queries'
 import { Status, Verify } from '../../types/filters'
 
 import { Table } from '@/shared/ui/table/table'
-import { Column, Sort } from '@/shared/ui/table/types'
 import { Actions } from '@/shared/ui/actions/actions'
+import { Column, Sort } from '@/shared/ui/table/types'
 
-export const Employees = () => {
+export const Clients = () => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
 
@@ -29,17 +29,16 @@ export const Employees = () => {
 
   const [search, setSearch] = useState('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
-
   const [branch, setBranch] = useState<string | null>(null)
   const [verify, setVerify] = useState<Verify | null>(null)
   const [status, setStatus] = useState<Status | null>(null)
-  const [role, setRole] = useState<string | null>(null)
+  const [manager, setManager] = useState<string | null>(null)
 
   const {
-    data: employees,
+    data: clients,
     isError,
     isFetching,
-  } = useFetchEmployees({
+  } = useFetchClients({
     page,
     rowsPerPage,
     sort,
@@ -47,24 +46,24 @@ export const Employees = () => {
     branch,
     status,
     verify,
-    role,
+    manager,
   })
 
-  const deleteMutation = useDeleteEmployee({
+  const deleteMutation = useDeleteClient({
     onSuccess: (data) => {
-      if (employees?.data.length === 1 && page !== 1) {
+      if (clients?.data.length === 1 && page !== 1) {
         setPage((prevState) => prevState - 1)
       } else {
         queryClient.invalidateQueries([
-          'employees',
+          'clients',
           sort,
           page,
           rowsPerPage,
           debouncedSearchValue,
           branch,
+          manager,
           verify,
           status,
-          role,
         ])
       }
 
@@ -98,7 +97,7 @@ export const Employees = () => {
   )
 
   const handleUpdate = (id: number) => {
-    push(`/employees/edit/${id}`)
+    push(`/clients/edit/${id}`)
   }
 
   const handleDelete = (id: number) => {
@@ -106,7 +105,7 @@ export const Employees = () => {
       modal: 'confirmDialog',
       title: 'Подтвердите действие',
       innerProps: {
-        modalBody: 'Вы действительно хотите удалить этого сотрудника?',
+        modalBody: 'Вы действительно хотите удалить этого клиента?',
         onConfirm: async (modalId: string) => {
           await deleteMutation.mutateAsync(id).finally(() => {
             modals.close(modalId)
@@ -144,6 +143,11 @@ export const Employees = () => {
       sortable: true,
     },
     {
+      key: 'manager_id',
+      title: 'Менеджер',
+      sortable: true,
+    },
+    {
       key: 'active',
       title: 'Активен',
       boolean: true,
@@ -166,7 +170,7 @@ export const Employees = () => {
 
   return (
     <Card shadow="sm" withBorder padding={0}>
-      <EmployeeFilters
+      <ClientFilters
         search={search}
         onChangeSearch={(value) => {
           debouncedSearch(value)
@@ -187,18 +191,18 @@ export const Employees = () => {
           setStatus(value)
           setPage(1)
         }}
-        role={role}
-        onChangeRole={(value) => {
-          setRole(value)
+        manager={manager}
+        onChangeManager={(value) => {
+          setManager(value)
           setPage(1)
         }}
       />
       <Table
         columns={columns}
-        data={employees?.data}
+        data={clients?.data}
         onSort={handleSort}
         sort={sort}
-        total={employees?.pagination.last_page || 1}
+        total={clients?.pagination.last_page || 1}
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}

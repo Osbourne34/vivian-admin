@@ -1,14 +1,14 @@
 import { FormEvent } from 'react'
 
-import { useCreateEmployee } from '../../queries/queries'
-import { EmployeeFrom } from '../employee-form/employee-form'
-import { EmployeeFields } from '../../types/employee-fields'
+import { ClientFrom } from '../client-form/client-form'
+import { useCreateClient } from '../../queries/queries'
+import { ClientFields } from '../../types/client-fields'
 
-export const CreateEmployee = () => {
-  const createMutation = useCreateEmployee()
+export const CreateClient = () => {
+  const createMutation = useCreateClient()
 
   const handleSubmit = async (
-    data: EmployeeFields,
+    data: ClientFields,
     event: FormEvent<HTMLFormElement>
   ) => {
     const formData = new FormData(event.currentTarget)
@@ -24,7 +24,7 @@ export const CreateEmployee = () => {
   }
 
   return (
-    <EmployeeFrom
+    <ClientFrom
       submit={handleSubmit}
       loading={createMutation.isLoading}
       error={createMutation.error?.message || ''}

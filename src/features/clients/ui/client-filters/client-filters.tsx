@@ -5,12 +5,12 @@ import { useQuery } from '@tanstack/react-query'
 
 import { SortedBranchesSelect } from '@/features/branches'
 
-import { statusValues, verifyValues } from './filter-values'
 import { Status, Verify } from '../../types/filters'
+import { statusValues, verifyValues } from './filter-values'
 
 import { Filters } from '@/shared/api/filters/filters'
 
-interface EmployeeFiltersProps {
+interface ClientFiltersProps {
   search: string
   onChangeSearch: (value: string) => void
   branch: string | null
@@ -19,11 +19,11 @@ interface EmployeeFiltersProps {
   onChangeVerify: (value: Verify | null) => void
   status: Status | null
   onChangeStatus: (value: Status | null) => void
-  role: string | null
-  onChangeRole: (value: string | null) => void
+  manager: string | null
+  onChangeManager: (value: string | null) => void
 }
 
-export const EmployeeFilters = (props: EmployeeFiltersProps) => {
+export const ClientFilters = (props: ClientFiltersProps) => {
   const {
     search,
     onChangeSearch,
@@ -33,30 +33,29 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
     onChangeVerify,
     status,
     onChangeStatus,
-    role,
-    onChangeRole,
+    manager,
+    onChangeManager,
   } = props
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     onChangeSearch(event.target.value)
   }
 
-  const { data: roles } = useQuery(
-    ['rolesForSelect'],
-    () => Filters.getRoles('client'),
-    {
-      select: (data) => {
-        const newData = data.data.map((role) => {
-          return role.name
-        })
-
+  const { data: managers } = useQuery(['managers'], Filters.getManagers, {
+    select: (data) => {
+      const newData = data.data.map((manager) => {
         return {
-          data: newData,
-          status: data.status,
+          value: String(manager.id),
+          label: manager.name,
         }
-      },
-    }
-  )
+      })
+
+      return {
+        status: data.status,
+        data: newData,
+      }
+    },
+  })
 
   return (
     <Box p="md">
@@ -99,12 +98,12 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
         </Grid.Col>
         <Grid.Col span={4}>
           <Select
-            value={role}
-            onChange={onChangeRole}
-            data={roles?.data}
+            value={manager}
+            onChange={onChangeManager}
+            data={managers?.data}
             allowDeselect={false}
             clearable
-            placeholder="Роль"
+            placeholder="Менеджер"
           />
         </Grid.Col>
       </Grid>

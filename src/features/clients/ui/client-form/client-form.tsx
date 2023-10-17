@@ -6,8 +6,8 @@ import {
   Checkbox,
   Grid,
   Group,
-  MultiSelect,
   PasswordInput,
+  Select,
   TextInput,
   Textarea,
 } from '@mantine/core'
@@ -19,9 +19,8 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 
 import { GroupBranchesSelect } from '@/features/branches'
-
 import { initialValues } from './initial-values'
-import { EmployeeFields } from '../../types/employee-fields'
+import { ClientFields } from '../../types/client-fields'
 
 import { Filters } from '@/shared/api/filters/filters'
 import { UploadAvatar } from '@/shared/ui/upload-avatar/upload-avatar'
@@ -31,9 +30,9 @@ import { minLength } from '@/shared/utils/min-length'
 import { Error } from '@/shared/http/types'
 
 interface EmployeeFormProps {
-  initialData?: EmployeeFields
+  initialData?: ClientFields
   submit: (
-    body: EmployeeFields,
+    body: ClientFields,
     event: FormEvent<HTMLFormElement>
   ) => Promise<unknown>
   loading: boolean
@@ -42,7 +41,7 @@ interface EmployeeFormProps {
   titleSubmit: string
 }
 
-export const EmployeeFrom = (props: EmployeeFormProps) => {
+export const ClientFrom = (props: EmployeeFormProps) => {
   const {
     initialData = initialValues,
     submit,
@@ -59,7 +58,7 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
     reset,
     values,
     setFieldError,
-  } = useForm<EmployeeFields>({
+  } = useForm<ClientFields>({
     validate: {
       name: (value) => {
         if (isEmpty(value)) return 'Обязательное поле'
@@ -77,9 +76,6 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
       password_confirmation: (value, values) => {
         if (isEmpty(value) && requiredPassword) return 'Обязательное поле'
         if (value !== values.password) return 'Пароли не совпадают'
-      },
-      roles: (value) => {
-        if (isEmpty(value as [])) return 'Обязательное поле'
       },
     },
     initialValues: initialData,
@@ -112,22 +108,21 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
     }
   }
 
-  const { data: roles } = useQuery(
-    ['rolesForSelect'],
-    () => Filters.getRoles('client'),
-    {
-      select: (data) => {
-        const newData = data.data.map((role) => {
-          return role.name
-        })
-
+  const { data: managers } = useQuery(['managers'], Filters.getManagers, {
+    select: (data) => {
+      const newData = data.data.map((manager) => {
         return {
-          data: newData,
-          status: data.status,
+          value: String(manager.id),
+          label: manager.name,
         }
-      },
-    }
-  )
+      })
+
+      return {
+        status: data.status,
+        data: newData,
+      }
+    },
+  })
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
@@ -195,16 +190,6 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('address')}
               />
             </Grid.Col>
-            <Grid.Col>
-              <Textarea
-                name="description"
-                label="Описание"
-                minRows={4}
-                autosize
-                size="md"
-                {...getInputProps('description')}
-              />
-            </Grid.Col>
             <Grid.Col span={6}>
               <PasswordInput
                 name="password"
@@ -234,13 +219,24 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
               />
             </Grid.Col>
             <Grid.Col span={6}>
-              <MultiSelect
-                name="roles"
-                label="Роль"
-                data={roles?.data}
+              <Select
+                name="manager_id"
+                label="Менеджер"
+                data={managers?.data}
                 size="md"
-                withAsterisk
-                {...getInputProps('roles')}
+                allowDeselect={false}
+                clearable
+                {...getInputProps('manager_id')}
+              />
+            </Grid.Col>
+            <Grid.Col>
+              <Textarea
+                name="description"
+                label="Описание"
+                minRows={4}
+                autosize
+                size="md"
+                {...getInputProps('description')}
               />
             </Grid.Col>
           </Grid>
