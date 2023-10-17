@@ -2,7 +2,6 @@ import { Button, Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { OrientForm } from '../orient-form/orient-form'
-import { initialValues } from '../orient-form/initial-values'
 import { useCreateOrient } from '../../queries/queries'
 import { OrientFields } from '../../types/orient-fields'
 
@@ -36,7 +35,6 @@ export const CreateOrient = () => {
         size={'lg'}
       >
         <OrientForm
-          initialData={initialValues}
           submit={handleSubmit}
           isLoading={createMutation.isLoading}
           error={createMutation.error?.message || ''}

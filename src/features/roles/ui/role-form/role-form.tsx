@@ -9,6 +9,7 @@ import {
 import { useForm } from '@mantine/form'
 import { useQuery } from '@tanstack/react-query'
 
+import { initialValues } from './initial-values'
 import { RoleFields } from '../../types/role-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
@@ -16,7 +17,7 @@ import { Error } from '@/shared/http/types'
 import { Filters } from '@/shared/api/filters/filters'
 
 interface RoleFormProps {
-  initialData: RoleFields
+  initialData?: RoleFields
   submit: (body: RoleFields) => Promise<unknown>
   isLoading: boolean
   error: string
@@ -25,7 +26,14 @@ interface RoleFormProps {
 }
 
 export const RoleForm = (props: RoleFormProps) => {
-  const { initialData, submit, isLoading, error, onCancel, submitTitle } = props
+  const {
+    initialData = initialValues,
+    submit,
+    isLoading,
+    error,
+    onCancel,
+    submitTitle,
+  } = props
 
   const { getInputProps, onSubmit, values, setFieldError } = useForm({
     initialValues: initialData,

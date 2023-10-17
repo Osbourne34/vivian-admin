@@ -1,14 +1,16 @@
 import { Alert, Button, Group, Stack, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import { OrientFields } from '../../types/orient-fields'
 import { GroupBranchesSelect } from '@/features/branches'
+
+import { initialValues } from './initial-values'
+import { OrientFields } from '../../types/orient-fields'
 
 import { Error } from '@/shared/http/types'
 import { isEmpty } from '@/shared/utils/is-empty'
 
 interface OrientFormProps {
-  initialData: OrientFields
+  initialData?: OrientFields
   submit: (body: OrientFields) => Promise<unknown>
   isLoading: boolean
   error: string
@@ -17,7 +19,14 @@ interface OrientFormProps {
 }
 
 export const OrientForm = (props: OrientFormProps) => {
-  const { initialData, submit, isLoading, error, onCancel, submitTitle } = props
+  const {
+    initialData = initialValues,
+    submit,
+    isLoading,
+    error,
+    onCancel,
+    submitTitle,
+  } = props
 
   const { getInputProps, onSubmit, values, setFieldError } = useForm({
     initialValues: initialData,

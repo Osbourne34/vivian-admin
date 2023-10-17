@@ -10,13 +10,14 @@ import {
 import { useForm } from '@mantine/form'
 
 import { useFetchParentBranches } from '../../queries/queries'
+import { initialValues } from './initial-values'
 import { BranchFields } from '../../types/branch-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/http/types'
 
 interface OrientFormProps {
-  initialData: BranchFields
+  initialData?: BranchFields
   submit: (body: BranchFields) => Promise<unknown>
   isLoading: boolean
   error: string
@@ -25,7 +26,14 @@ interface OrientFormProps {
 }
 
 export const BranchForm = (props: OrientFormProps) => {
-  const { initialData, submit, isLoading, error, onCancel, submitTitle } = props
+  const {
+    initialData = initialValues,
+    submit,
+    isLoading,
+    error,
+    onCancel,
+    submitTitle,
+  } = props
 
   const { getInputProps, onSubmit, values, setFieldError } = useForm({
     initialValues: initialData,

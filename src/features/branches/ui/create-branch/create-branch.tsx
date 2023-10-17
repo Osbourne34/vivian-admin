@@ -2,9 +2,8 @@ import { Button, Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { BranchForm } from '../branch-form/branch-form'
-import { initialValues } from '../branch-form/initial-values'
-import { BranchFields } from '../../types/branch-fields'
 import { useCreateBranch } from '../../queries/queries'
+import { BranchFields } from '../../types/branch-fields'
 
 export const CreateBranch = () => {
   const [opened, { open, close }] = useDisclosure(false)
@@ -36,7 +35,6 @@ export const CreateBranch = () => {
         size={'lg'}
       >
         <BranchForm
-          initialData={initialValues}
           submit={handleSubmit}
           isLoading={createMutation.isLoading}
           error={createMutation.error?.message || ''}
