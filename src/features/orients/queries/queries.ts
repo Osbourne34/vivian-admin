@@ -36,7 +36,7 @@ export const useFetchOrients = (
     debouncedSearchValue: string
     branch: string | null
   },
-  options?: UseQueryOptions<ResponseWithPagination<Orient[]>, Error>
+  options?: UseQueryOptions<ResponseWithPagination<Orient[]>, Error>,
 ) => {
   return useQuery<ResponseWithPagination<Orient[]>, Error>(
     ['orients', sort, page, rowsPerPage, debouncedSearchValue, branch],
@@ -60,13 +60,13 @@ export const useFetchOrients = (
       retry: 0,
       keepPreviousData: true,
       ...options,
-    }
+    },
   )
 }
 
 export const useFetchOrient = (
   orientId: number,
-  options?: UseQueryOptions<ResponseWithData<Orient>, Error>
+  options?: UseQueryOptions<ResponseWithData<Orient>, Error>,
 ) => {
   return useQuery<ResponseWithData<Orient>, Error>(
     ['orient', orientId],
@@ -74,13 +74,13 @@ export const useFetchOrient = (
     {
       staleTime: 20_000,
       ...options,
-    }
+    },
   )
 }
 
 export const useCreateOrient = (
   closeModal: () => void,
-  options?: UseMutationOptions<ResponseWithMessage, Error, OrientFields>
+  options?: UseMutationOptions<ResponseWithMessage, Error, OrientFields>,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -111,7 +111,7 @@ export const useUpdateOrient = (
     ResponseWithMessage,
     Error,
     { id: number; body: OrientFields }
-  >
+  >,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -142,7 +142,7 @@ export const useUpdateOrient = (
 }
 
 export const useDeleteOrient = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, number>
+  options?: UseMutationOptions<ResponseWithMessage, Error, number>,
 ) => {
   const { push } = useRouter()
 

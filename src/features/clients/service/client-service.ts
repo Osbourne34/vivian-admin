@@ -24,7 +24,7 @@ export const ClientsService = {
       'api/clients',
       {
         params,
-      }
+      },
     )
 
     return data
@@ -32,7 +32,7 @@ export const ClientsService = {
 
   getClient: async (id: number) => {
     const { data } = await http<ResponseWithData<ClientDetail>>(
-      `api/clients/${id}/edit`
+      `api/clients/${id}/edit`,
     )
 
     return data
@@ -56,7 +56,7 @@ export const ClientsService = {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }
+      },
     )
 
     return data

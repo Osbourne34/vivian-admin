@@ -17,7 +17,7 @@ export const BranchesService = {
   }) => {
     const { data } = await http<ResponseWithPagination<Branch[]>>(
       'api/branches',
-      { params }
+      { params },
     )
 
     return data
@@ -25,7 +25,7 @@ export const BranchesService = {
 
   getBranch: async (id: number) => {
     const { data } = await http<ResponseWithData<BranchDetail>>(
-      `api/branches/${id}/edit`
+      `api/branches/${id}/edit`,
     )
 
     return data
@@ -54,7 +54,7 @@ export const BranchesService = {
   }) => {
     const { data } = await http.put<ResponseWithMessage>(
       `/api/branches/${id}`,
-      body
+      body,
     )
 
     return data
@@ -62,7 +62,7 @@ export const BranchesService = {
 
   deleteBranch: async (id: number) => {
     const { data } = await http.delete<ResponseWithMessage>(
-      `api/branches/${id}`
+      `api/branches/${id}`,
     )
 
     return data

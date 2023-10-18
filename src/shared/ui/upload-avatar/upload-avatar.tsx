@@ -43,7 +43,11 @@ export const UploadAvatar = (props: UploadAvatarProps) => {
         onMouseOver={() => setShow(true)}
         onMouseOut={() => setShow(false)}
       >
-        <img className={classes.img} src={preview || value?.name} />
+        <img
+          className={classes.img}
+          src={preview || value?.name}
+          alt="preview avatar"
+        />
         <Transition mounted={show} transition={'fade'} duration={100}>
           {(styles) => (
             <>

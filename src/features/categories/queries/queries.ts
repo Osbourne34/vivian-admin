@@ -34,7 +34,7 @@ export const useFetchCategories = (
     rowsPerPage: string | null
     debouncedSearchValue: string
   },
-  options?: UseQueryOptions<ResponseWithPagination<Category[]>, Error>
+  options?: UseQueryOptions<ResponseWithPagination<Category[]>, Error>,
 ) => {
   return useQuery<ResponseWithPagination<Category[]>, Error>({
     queryKey: ['categories', sort, page, rowsPerPage, debouncedSearchValue],
@@ -61,7 +61,7 @@ export const useFetchCategories = (
 
 export const useFetchCategory = (
   categoryId: number,
-  options?: UseQueryOptions<ResponseWithData<Category>, Error>
+  options?: UseQueryOptions<ResponseWithData<Category>, Error>,
 ) => {
   return useQuery<ResponseWithData<Category>, Error>(
     ['category', categoryId],
@@ -69,13 +69,13 @@ export const useFetchCategory = (
     {
       staleTime: 20_000,
       ...options,
-    }
+    },
   )
 }
 
 export const useCreateCategory = (
   closeModal: () => void,
-  options?: UseMutationOptions<ResponseWithMessage, Error, CategoryFields>
+  options?: UseMutationOptions<ResponseWithMessage, Error, CategoryFields>,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -106,7 +106,7 @@ export const useUpdateCategory = (
     ResponseWithMessage,
     Error,
     { id: number; body: CategoryFields }
-  >
+  >,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -137,7 +137,7 @@ export const useUpdateCategory = (
 }
 
 export const useDeleteCategory = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, number>
+  options?: UseMutationOptions<ResponseWithMessage, Error, number>,
 ) => {
   const { push } = useRouter()
 

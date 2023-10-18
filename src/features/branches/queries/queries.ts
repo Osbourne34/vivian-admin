@@ -36,7 +36,7 @@ export const useFetchBranches = (
     rowsPerPage: string | null
     debouncedSearchValue: string
   },
-  options?: UseQueryOptions<ResponseWithPagination<Branch[]>, Error>
+  options?: UseQueryOptions<ResponseWithPagination<Branch[]>, Error>,
 ) => {
   return useQuery<ResponseWithPagination<Branch[]>, Error>({
     queryKey: ['branches', sort, page, rowsPerPage, debouncedSearchValue],
@@ -63,7 +63,7 @@ export const useFetchBranches = (
 
 export const useFetchBranch = (
   orientId: number,
-  options?: UseQueryOptions<ResponseWithData<BranchDetail>, Error>
+  options?: UseQueryOptions<ResponseWithData<BranchDetail>, Error>,
 ) => {
   return useQuery<ResponseWithData<BranchDetail>, Error>(
     ['branch', orientId],
@@ -71,13 +71,13 @@ export const useFetchBranch = (
     {
       staleTime: 20_000,
       ...options,
-    }
+    },
   )
 }
 
 export const useCreateBranch = (
   closeModal: () => void,
-  options?: UseMutationOptions<ResponseWithMessage, Error, BranchFields>
+  options?: UseMutationOptions<ResponseWithMessage, Error, BranchFields>,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -108,7 +108,7 @@ export const useUpdateBranch = (
     ResponseWithMessage,
     Error,
     { id: number; body: BranchFields }
-  >
+  >,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -139,7 +139,7 @@ export const useUpdateBranch = (
 }
 
 export const useDeleteBranch = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, number>
+  options?: UseMutationOptions<ResponseWithMessage, Error, number>,
 ) => {
   const { push } = useRouter()
 
@@ -192,7 +192,7 @@ export const useFetchSortedBranches = () => {
     queryKey: ['branchesWithoutTree'],
     select: (data) => {
       const parentsBranches = data.data.filter(
-        (branch) => branch.parent_id === 0
+        (branch) => branch.parent_id === 0,
       )
 
       let sortedBranches: {
@@ -205,7 +205,7 @@ export const useFetchSortedBranches = () => {
       parentsBranches.forEach((parent) => {
         sortedBranches.push(parent)
         sortedBranches = sortedBranches.concat(
-          data.data.filter((branch) => parent.id === branch.parent_id)
+          data.data.filter((branch) => parent.id === branch.parent_id),
         )
       })
 
@@ -229,7 +229,7 @@ export const useFetchParentBranches = () => {
     select: (data) => {
       return data.data
         .filter(
-          (branch) => branch.parent_id === 0 && branch.parent_name === null
+          (branch) => branch.parent_id === 0 && branch.parent_name === null,
         )
         .map((branch) => {
           return {

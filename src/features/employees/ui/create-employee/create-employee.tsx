@@ -9,7 +9,7 @@ export const CreateEmployee = () => {
 
   const handleSubmit = async (
     data: EmployeeFields,
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ) => {
     const formData = new FormData(event.currentTarget)
     formData.set('phone', data.phone)

@@ -15,7 +15,7 @@ export const UpdateClient = () => {
 
   const handleSubmit = async (
     data: ClientFields,
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ) => {
     const formData = new FormData(event.currentTarget)
     if (data.password === '') {

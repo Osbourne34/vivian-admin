@@ -15,7 +15,7 @@ export const UpdateEmployee = () => {
 
   const handleSubmit = async (
     data: EmployeeFields,
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ) => {
     const formData = new FormData(event.currentTarget)
     if (data.password === '') {

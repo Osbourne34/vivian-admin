@@ -32,7 +32,7 @@ export const EmployeesService = {
   }) => {
     const { data } = await http<ResponseWithPagination<Employee[]>>(
       'api/users',
-      { params }
+      { params },
     )
 
     return data
@@ -40,7 +40,7 @@ export const EmployeesService = {
 
   getEmployee: async (id: number) => {
     const { data } = await http<ResponseWithData<EmployeeDetail>>(
-      `api/users/${id}/edit`
+      `api/users/${id}/edit`,
     )
 
     return data
@@ -54,7 +54,7 @@ export const EmployeesService = {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }
+      },
     )
 
     return data

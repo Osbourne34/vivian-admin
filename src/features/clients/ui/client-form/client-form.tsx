@@ -33,7 +33,7 @@ interface EmployeeFormProps {
   initialData?: ClientFields
   submit: (
     body: ClientFields,
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ) => Promise<unknown>
   loading: boolean
   error: string
@@ -92,7 +92,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
 
   const handleSubmit = async (
     data: typeof values,
-    event?: FormEvent<HTMLFormElement>
+    event?: FormEvent<HTMLFormElement>,
   ) => {
     try {
       await submit(data, event!)

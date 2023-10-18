@@ -6,7 +6,7 @@ export const ConfirmDialog = (
   props: ContextModalProps<{
     modalBody: string
     onConfirm: (modalId: string) => Promise<unknown>
-  }>
+  }>,
 ) => {
   const {
     context,

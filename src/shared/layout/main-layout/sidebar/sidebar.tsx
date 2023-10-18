@@ -35,7 +35,7 @@ export const Sidebar = () => {
               label={title}
               childrenOffset={0}
               defaultOpened={children.some(({ link }) =>
-                pathname.includes(link!)
+                pathname.includes(link!),
               )}
               leftSection={Icon && <Icon stroke={1.5} />}
             >

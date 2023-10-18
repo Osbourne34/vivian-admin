@@ -9,7 +9,7 @@ export const CreateClient = () => {
 
   const handleSubmit = async (
     data: ClientFields,
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ) => {
     const formData = new FormData(event.currentTarget)
     formData.set('phone', data.phone)

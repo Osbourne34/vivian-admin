@@ -16,7 +16,7 @@ http.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error)
-  }
+  },
 )
 
 http.interceptors.response.use(
@@ -39,5 +39,5 @@ http.interceptors.response.use(
     }
     // Остальные ошибки
     return Promise.reject({ message: error.message, status: false })
-  }
+  },
 )

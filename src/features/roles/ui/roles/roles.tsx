@@ -78,7 +78,7 @@ export const Roles = () => {
       setDebouncedSearchValue(value)
       setPage(1)
     }, 500),
-    []
+    [],
   )
 
   const handleUpdate = (id: number) => {
@@ -128,7 +128,7 @@ export const Roles = () => {
                 <Badge key={id} variant="outline" color="blue" size="lg">
                   {name}
                 </Badge>
-              )
+              ),
             )}
           </Group>
         )

@@ -20,7 +20,7 @@ export const OrientsService = {
       `api/orients`,
       {
         params,
-      }
+      },
     )
 
     return data
@@ -28,7 +28,7 @@ export const OrientsService = {
 
   getOrient: async (id: number) => {
     const { data } = await http<ResponseWithData<Orient>>(
-      `api/orients/${id}/edit`
+      `api/orients/${id}/edit`,
     )
 
     return data
@@ -49,7 +49,7 @@ export const OrientsService = {
   }) => {
     const { data } = await http.put<ResponseWithMessage>(
       `api/orients/${id}`,
-      body
+      body,
     )
 
     return data

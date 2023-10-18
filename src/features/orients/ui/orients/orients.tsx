@@ -82,7 +82,7 @@ export const Orients = () => {
       setDebouncedSearchValue(value)
       setPage(1)
     }, 500),
-    []
+    [],
   )
 
   const handleUpdate = (id: number) => {

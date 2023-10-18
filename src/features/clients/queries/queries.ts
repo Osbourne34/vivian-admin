@@ -39,7 +39,7 @@ export const useFetchClients = (
     status: string | null
     manager: string | null
   },
-  options?: UseQueryOptions<ResponseWithPagination<Client[]>, Error>
+  options?: UseQueryOptions<ResponseWithPagination<Client[]>, Error>,
 ) => {
   return useQuery<ResponseWithPagination<Client[]>, Error>({
     queryKey: [
@@ -80,7 +80,7 @@ export const useFetchClients = (
 
 export const useFetchClient = (
   clientId: number,
-  options?: UseQueryOptions<ResponseWithData<ClientDetail>, Error>
+  options?: UseQueryOptions<ResponseWithData<ClientDetail>, Error>,
 ) => {
   return useQuery<ResponseWithData<ClientDetail>, Error>(
     ['client', clientId],
@@ -88,12 +88,12 @@ export const useFetchClient = (
     {
       staleTime: 20_000,
       ...options,
-    }
+    },
   )
 }
 
 export const useCreateClient = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, FormData>
+  options?: UseMutationOptions<ResponseWithMessage, Error, FormData>,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -124,7 +124,7 @@ export const useUpdateClient = (
     ResponseWithMessage,
     Error,
     { id: number; body: FormData }
-  >
+  >,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -155,7 +155,7 @@ export const useUpdateClient = (
 }
 
 export const useDeleteClient = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, number>
+  options?: UseMutationOptions<ResponseWithMessage, Error, number>,
 ) => {
   const { push } = useRouter()
 

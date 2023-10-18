@@ -47,7 +47,7 @@ export const UpdateRole = (props: UpdateRoleProps) => {
           initialData={{
             name: data?.data.name!,
             permissions: data?.data.permissions.map((permission) =>
-              String(permission.id)
+              String(permission.id),
             )!,
           }}
           submit={handleSubmit}

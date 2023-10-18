@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   )
 
   return (

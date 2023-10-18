@@ -135,7 +135,7 @@ export const Table = (props: TableProps) => {
                           item[key]
                         )}
                       </MantineTable.Td>
-                    )
+                    ),
                   )}
                 </MantineTable.Tr>
               )

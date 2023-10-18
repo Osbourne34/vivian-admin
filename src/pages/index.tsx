@@ -148,7 +148,7 @@ const Home = () => {
       setDebouncedSearchValue(value)
       setPage(1)
     }, 500),
-    []
+    [],
   )
 
   const columns: Column[] = [

@@ -77,7 +77,7 @@ export const Branches = () => {
       setDebouncedSearchValue(value)
       setPage(1)
     }, 500),
-    []
+    [],
   )
 
   const handleUpdate = (id: number) => {

@@ -20,7 +20,7 @@ export const CategoriesService = {
       'api/categories',
       {
         params,
-      }
+      },
     )
 
     return data
@@ -28,7 +28,7 @@ export const CategoriesService = {
 
   getCategory: async (id: number) => {
     const { data } = await http<ResponseWithData<Category>>(
-      `api/categories/${id}/edit`
+      `api/categories/${id}/edit`,
     )
 
     return data
@@ -37,7 +37,7 @@ export const CategoriesService = {
   createCategory: async (body: { name: string }) => {
     const { data } = await http.post<ResponseWithMessage>(
       'api/categories',
-      body
+      body,
     )
 
     return data
@@ -52,7 +52,7 @@ export const CategoriesService = {
   }) => {
     const { data } = await http.put<ResponseWithMessage>(
       `api/categories/${id}`,
-      body
+      body,
     )
 
     return data
@@ -60,7 +60,7 @@ export const CategoriesService = {
 
   deleteCategoty: async (id: number) => {
     const { data } = await http.delete<ResponseWithMessage>(
-      `api/categories/${id}`
+      `api/categories/${id}`,
     )
 
     return data

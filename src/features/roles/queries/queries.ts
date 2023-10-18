@@ -34,7 +34,7 @@ export const useFetchRoles = (
     rowsPerPage: string | null
     debouncedSearchValue: string
   },
-  options?: UseQueryOptions<ResponseWithPagination<Role[]>, Error>
+  options?: UseQueryOptions<ResponseWithPagination<Role[]>, Error>,
 ) => {
   return useQuery<ResponseWithPagination<Role[]>, Error>(
     ['roles', sort, page, rowsPerPage, debouncedSearchValue],
@@ -57,13 +57,13 @@ export const useFetchRoles = (
       retry: 0,
       keepPreviousData: true,
       ...options,
-    }
+    },
   )
 }
 
 export const useFetchRole = (
   roleId: number,
-  options?: UseQueryOptions<ResponseWithData<Role>, Error>
+  options?: UseQueryOptions<ResponseWithData<Role>, Error>,
 ) => {
   return useQuery<ResponseWithData<Role>, Error>(
     ['role', roleId],
@@ -71,13 +71,13 @@ export const useFetchRole = (
     {
       staleTime: 20_000,
       ...options,
-    }
+    },
   )
 }
 
 export const useCreateRole = (
   closeModal: () => void,
-  options?: UseMutationOptions<ResponseWithMessage, Error, RoleFields>
+  options?: UseMutationOptions<ResponseWithMessage, Error, RoleFields>,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -108,7 +108,7 @@ export const useUpdateRole = (
     ResponseWithMessage,
     Error,
     { id: number; body: RoleFields }
-  >
+  >,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -139,7 +139,7 @@ export const useUpdateRole = (
 }
 
 export const useDeleteRole = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, number>
+  options?: UseMutationOptions<ResponseWithMessage, Error, number>,
 ) => {
   const { push } = useRouter()
 

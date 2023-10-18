@@ -55,7 +55,7 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
           status: data.status,
         }
       },
-    }
+    },
   )
 
   return (

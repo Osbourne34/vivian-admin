@@ -40,7 +40,7 @@ export const useFetchEmployees = (
     status: string | null
     role: string | null
   },
-  options?: UseQueryOptions<ResponseWithPagination<Employee[]>, Error>
+  options?: UseQueryOptions<ResponseWithPagination<Employee[]>, Error>,
 ) => {
   return useQuery<ResponseWithPagination<Employee[]>, Error>(
     [
@@ -77,13 +77,13 @@ export const useFetchEmployees = (
       retry: 0,
       keepPreviousData: true,
       ...options,
-    }
+    },
   )
 }
 
 export const useFetchEmployee = (
   employeeId: number,
-  options?: UseQueryOptions<ResponseWithData<EmployeeDetail>, Error>
+  options?: UseQueryOptions<ResponseWithData<EmployeeDetail>, Error>,
 ) => {
   return useQuery<ResponseWithData<EmployeeDetail>, Error>(
     ['employee', employeeId],
@@ -91,12 +91,12 @@ export const useFetchEmployee = (
     {
       staleTime: 20_000,
       ...options,
-    }
+    },
   )
 }
 
 export const useCreateEmployee = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, FormData>
+  options?: UseMutationOptions<ResponseWithMessage, Error, FormData>,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -127,7 +127,7 @@ export const useUpdateEmployee = (
     ResponseWithMessage,
     Error,
     { id: number; body: FormData }
-  >
+  >,
 ) => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
@@ -158,7 +158,7 @@ export const useUpdateEmployee = (
 }
 
 export const useDeleteEmployee = (
-  options?: UseMutationOptions<ResponseWithMessage, Error, number>
+  options?: UseMutationOptions<ResponseWithMessage, Error, number>,
 ) => {
   const { push } = useRouter()
 
