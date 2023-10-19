@@ -1,4 +1,5 @@
-import { Sort } from '@/shared/ui/table/types'
+import { useRouter } from 'next/router'
+
 import {
   UseMutationOptions,
   UseQueryOptions,
@@ -6,16 +7,19 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { ProductsService } from '../service/products-service'
 import { notifications } from '@mantine/notifications'
+
+import { ProductsService } from '../service/products-service'
+import { Product, ProductDetail } from '../types/product'
+
+import { Sort } from '@/shared/ui/table/types'
+
 import {
   Error,
   ResponseWithData,
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/http/types'
-import { Product, ProductDetail } from '../types/product'
-import { useRouter } from 'next/router'
 
 export const useFetchProducts = (
   {

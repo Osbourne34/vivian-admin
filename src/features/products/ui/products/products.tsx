@@ -1,16 +1,19 @@
-import { Column, Sort } from '@/shared/ui/table/types'
-import { useQueryClient } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import { useDeleteProduct, useFetchProducts } from '../../queries/queries'
+import { useRouter } from 'next/router'
+
 import { Image, Box, Card } from '@mantine/core'
-import { Actions } from '@/shared/ui/actions/actions'
 import { modals } from '@mantine/modals'
-import debounce from 'lodash.debounce'
-import { Table } from '@/shared/ui/table/table'
-import { priceFormat } from '@/shared/utils/price-format'
-import { ProductFilters } from '../product-filters/product-filters'
 import { notifications } from '@mantine/notifications'
+import { useQueryClient } from '@tanstack/react-query'
+import debounce from 'lodash.debounce'
+
+import { ProductFilters } from '../product-filters/product-filters'
+import { useDeleteProduct, useFetchProducts } from '../../queries/queries'
+
+import { Table } from '@/shared/ui/table/table'
+import { Column, Sort } from '@/shared/ui/table/types'
+import { Actions } from '@/shared/ui/actions/actions'
+import { priceFormat } from '@/shared/utils/price-format'
 
 export const Products = () => {
   const { push } = useRouter()

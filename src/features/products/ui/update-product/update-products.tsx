@@ -1,10 +1,11 @@
+import { FormEvent } from 'react'
 import { useRouter } from 'next/router'
 
-import { useFetchProduct, useUpdateProduct } from '../../queries/queries'
 import { Alert, Center, Loader } from '@mantine/core'
+
 import { ProductForm } from '../product-form/product-form'
+import { useFetchProduct, useUpdateProduct } from '../../queries/queries'
 import { ProductFields } from '../../types/product-fields'
-import { FormEvent } from 'react'
 
 export const UpdateProduct = () => {
   const { query } = useRouter()
