@@ -86,14 +86,16 @@ export const RoleForm = (props: RoleFormProps) => {
         <TextInput
           data-autofocus
           label="Название"
-          {...getInputProps('name')}
           size="md"
+          withAsterisk
+          {...getInputProps('name')}
         />
         <MultiSelect
           label="Права"
           data={roles?.data}
-          {...getInputProps('permissions')}
           size="md"
+          withAsterisk
+          {...getInputProps('permissions')}
         />
       </Stack>
       <Group justify="flex-end" mt="xl">
