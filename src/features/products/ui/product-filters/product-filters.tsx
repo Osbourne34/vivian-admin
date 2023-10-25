@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react'
 
-import { Box, Grid, Select, TextInput } from '@mantine/core'
+import { Box, Grid, TextInput } from '@mantine/core'
 
-import { useFetchCategories } from '@/features/categories/queries/queries'
+import { CategoriesSelect } from '@/features/categories'
 
 interface ProductFiltersProps {
   search: string
@@ -18,35 +18,6 @@ export const ProductFilters = (props: ProductFiltersProps) => {
     onChangeSearch(event.target.value)
   }
 
-  const { data: categories } = useFetchCategories(
-    {
-      debouncedSearchValue: '',
-      page: 1,
-      rowsPerPage: '50',
-      sort: {
-        orderby: '',
-        sort: '',
-      },
-    },
-    {
-      //@ts-ignore
-      select: (data) => {
-        const newData = data.data.map((category) => {
-          return {
-            value: String(category.id),
-            label: category.name,
-          }
-        })
-
-        return {
-          data: newData,
-          pagination: data.pagination,
-          status: data.status,
-        }
-      },
-    },
-  )
-
   return (
     <Box p="md">
       <Grid>
@@ -58,12 +29,12 @@ export const ProductFilters = (props: ProductFiltersProps) => {
           />
         </Grid.Col>
         <Grid.Col span={4}>
-          <Select
+          <CategoriesSelect
+            placeholder="Категория"
             value={category}
             onChange={onChangeCategory}
-            placeholder="Категория"
+            searchable
             clearable
-            data={categories?.data as []}
           />
         </Grid.Col>
       </Grid>

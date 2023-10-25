@@ -83,6 +83,11 @@ export const routes: Route[] = [
         title: 'Категорий',
         link: '/categories',
       },
+      {
+        id: nanoid(),
+        title: 'Комбо',
+        link: '/combo',
+      },
     ],
   },
 ]

@@ -123,11 +123,10 @@ export const Products = () => {
               w={56}
               h={56}
               radius={'sm'}
-              style={{
-                objectFit: 'contain',
-              }}
+              fit="cover"
               src={item.image}
               alt={'product image'}
+              loading="lazy"
             />
           </Box>
         )

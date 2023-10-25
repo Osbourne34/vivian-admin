@@ -24,6 +24,7 @@ import { ProductFields } from '../../types/product-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/http/types'
+import { CategoriesSelect } from '@/features/categories'
 
 interface ProductFormProps {
   initialData?: ProductFields
@@ -104,35 +105,6 @@ export const ProductForm = (props: ProductFormProps) => {
     }
   }
 
-  const { data: categories } = useFetchCategories(
-    {
-      debouncedSearchValue: '',
-      page: 1,
-      rowsPerPage: '50',
-      sort: {
-        orderby: '',
-        sort: '',
-      },
-    },
-    {
-      //@ts-ignore
-      select: (data) => {
-        const newData = data.data.map((category) => {
-          return {
-            value: String(category.id),
-            label: category.name,
-          }
-        })
-
-        return {
-          data: newData,
-          pagination: data.pagination,
-          status: data.status,
-        }
-      },
-    },
-  )
-
   const preview = () => {
     let imageUrl: string
     if (typeof values.image === 'string') {
@@ -171,10 +143,9 @@ export const ProductForm = (props: ProductFormProps) => {
           />
         </Grid.Col>
         <Grid.Col span={6}>
-          <Select
+          <CategoriesSelect
             name="category_id"
             label="Категория"
-            data={categories?.data as []}
             size="md"
             withAsterisk
             searchable

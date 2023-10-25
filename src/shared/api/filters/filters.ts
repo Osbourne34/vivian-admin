@@ -81,4 +81,12 @@ export const Filters = {
 
     return data
   },
+
+  getCategories: async () => {
+    const { data } = await http<
+      ResponseWithData<{ id: number; name: string }[]>
+    >('api/filter/categories')
+
+    return data
+  },
 }
