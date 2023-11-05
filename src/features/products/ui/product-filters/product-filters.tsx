@@ -21,14 +21,14 @@ export const ProductFilters = (props: ProductFiltersProps) => {
   return (
     <Box p="md" {...other}>
       <Grid>
-        <Grid.Col span={8}>
+        <Grid.Col span={{ base: 12, md: 7, xl: 9 }}>
           <TextInput
             value={search}
             onChange={handleChangeSearch}
             placeholder="Поиск"
           />
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ base: 12, md: 5, xl: 3 }}>
           <CategoriesSelect
             placeholder="Категория"
             value={category}

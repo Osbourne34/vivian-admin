@@ -130,7 +130,7 @@ export const ProductForm = (props: ProductFormProps) => {
         </Alert>
       )}
       <Grid>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
           <TextInput
             name="name"
             label="Название"
@@ -139,7 +139,7 @@ export const ProductForm = (props: ProductFormProps) => {
             {...getInputProps('name')}
           />
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
           <CategoriesSelect
             name="category_id"
             label="Категория"
@@ -150,7 +150,7 @@ export const ProductForm = (props: ProductFormProps) => {
             {...getInputProps('category_id')}
           />
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
           <NumberInput
             name="price"
             label="Цена"
@@ -162,7 +162,7 @@ export const ProductForm = (props: ProductFormProps) => {
             {...getInputProps('price')}
           />
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
           <NumberInput
             name="point"
             label="Поинт"
@@ -173,7 +173,7 @@ export const ProductForm = (props: ProductFormProps) => {
             {...getInputProps('point')}
           />
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
           <TextInput
             name="brand"
             label="Бренд"
@@ -182,7 +182,7 @@ export const ProductForm = (props: ProductFormProps) => {
             {...getInputProps('brand')}
           />
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
           <NumberInput
             name="keeping"
             label="Срок хранения"

@@ -69,14 +69,14 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
   return (
     <Box p="md">
       <Grid>
-        <Grid.Col span={8}>
+        <Grid.Col span={{ base: 12, xl: 8 }}>
           <TextInput
             value={search}
             onChange={handleChangeSearch}
             placeholder="Поиск"
           />
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
           <SortedBranchesSelect
             value={branch}
             onChange={onChangeBranch}
@@ -85,7 +85,7 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
             placeholder="Регион"
           />
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
           <Select
             value={verify}
             onChange={handleChangeVerify}
@@ -95,7 +95,7 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
             placeholder="Верификация"
           />
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
           <Select
             value={status}
             onChange={handleChangeStatus}
@@ -105,7 +105,7 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
             placeholder="Статус"
           />
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
           <Select
             value={role}
             onChange={onChangeRole}

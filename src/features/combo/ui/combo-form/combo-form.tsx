@@ -83,7 +83,7 @@ export const ComboForm = (props: ComboFormProps) => {
         )}
 
         <Grid>
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, lg: 6, xl: 8 }}>
             <TextInput
               label="Название"
               withAsterisk
@@ -91,7 +91,7 @@ export const ComboForm = (props: ComboFormProps) => {
               {...form.getInputProps('name')}
             />
           </Grid.Col>
-          <Grid.Col span={3}>
+          <Grid.Col span={{ base: 12, lg: 3, xl: 2 }}>
             <NumberInput
               label="Цена"
               withAsterisk
@@ -102,7 +102,7 @@ export const ComboForm = (props: ComboFormProps) => {
               {...form.getInputProps('price')}
             />
           </Grid.Col>
-          <Grid.Col span={3}>
+          <Grid.Col span={{ base: 12, lg: 3, xl: 2 }}>
             <NumberInput
               label="Поинт"
               withAsterisk
@@ -121,12 +121,12 @@ export const ComboForm = (props: ComboFormProps) => {
         <Grid>
           {form.values.combos.map((combo, index) => {
             return (
-              <Grid.Col key={combo.id} span={4}>
+              <Grid.Col key={combo.id} span={{ base: 12, lg: 6, xl: 4 }}>
                 <Combo removable={removableCombo} comboIdx={index} {...combo} />
               </Grid.Col>
             )
           })}
-          <Grid.Col span={4}>
+          <Grid.Col span={{ base: 12, lg: 6, xl: 4 }}>
             <Button onClick={addCombo} variant="default" fullWidth>
               Добавить Комбо
             </Button>

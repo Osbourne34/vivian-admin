@@ -132,7 +132,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
         </Alert>
       )}
       <Grid>
-        <Grid.Col span={3}>
+        <Grid.Col span={{ base: 12, lg: 4, xl: 3 }} order={{ base: 2, lg: 1 }}>
           <UploadAvatar
             isUpdate={!requiredPassword}
             name="avatar"
@@ -148,9 +148,9 @@ export const ClientFrom = (props: EmployeeFormProps) => {
             })}
           />
         </Grid.Col>
-        <Grid.Col span={9}>
+        <Grid.Col span={{ base: 12, lg: 8, xl: 9 }} order={{ lg: 2 }}>
           <Grid>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <TextInput
                 name="name"
                 label="Имя"
@@ -159,7 +159,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('name')}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <PhoneInput
                 name="phone"
                 label="Номер телефона"
@@ -170,7 +170,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 }}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <DatePickerInput
                 name="birthday"
                 locale="ru"
@@ -182,7 +182,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('birthday')}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <TextInput
                 name="address"
                 label="Адресс"
@@ -190,7 +190,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('address')}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <PasswordInput
                 name="password"
                 label="Пароль"
@@ -199,7 +199,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('password')}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <PasswordInput
                 name="password_confirmation"
                 label="Повторите пароль"
@@ -208,7 +208,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('password_confirmation')}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <GroupBranchesSelect
                 name="branch_id"
                 label="Регион"
@@ -218,7 +218,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
                 {...getInputProps('branch_id')}
               />
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col span={{ base: 12, xl: 6 }}>
               <Select
                 name="manager_id"
                 label="Менеджер"

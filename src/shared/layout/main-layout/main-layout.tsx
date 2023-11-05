@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { AppShell, Burger, Flex } from '@mantine/core'
+import { AppShell, Burger, Drawer, Flex } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { Sidebar } from './sidebar/sidebar'
@@ -12,15 +12,15 @@ interface LayoutProps {
 
 export const MainLayout = (props: LayoutProps) => {
   const { children } = props
-  const [opened, { toggle }] = useDisclosure()
+  const [opened, { toggle, close }] = useDisclosure()
 
   return (
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 300,
-        breakpoint: 'sm',
-        collapsed: { mobile: !opened },
+        width: 240,
+        breakpoint: 'md',
+        collapsed: { mobile: true },
       }}
       padding="lg"
     >
@@ -32,6 +32,19 @@ export const MainLayout = (props: LayoutProps) => {
       </AppShell.Header>
 
       <AppShell.Navbar>
+        <Drawer
+          opened={opened}
+          onClose={close}
+          size="xs"
+          styles={{
+            body: {
+              paddingLeft: 0,
+              paddingRight: 0,
+            },
+          }}
+        >
+          <Sidebar />
+        </Drawer>
         <Sidebar />
       </AppShell.Navbar>
 
