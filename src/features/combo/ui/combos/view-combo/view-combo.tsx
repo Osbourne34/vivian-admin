@@ -95,14 +95,14 @@ export const ViewCombo = (props: ViewComboProps) => {
 
                       <Stack gap={0}>
                         <Text ta={'end'} style={{ whiteSpace: 'nowrap' }}>
-                          {priceFormat(combo.price) + ' UZC'}
+                          {priceFormat(product.price) + ' UZC'}
                         </Text>
                         <Text
                           size="sm"
                           ta={'end'}
                           style={{ whiteSpace: 'nowrap' }}
                         >
-                          {combo.point} Поинт
+                          {product.point} Поинт
                         </Text>
                       </Stack>
                     </Group>

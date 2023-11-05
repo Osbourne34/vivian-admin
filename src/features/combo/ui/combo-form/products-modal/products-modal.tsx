@@ -8,6 +8,7 @@ import {
   Center,
   Pagination,
   Modal,
+  Text,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import debounce from 'lodash.debounce'
@@ -34,6 +35,12 @@ export const ProductsModal = (props: ProductsModalProps) => {
         onClose={close}
         title="Выберите продукты"
         size="xl"
+        yOffset={20}
+        styles={{
+          body: {
+            paddingBottom: 0,
+          },
+        }}
       >
         <ProductsList comboIdx={comboIdx} comboId={comboId} />
       </Modal>
@@ -86,8 +93,6 @@ const ProductsList = ({
   return (
     <>
       <ProductFilters
-        p={'0'}
-        mb="lg"
         search={search}
         onChangeSearch={(value) => {
           debouncedSearch(value)
@@ -97,6 +102,13 @@ const ProductsList = ({
         onChangeCategory={(value) => {
           setCategory(value)
           setPage(1)
+        }}
+        px={0}
+        style={{
+          position: 'sticky',
+          top: '60px',
+          backgroundColor: '#1A1B1E',
+          zIndex: 1,
         }}
       />
 
@@ -114,20 +126,34 @@ const ProductsList = ({
       )}
       {isSuccess && !isFetching && (
         <>
-          <ScrollArea h={600} offsetScrollbars>
-            <Products
-              products={products.data}
-              comboIdx={comboIdx}
-              comboId={comboId}
-            />
-          </ScrollArea>
-          <Center mt="lg">
-            <Pagination
-              value={page}
-              onChange={setPage}
-              total={products?.pagination.last_page || 1}
-            />
-          </Center>
+          {products.data.length > 0 ? (
+            <>
+              <Products
+                products={products.data}
+                comboIdx={comboIdx}
+                comboId={comboId}
+              />
+              <Center
+                px="0"
+                py={'md'}
+                style={{
+                  position: 'sticky',
+                  bottom: 0,
+                  backgroundColor: '#1A1B1E',
+                }}
+              >
+                <Pagination
+                  value={page}
+                  onChange={setPage}
+                  total={products?.pagination.last_page || 1}
+                />
+              </Center>
+            </>
+          ) : (
+            <Text ta="center" size="lg">
+              Ничего не найдено
+            </Text>
+          )}
         </>
       )}
     </>
