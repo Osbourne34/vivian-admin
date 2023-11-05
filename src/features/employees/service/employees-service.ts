@@ -10,7 +10,7 @@ import {
 
 export const EmployeesService = {
   createEmployee: async (body: FormData) => {
-    const { data } = await http.post<ResponseWithMessage>('/api/users', body, {
+    const { data } = await http.post<ResponseWithMessage>('/v1/users', body, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -31,7 +31,7 @@ export const EmployeesService = {
     role: string | null
   }) => {
     const { data } = await http<ResponseWithPagination<Employee[]>>(
-      'api/users',
+      'v1/users',
       { params },
     )
 
@@ -40,7 +40,7 @@ export const EmployeesService = {
 
   getEmployee: async (id: number) => {
     const { data } = await http<ResponseWithData<EmployeeDetail>>(
-      `api/users/${id}/edit`,
+      `v1/users/${id}/edit`,
     )
 
     return data
@@ -48,7 +48,7 @@ export const EmployeesService = {
 
   updateEmployee: async ({ id, body }: { id: number; body: FormData }) => {
     const { data } = await http.post<ResponseWithMessage>(
-      `api/users/${id}`,
+      `v1/users/${id}`,
       body,
       {
         headers: {
@@ -61,7 +61,7 @@ export const EmployeesService = {
   },
 
   deleteEmployee: async (id: number) => {
-    const { data } = await http.delete<ResponseWithMessage>(`api/users/${id}`)
+    const { data } = await http.delete<ResponseWithMessage>(`v1/users/${id}`)
 
     return data
   },

@@ -17,7 +17,7 @@ export const OrientsService = {
     branch_id: string | null
   }) => {
     const { data } = await http<ResponseWithPagination<Orient[]>>(
-      `api/orients`,
+      `v1/orients`,
       {
         params,
       },
@@ -28,14 +28,14 @@ export const OrientsService = {
 
   getOrient: async (id: number) => {
     const { data } = await http<ResponseWithData<Orient>>(
-      `api/orients/${id}/edit`,
+      `v1/orients/${id}/edit`,
     )
 
     return data
   },
 
   createOrient: async (body: { name: string; branch_id: string }) => {
-    const { data } = await http.post<ResponseWithMessage>(`api/orients`, body)
+    const { data } = await http.post<ResponseWithMessage>(`v1/orients`, body)
 
     return data
   },
@@ -48,7 +48,7 @@ export const OrientsService = {
     body: { name: string; branch_id: string }
   }) => {
     const { data } = await http.put<ResponseWithMessage>(
-      `api/orients/${id}`,
+      `v1/orients/${id}`,
       body,
     )
 
@@ -56,7 +56,7 @@ export const OrientsService = {
   },
 
   deleteOrient: async (id: number) => {
-    const { data } = await http.delete<ResponseWithMessage>(`api/orients/${id}`)
+    const { data } = await http.delete<ResponseWithMessage>(`v1/orients/${id}`)
 
     return data
   },

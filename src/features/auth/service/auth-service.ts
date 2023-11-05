@@ -11,12 +11,12 @@ export const AuthService = {
         token: string
         user: User
       }>
-    >('api/auth/login', body)
+    >('v1/auth/login', body)
 
     return data
   },
 
   logout: () => {
-    return http.post('api/auth/logout')
+    return http.post('v1/auth/logout')
   },
 }

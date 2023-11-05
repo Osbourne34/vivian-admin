@@ -21,7 +21,7 @@ export const ClientsService = {
     manager_id: string | null
   }) => {
     const { data } = await http<ResponseWithPagination<Client[]>>(
-      'api/clients',
+      'v1/clients',
       {
         params,
       },
@@ -32,14 +32,14 @@ export const ClientsService = {
 
   getClient: async (id: number) => {
     const { data } = await http<ResponseWithData<ClientDetail>>(
-      `api/clients/${id}/edit`,
+      `v1/clients/${id}/edit`,
     )
 
     return data
   },
 
   createClient: async (body: FormData) => {
-    const { data } = await http.post<ResponseWithMessage>('api/clients', body, {
+    const { data } = await http.post<ResponseWithMessage>('v1/clients', body, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -50,7 +50,7 @@ export const ClientsService = {
 
   updateClient: async ({ id, body }: { id: number; body: FormData }) => {
     const { data } = await http.post<ResponseWithMessage>(
-      `api/clients/${id}`,
+      `v1/clients/${id}`,
       body,
       {
         headers: {
@@ -63,7 +63,7 @@ export const ClientsService = {
   },
 
   deleteClient: async (id: number) => {
-    const { data } = await http.delete<ResponseWithMessage>(`api/clients/${id}`)
+    const { data } = await http.delete<ResponseWithMessage>(`v1/clients/${id}`)
 
     return data
   },

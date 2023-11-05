@@ -18,7 +18,7 @@ export const ProductsService = {
     category_id: string | null
   }) => {
     const { data } = await http<ResponseWithPagination<Product[]>>(
-      `api/products`,
+      `v1/products`,
       {
         params,
       },
@@ -29,7 +29,7 @@ export const ProductsService = {
 
   getProduct: async (id: number) => {
     const { data } = await http<ResponseWithData<ProductDetail>>(
-      `api/products/${id}/edit`,
+      `v1/products/${id}/edit`,
     )
 
     return data
@@ -37,7 +37,7 @@ export const ProductsService = {
 
   createProduct: async (body: FormData) => {
     const { data } = await http.post<ResponseWithMessage>(
-      `api/products`,
+      `v1/products`,
       body,
       {
         headers: {
@@ -51,7 +51,7 @@ export const ProductsService = {
 
   updateProduct: async ({ id, body }: { id: number; body: FormData }) => {
     const { data } = await http.post<ResponseWithMessage>(
-      `api/products/${id}`,
+      `v1/products/${id}`,
       body,
       {
         headers: {
@@ -65,7 +65,7 @@ export const ProductsService = {
 
   deleteProduct: async (id: number) => {
     const { data } = await http.delete<ResponseWithMessage>(
-      `api/products/${id}`,
+      `v1/products/${id}`,
     )
 
     return data

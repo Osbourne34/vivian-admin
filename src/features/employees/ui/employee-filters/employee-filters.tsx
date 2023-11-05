@@ -41,6 +41,14 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
     onChangeSearch(event.target.value)
   }
 
+  const handleChangeVerify = (value: string | null) => {
+    onChangeVerify(value as Verify)
+  }
+
+  const handleChangeStatus = (value: string | null) => {
+    onChangeStatus(value as Status)
+  }
+
   const { data: roles } = useQuery(
     ['rolesForSelect'],
     () => Filters.getRoles('client'),
@@ -80,7 +88,7 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
         <Grid.Col span={4}>
           <Select
             value={verify}
-            onChange={onChangeVerify}
+            onChange={handleChangeVerify}
             data={verifyValues}
             allowDeselect={false}
             clearable
@@ -90,7 +98,7 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
         <Grid.Col span={4}>
           <Select
             value={status}
-            onChange={onChangeStatus}
+            onChange={handleChangeStatus}
             data={statusValues}
             allowDeselect={false}
             clearable

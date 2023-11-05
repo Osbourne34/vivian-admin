@@ -39,14 +39,14 @@ const getEmployees = async (params: {
   sortbyactivity: string
   role: string | null
 }) => {
-  const { data } = await http<ResponseWithPagination<Employee[]>>('api/users', {
+  const { data } = await http<ResponseWithPagination<Employee[]>>('v1/users', {
     params,
   })
   return data
 }
 
 const deleteEmployee = async (id: number) => {
-  const { data } = await http.delete<ResponseWithMessage>(`api/users/${id}`)
+  const { data } = await http.delete<ResponseWithMessage>(`v1/users/${id}`)
 
   return data
 }

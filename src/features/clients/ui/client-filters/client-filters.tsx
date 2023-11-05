@@ -41,6 +41,14 @@ export const ClientFilters = (props: ClientFiltersProps) => {
     onChangeSearch(event.target.value)
   }
 
+  const handleChangeVerify = (value: string | null) => {
+    onChangeVerify(value as Verify)
+  }
+
+  const handleChangeStatus = (value: string | null) => {
+    onChangeStatus(value as Status)
+  }
+
   const { data: managers } = useQuery(['managers'], Filters.getManagers, {
     select: (data) => {
       const newData = data.data.map((manager) => {
@@ -79,7 +87,7 @@ export const ClientFilters = (props: ClientFiltersProps) => {
         <Grid.Col span={4}>
           <Select
             value={verify}
-            onChange={onChangeVerify}
+            onChange={handleChangeVerify}
             data={verifyValues}
             allowDeselect={false}
             clearable
@@ -89,7 +97,7 @@ export const ClientFilters = (props: ClientFiltersProps) => {
         <Grid.Col span={4}>
           <Select
             value={status}
-            onChange={onChangeStatus}
+            onChange={handleChangeStatus}
             data={statusValues}
             allowDeselect={false}
             clearable

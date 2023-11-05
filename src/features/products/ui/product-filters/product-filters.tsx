@@ -1,10 +1,10 @@
 import { ChangeEvent } from 'react'
 
-import { Box, Grid, TextInput } from '@mantine/core'
+import { Box, BoxComponentProps, Grid, TextInput } from '@mantine/core'
 
 import { CategoriesSelect } from '@/features/categories'
 
-interface ProductFiltersProps {
+interface ProductFiltersProps extends BoxComponentProps {
   search: string
   onChangeSearch: (value: string) => void
   category: string | null
@@ -12,14 +12,14 @@ interface ProductFiltersProps {
 }
 
 export const ProductFilters = (props: ProductFiltersProps) => {
-  const { category, onChangeCategory, search, onChangeSearch } = props
+  const { category, onChangeCategory, search, onChangeSearch, ...other } = props
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     onChangeSearch(event.target.value)
   }
 
   return (
-    <Box p="md">
+    <Box p="md" {...other}>
       <Grid>
         <Grid.Col span={8}>
           <TextInput

@@ -6,7 +6,6 @@ import {
   Grid,
   Group,
   NumberInput,
-  Select,
   TextInput,
   Textarea,
   rem,
@@ -16,8 +15,6 @@ import {
 import { useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
-
-import { useFetchCategories } from '@/features/categories/queries/queries'
 
 import { initialValues } from './initial-values'
 import { ProductFields } from '../../types/product-fields'

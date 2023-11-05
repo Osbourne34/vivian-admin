@@ -6,6 +6,9 @@ import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+import { createCtx } from '@reatom/core'
+import { reatomContext } from '@reatom/npm-react'
+
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
 import '@mantine/dates/styles.css'
@@ -14,6 +17,8 @@ import '@fontsource/open-sans'
 
 import { AppPropsWithLayout } from '@/shared/layout/types/page-layout'
 import { theme } from '@/shared/theme/theme'
+
+const ctx = createCtx()
 
 import { ConfirmDialog } from '@/shared/ui/confirm-dialog/confirm-dialog'
 
@@ -41,12 +46,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
+      {/* <reatomContext.Provider value={ctx}> */}
       <QueryClientProvider client={queryClient}>
         <Notifications position="top-right" limit={3} />
         <ModalsProvider modals={{ confirmDialog: ConfirmDialog }}>
           {getLayout(<Component {...pageProps} />)}
         </ModalsProvider>
       </QueryClientProvider>
+      {/* </reatomContext.Provider> */}
     </MantineProvider>
   )
 }

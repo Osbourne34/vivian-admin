@@ -16,7 +16,7 @@ export const RolesService = {
     orderby: 'asc' | 'desc' | ''
     search: string
   }) => {
-    const { data } = await http<ResponseWithPagination<Role[]>>('api/roles', {
+    const { data } = await http<ResponseWithPagination<Role[]>>('v1/roles', {
       params,
     })
 
@@ -24,13 +24,13 @@ export const RolesService = {
   },
 
   getRole: async (id: number) => {
-    const { data } = await http<ResponseWithData<Role>>(`api/roles/${id}/edit`)
+    const { data } = await http<ResponseWithData<Role>>(`v1/roles/${id}/edit`)
 
     return data
   },
 
   createRole: async (body: { name: string; permissions: string[] }) => {
-    const { data } = await http.post<ResponseWithMessage>('api/roles', body)
+    const { data } = await http.post<ResponseWithMessage>('v1/roles', body)
 
     return data
   },
@@ -42,7 +42,7 @@ export const RolesService = {
     id: number
     body: { name: string; permissions: string[] }
   }) => {
-    const { data } = await http.post<ResponseWithMessage>(`api/roles/${id}`, {
+    const { data } = await http.post<ResponseWithMessage>(`v1/roles/${id}`, {
       ...body,
       _method: 'PUT',
     })
@@ -51,7 +51,7 @@ export const RolesService = {
   },
 
   deleteRole: async (id: number) => {
-    const { data } = await http.delete<ResponseWithMessage>(`api/roles/${id}`)
+    const { data } = await http.delete<ResponseWithMessage>(`v1/roles/${id}`)
 
     return data
   },

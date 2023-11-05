@@ -17,7 +17,7 @@ export const CategoriesService = {
     orderby: 'asc' | 'desc' | ''
   }) => {
     const { data } = await http<ResponseWithPagination<Category[]>>(
-      'api/categories',
+      'v1/categories',
       {
         params,
       },
@@ -28,17 +28,14 @@ export const CategoriesService = {
 
   getCategory: async (id: number) => {
     const { data } = await http<ResponseWithData<Category>>(
-      `api/categories/${id}/edit`,
+      `v1/categories/${id}/edit`,
     )
 
     return data
   },
 
   createCategory: async (body: { name: string }) => {
-    const { data } = await http.post<ResponseWithMessage>(
-      'api/categories',
-      body,
-    )
+    const { data } = await http.post<ResponseWithMessage>('v1/categories', body)
 
     return data
   },
@@ -51,7 +48,7 @@ export const CategoriesService = {
     body: { name: string }
   }) => {
     const { data } = await http.put<ResponseWithMessage>(
-      `api/categories/${id}`,
+      `v1/categories/${id}`,
       body,
     )
 
@@ -60,7 +57,7 @@ export const CategoriesService = {
 
   deleteCategoty: async (id: number) => {
     const { data } = await http.delete<ResponseWithMessage>(
-      `api/categories/${id}`,
+      `v1/categories/${id}`,
     )
 
     return data

@@ -1,21 +1,22 @@
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 
-import { Image, Box, Card } from '@mantine/core'
+import { ActionIcon, Box, Card, Group, TextInput } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
+import { IconEye } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 import debounce from 'lodash.debounce'
 
-import { ProductFilters } from '../product-filters/product-filters'
-import { useDeleteProduct, useFetchProducts } from '../../queries/queries'
+import { ViewCombo } from './view-combo/view-combo'
+import { useDeleteCombo, useFetchCombos } from '../../queries/queries'
 
 import { Table } from '@/shared/ui/table/table'
 import { Column, Sort } from '@/shared/ui/table/types'
 import { Actions } from '@/shared/ui/actions/actions'
 import { priceFormat } from '@/shared/utils/price-format'
 
-export const Products = () => {
+export const Combos = () => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
 
@@ -29,32 +30,29 @@ export const Products = () => {
 
   const [search, setSearch] = useState('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
-  const [category, setCategory] = useState<string | null>('')
 
   const {
-    data: products,
-    isError,
+    data: combos,
     isFetching,
-  } = useFetchProducts({
+    isError,
+  } = useFetchCombos({
+    debouncedSearchValue,
     page,
     rowsPerPage,
     sort,
-    debouncedSearchValue,
-    category_id: category,
   })
 
-  const deleteMutation = useDeleteProduct({
+  const deleteMutation = useDeleteCombo({
     onSuccess: (data) => {
-      if (products?.data.length === 1 && page !== 1) {
+      if (combos?.data.length === 1 && page !== 1) {
         setPage((prevState) => prevState - 1)
       } else {
         queryClient.invalidateQueries([
-          'products',
-          category,
-          debouncedSearchValue,
+          'combos',
+          sort,
           page,
           rowsPerPage,
-          sort,
+          debouncedSearchValue,
         ])
       }
 
@@ -88,7 +86,7 @@ export const Products = () => {
   )
 
   const handleUpdate = (id: number) => {
-    push(`/products/edit/${id}`)
+    push(`combo/edit/${id}`)
   }
 
   const handleDelete = (id: number) => {
@@ -96,7 +94,7 @@ export const Products = () => {
       modal: 'confirmDialog',
       title: 'Подтвердите действие',
       innerProps: {
-        modalBody: 'Вы действительно хотите удалить этот продукт?',
+        modalBody: 'Вы действительно хотите удалить эту комбинацию?',
         onConfirm: async (modalId: string) => {
           await deleteMutation.mutateAsync(id).finally(() => {
             modals.close(modalId)
@@ -106,31 +104,20 @@ export const Products = () => {
     })
   }
 
+  const handleViewCombo = (id: number) => {
+    modals.open({
+      title: 'Просмотр комбинаций',
+      children: <ViewCombo comboId={id} />,
+      size: 'lg',
+    })
+  }
+
   const columns: Column[] = [
     {
       key: 'id',
       title: 'ID',
       sortable: true,
       width: 80,
-    },
-    {
-      key: 'image',
-      title: 'Изображение',
-      component: (item) => {
-        return (
-          <Box py="xs">
-            <Image
-              w={56}
-              h={56}
-              radius={'sm'}
-              fit="contain"
-              src={item.image}
-              alt={'product image'}
-              loading="lazy"
-            />
-          </Box>
-        )
-      },
     },
     {
       key: 'name',
@@ -156,36 +143,46 @@ export const Products = () => {
       align: 'right',
       component: (item: any) => {
         return (
-          <Actions
-            onDelete={() => handleDelete(item.id)}
-            onUpdate={() => handleUpdate(item.id)}
-          />
+          <Group gap="xs" justify="flex-end">
+            <ActionIcon
+              onClick={() => handleViewCombo(item.id)}
+              color="gray"
+              size="lg"
+              variant="subtle"
+              radius="xl"
+            >
+              <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
+            </ActionIcon>
+            <Actions
+              onUpdate={() => handleUpdate(item.id)}
+              onDelete={() => handleDelete(item.id)}
+            />
+          </Group>
         )
       },
-      width: 100,
+      width: 150,
     },
   ]
 
   return (
     <Card shadow="sm" withBorder padding={0}>
-      <ProductFilters
-        search={search}
-        onChangeSearch={(value) => {
-          debouncedSearch(value)
-          setSearch(value)
-        }}
-        category={category}
-        onChangeCategory={(value) => {
-          setCategory(value)
-          setPage(1)
-        }}
-      />
+      <Box p="md">
+        <TextInput
+          value={search}
+          onChange={(event) => {
+            const value = event.target.value
+            debouncedSearch(value)
+            setSearch(value)
+          }}
+          placeholder="Поиск"
+        />
+      </Box>
       <Table
         columns={columns}
-        data={products?.data}
+        data={combos?.data}
         onSort={handleSort}
         sort={sort}
-        total={products?.pagination.last_page || 1}
+        total={combos?.pagination.last_page || 1}
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}

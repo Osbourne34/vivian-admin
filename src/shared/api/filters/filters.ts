@@ -13,7 +13,7 @@ export const Filters = {
           warehouse: boolean
         }[]
       >
-    >('api/filter/branches', {
+    >('v1/filter/branches', {
       params: {
         tree: 0,
       },
@@ -33,7 +33,7 @@ export const Filters = {
           childrens: { id: number; name: string; parent_id: number }[]
         }[]
       >
-    >('api/filter/branches', {
+    >('v1/filter/branches', {
       params: {
         tree: 1,
       },
@@ -45,7 +45,7 @@ export const Filters = {
   getRoles: async (withOutRole: string) => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
-    >('api/filter/roles', {
+    >('v1/filter/roles', {
       params: {
         withOutRole,
       },
@@ -57,7 +57,7 @@ export const Filters = {
   getOrients: async (branch_id?: number) => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
-    >('api/filter/orients', {
+    >('v1/filter/orients', {
       params: {
         branch_id,
       },
@@ -67,9 +67,10 @@ export const Filters = {
   },
 
   getManagers: async () => {
-    const { data } = await http<
-      ResponseWithData<{ id: number; name: string }[]>
-    >('api/filter/managers')
+    const { data } =
+      await http<ResponseWithData<{ id: number; name: string }[]>>(
+        'v1/filter/managers',
+      )
 
     return data
   },
@@ -77,7 +78,7 @@ export const Filters = {
   getPermissions: async () => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
-    >('api/filter/permissions')
+    >('v1/filter/permissions')
 
     return data
   },
@@ -85,7 +86,7 @@ export const Filters = {
   getCategories: async () => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
-    >('api/filter/categories')
+    >('v1/filter/categories')
 
     return data
   },
