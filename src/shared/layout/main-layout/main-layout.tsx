@@ -26,7 +26,7 @@ export const MainLayout = (props: LayoutProps) => {
     >
       <AppShell.Header>
         <Flex align="center" px="md" h="100%">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Burger opened={opened} onClick={toggle} hiddenFrom="md" size="sm" />
           <ToggleTheme />
         </Flex>
       </AppShell.Header>
@@ -43,7 +43,7 @@ export const MainLayout = (props: LayoutProps) => {
             },
           }}
         >
-          <Sidebar />
+          <Sidebar closeDrawer={close} />
         </Drawer>
         <Sidebar />
       </AppShell.Navbar>

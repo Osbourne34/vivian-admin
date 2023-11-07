@@ -5,7 +5,7 @@ import { NavLink, ScrollArea } from '@mantine/core'
 
 import { routes } from '@/shared/routes/routes'
 
-export const Sidebar = () => {
+export const Sidebar = ({ closeDrawer }: { closeDrawer?: () => void }) => {
   const { pathname } = useRouter()
 
   const activeRoute = (link: string) => {
@@ -25,6 +25,7 @@ export const Sidebar = () => {
               component={NextLink}
               href={link}
               leftSection={Icon && <Icon stroke={1.5} />}
+              onClick={closeDrawer}
             />
           )
         }
@@ -47,6 +48,7 @@ export const Sidebar = () => {
                   label={title}
                   component={NextLink}
                   href={link!}
+                  onClick={closeDrawer}
                 />
               ))}
             </NavLink>
