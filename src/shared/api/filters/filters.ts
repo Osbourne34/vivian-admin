@@ -1,3 +1,4 @@
+import { EmployeeDetail } from '@/features/employees'
 import { http } from '@/shared/http/http'
 import { ResponseWithData } from '@/shared/http/types'
 
@@ -87,6 +88,18 @@ export const Filters = {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
     >('v1/filter/categories')
+
+    return data
+  },
+
+  getEmployees: async () => {
+    const { data } = await http<
+      ResponseWithData<{ id: number; name: string }[]>
+    >('v1/filter/employees', {
+      params: {
+        roles: 'manager,deliveryman',
+      },
+    })
 
     return data
   },

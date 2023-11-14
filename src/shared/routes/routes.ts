@@ -7,6 +7,7 @@ import {
   IconUsersGroup,
   IconBuildingFactory2,
   TablerIconsProps,
+  IconCash,
 } from '@tabler/icons-react'
 
 type RouteBase = {
@@ -45,6 +46,12 @@ export const routes: Route[] = [
     title: 'Ориентиры',
     link: '/orients',
     icon: IconMapPin,
+  },
+  {
+    id: nanoid(),
+    title: 'Индивидуальные цены',
+    link: '/prices',
+    icon: IconCash,
   },
   {
     id: nanoid(),

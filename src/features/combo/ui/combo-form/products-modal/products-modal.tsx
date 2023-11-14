@@ -107,7 +107,7 @@ const ProductsList = ({
         style={{
           position: 'sticky',
           top: '60px',
-          backgroundColor: '#1A1B1E',
+          backgroundColor: 'var(--mantine-color-body)',
           zIndex: 1,
         }}
       />
@@ -139,7 +139,7 @@ const ProductsList = ({
                 style={{
                   position: 'sticky',
                   bottom: 0,
-                  backgroundColor: '#1A1B1E',
+                  backgroundColor: 'var(--mantine-color-body)',
                 }}
               >
                 <Pagination
