@@ -1,16 +1,20 @@
-import { Column, Sort } from '@/shared/ui/table/types'
-import { useQueryClient } from '@tanstack/react-query'
 import { useCallback, useState } from 'react'
-import { useDeletePrice, useFetchPrices } from '../../queries/queries'
-import debounce from 'lodash.debounce'
-import { modals } from '@mantine/modals'
-import { ActionIcon, Box, Card, Group, TextInput } from '@mantine/core'
-import { IconEye } from '@tabler/icons-react'
-import { Actions } from '@/shared/ui/actions/actions'
-import { Table } from '@/shared/ui/table/table'
 import { useRouter } from 'next/router'
+
+import { ActionIcon, Box, Card, Group, TextInput } from '@mantine/core'
+import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
+import { IconEye } from '@tabler/icons-react'
+import { useQueryClient } from '@tanstack/react-query'
+import debounce from 'lodash.debounce'
+
+import { useDeletePrice, useFetchPrices } from '../../queries/queries'
 import { ViewPrice } from './view-price/view-price'
+
+import { Table } from '@/shared/ui/table/table'
+import { Actions } from '@/shared/ui/actions/actions'
+
+import { Column, Sort } from '@/shared/ui/table/types'
 
 export const Prices = () => {
   const { push } = useRouter()
@@ -60,25 +64,6 @@ export const Prices = () => {
     },
   })
 
-  const handleUpdate = (id: number) => {
-    push(`prices/edit/${id}`)
-  }
-
-  const handleDelete = (id: number) => {
-    modals.openContextModal({
-      modal: 'confirmDialog',
-      title: 'Подтвердите действие',
-      innerProps: {
-        modalBody: 'Вы действительно хотите удалить эту индивидуальную цену?',
-        onConfirm: async (modalId: string) => {
-          await deleteMutation.mutateAsync(id).finally(() => {
-            modals.close(modalId)
-          })
-        },
-      },
-    })
-  }
-
   const handleSort = (sort: Sort) => {
     setSort(sort)
   }
@@ -99,6 +84,25 @@ export const Prices = () => {
     }, 500),
     [],
   )
+
+  const handleUpdate = (id: number) => {
+    push(`prices/edit/${id}`)
+  }
+
+  const handleDelete = (id: number) => {
+    modals.openContextModal({
+      modal: 'confirmDialog',
+      title: 'Подтвердите действие',
+      innerProps: {
+        modalBody: 'Вы действительно хотите удалить эту индивидуальную цену?',
+        onConfirm: async (modalId: string) => {
+          await deleteMutation.mutateAsync(id).finally(() => {
+            modals.close(modalId)
+          })
+        },
+      },
+    })
+  }
 
   const handleViewPrice = (id: number) => {
     modals.open({

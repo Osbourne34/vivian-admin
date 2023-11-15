@@ -9,9 +9,12 @@ import {
 } from '@mantine/core'
 import { IconPlus, IconTrashFilled } from '@tabler/icons-react'
 
-import { useFormContext } from '../combo-form'
+import { ProductCard } from '@/features/products'
+
+import { useFormContext } from '../form-context'
 import { ProductsModal } from '../products-modal/products-modal'
-import { Products } from '../products/products'
+import { DeleteProduct } from '../delete-product/delete-product'
+
 import { ComboItem } from '../../../types/combo-fields'
 
 import { ConfirmPopover } from '@/shared/ui/confirm-popover/confirm-popover'
@@ -84,14 +87,13 @@ export const Combo = (props: ComboProps) => {
           </Text>
         )}
 
-        {products.length > 0 && (
-          <Products
-            products={products}
-            comboIdx={comboIdx}
-            comboId={id}
-            removableProduct
+        {products.map((product, index) => (
+          <ProductCard
+            key={product.id}
+            action={<DeleteProduct productIdx={index} comboIdx={comboIdx} />}
+            {...product}
           />
-        )}
+        ))}
       </Stack>
     </Card>
   )

@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react'
 import NextLink from 'next/link'
 
-import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 import { Button, Group, Title } from '@mantine/core'
 import { IconArrowBackUp } from '@tabler/icons-react'
+
 import { UpdatePrice } from '@/features/prices'
+
+import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 
 const UpdatePricePage = () => {
   return (

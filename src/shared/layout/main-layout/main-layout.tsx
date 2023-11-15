@@ -22,7 +22,7 @@ export const MainLayout = (props: LayoutProps) => {
         breakpoint: 'md',
         collapsed: { mobile: true },
       }}
-      padding="lg"
+      padding={{ base: 'md', md: 'lg' }}
     >
       <AppShell.Header>
         <Flex align="center" px="md" h="100%">

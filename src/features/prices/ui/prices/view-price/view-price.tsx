@@ -1,5 +1,3 @@
-import { useShowPrice } from '@/features/prices/queries/queries'
-import { priceFormat } from '@/shared/utils/price-format'
 import {
   Alert,
   Avatar,
@@ -8,12 +6,14 @@ import {
   Group,
   Loader,
   Stack,
-  Image,
   Text,
   Badge,
   Title,
-  Divider,
 } from '@mantine/core'
+
+import { ProductCard } from '@/features/products'
+
+import { useShowPrice } from '../../../queries/queries'
 
 interface ViewPriceProps {
   priceId: number
@@ -48,27 +48,7 @@ export const ViewPrice = (props: ViewPriceProps) => {
             </Title>
             <Stack>
               {data?.data.products.map((product) => (
-                <Group key={product.id} justify="space-between" wrap="nowrap">
-                  <Group align="center" wrap="nowrap">
-                    <Avatar
-                      src={product.image}
-                      alt={product.name}
-                      size="lg"
-                      radius="sm"
-                    />
-                    <Text lineClamp={3} size="sm">
-                      {product.name}
-                    </Text>
-                  </Group>
-                  <Stack gap={4}>
-                    <Text ta="end" style={{ whiteSpace: 'nowrap' }} size="sm">
-                      {priceFormat(product.price) + ' UZC'}
-                    </Text>
-                    <Text ta="end" style={{ whiteSpace: 'nowrap' }} size="xs">
-                      {priceFormat(product.point) + ' Поинт'}
-                    </Text>
-                  </Stack>
-                </Group>
+                <ProductCard key={product.id} {...product} />
               ))}
             </Stack>
           </Grid.Col>

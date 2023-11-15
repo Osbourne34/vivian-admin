@@ -125,7 +125,7 @@ export const Products = () => {
               radius={'sm'}
               fit="contain"
               src={item.image}
-              alt={'product image'}
+              alt={'product-card image'}
               loading="lazy"
             />
           </Box>

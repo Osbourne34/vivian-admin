@@ -1,18 +1,22 @@
 import { useRouter } from 'next/router'
-import { useFetchPrice, useUpdatePrice } from '../../queries/queries'
-import { PriceForm } from '../price-form/price-form'
+
 import { Alert, Center, Loader } from '@mantine/core'
+
+import { PriceForm } from '../price-form/price-form'
+import { useFetchPrice, useUpdatePrice } from '../../queries/queries'
 import { PriceFields } from '../../types/price-fields'
 
 export const UpdatePrice = () => {
-  const { query } = useRouter()
+  const {
+    query: { id },
+  } = useRouter()
 
-  const updateMutation = useUpdatePrice(Number(query.id))
+  const updateMutation = useUpdatePrice(Number(id))
 
   const handleSubmit = async (body: PriceFields) => {
     try {
       await updateMutation.mutateAsync({
-        id: Number(query.id),
+        id: Number(id),
         body,
       })
     } catch (error) {
@@ -20,7 +24,7 @@ export const UpdatePrice = () => {
     }
   }
 
-  const { data: price, status, error } = useFetchPrice(Number(query.id))
+  const { data: price, status, error } = useFetchPrice(Number(id))
 
   const isLoading = status === 'loading'
   const isError = status === 'error'

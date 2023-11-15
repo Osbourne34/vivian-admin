@@ -1,15 +1,15 @@
 import {
   Alert,
   Center,
-  Group,
   Loader,
   Stack,
   Text,
   Card,
-  Image,
   Grid,
   Divider,
 } from '@mantine/core'
+
+import { ProductCard } from '@/features/products'
 
 import { useFetchCombo } from '../../../queries/queries'
 
@@ -69,42 +69,7 @@ export const ViewCombo = (props: ViewComboProps) => {
 
               <Stack>
                 {combo.products.map((product) => (
-                  <Group
-                    key={product.id}
-                    justify="space-between"
-                    wrap="nowrap"
-                    gap="xl"
-                  >
-                    <Group wrap="nowrap">
-                      <Image
-                        w={56}
-                        h={56}
-                        radius={'sm'}
-                        fit="contain"
-                        style={{
-                          flex: '0 0 auto',
-                        }}
-                        src={product.image}
-                        alt={product.name}
-                      />
-                      <Text size="sm" lineClamp={3}>
-                        {product.name}
-                      </Text>
-                    </Group>
-
-                    <Stack gap={0}>
-                      <Text ta={'end'} style={{ whiteSpace: 'nowrap' }}>
-                        {priceFormat(product.price) + ' UZC'}
-                      </Text>
-                      <Text
-                        size="sm"
-                        ta={'end'}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
-                        {product.point} Поинт
-                      </Text>
-                    </Stack>
-                  </Group>
+                  <ProductCard key={product.id} {...product} />
                 ))}
               </Stack>
             </Card>

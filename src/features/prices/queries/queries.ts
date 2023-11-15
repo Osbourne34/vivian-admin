@@ -1,10 +1,5 @@
-import {
-  Error,
-  ResponseWithData,
-  ResponseWithMessage,
-  ResponseWithPagination,
-} from '@/shared/http/types'
-import { Sort } from '@/shared/ui/table/types'
+import { useRouter } from 'next/router'
+
 import {
   UseMutationOptions,
   UseQueryOptions,
@@ -12,15 +7,23 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
+import { notifications } from '@mantine/notifications'
+
+import { PricesService } from '../service/prices-service'
 import {
   IndividualPrice,
   IndividualPriceEdit,
   IndividualPriceShow,
 } from '../types/individual-price'
-import { PricesService } from '../service/prices-service'
-import { notifications } from '@mantine/notifications'
-import { useRouter } from 'next/router'
 import { PriceFields } from '../types/price-fields'
+
+import {
+  Error,
+  ResponseWithData,
+  ResponseWithMessage,
+  ResponseWithPagination,
+} from '@/shared/http/types'
+import { Sort } from '@/shared/ui/table/types'
 
 export const useFetchPrices = (
   {

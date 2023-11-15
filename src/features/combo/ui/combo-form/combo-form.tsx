@@ -7,16 +7,14 @@ import {
   Text,
   Alert,
 } from '@mantine/core'
-import { createFormContext, isNotEmpty } from '@mantine/form'
+import { isNotEmpty } from '@mantine/form'
 
 import { Combo } from './combo/combo'
+import { FormProvider, useForm } from './form-context'
 import { initialValues } from './initial-values'
 import { ComboFields } from '../../types/combo-fields'
 
 import { Error } from '@/shared/http/types'
-
-export const [FormProvider, useFormContext, useForm] =
-  createFormContext<ComboFields>()
 
 interface ComboFormProps {
   initialData?: ComboFields

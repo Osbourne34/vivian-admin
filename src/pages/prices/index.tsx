@@ -3,8 +3,9 @@ import NextLink from 'next/link'
 
 import { Button, Group, Title } from '@mantine/core'
 
-import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 import { Prices } from '@/features/prices'
+
+import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 
 const PricesPage = () => {
   return (

@@ -1,4 +1,3 @@
-import { EmployeeDetail } from '@/features/employees'
 import { http } from '@/shared/http/http'
 import { ResponseWithData } from '@/shared/http/types'
 
@@ -92,7 +91,7 @@ export const Filters = {
     return data
   },
 
-  getEmployees: async () => {
+  getManagersAndDeliveryman: async () => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
     >('v1/filter/employees', {
