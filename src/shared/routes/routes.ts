@@ -108,6 +108,11 @@ export const routes: Route[] = [
         title: 'Типы материалов',
         link: '/material-types',
       },
+      {
+        id: nanoid(),
+        title: 'Материалы',
+        link: '/materials',
+      },
     ],
   },
 ]

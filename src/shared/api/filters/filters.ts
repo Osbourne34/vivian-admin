@@ -102,4 +102,20 @@ export const Filters = {
 
     return data
   },
+
+  getMaterialTypes: async () => {
+    const { data } = await http<
+      ResponseWithData<{ id: number; name: string }[]>
+    >('v1/filter/material/types')
+
+    return data
+  },
+
+  getMaterialUnits: async () => {
+    const { data } = await http<
+      ResponseWithData<{ title: string; value: string }[]>
+    >('v1/filter/material/units')
+
+    return data
+  },
 }
