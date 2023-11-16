@@ -1,0 +1,168 @@
+import { useCallback, useState } from 'react'
+
+import { Box, Card, TextInput } from '@mantine/core'
+import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
+import { useQueryClient } from '@tanstack/react-query'
+import debounce from 'lodash.debounce'
+
+import { Column, Sort } from '@/shared/ui/table/types'
+
+import { UpdateMaterialType } from '../update-material-type/update-material-type'
+import {
+  useDeleteMaterialType,
+  useFetchMaterialTypes,
+} from '../../queries/queries'
+
+import { Table } from '@/shared/ui/table/table'
+import { Actions } from '@/shared/ui/actions/actions'
+
+export const MaterialTypes = () => {
+  const queryClient = useQueryClient()
+
+  const [sort, setSort] = useState<Sort>({
+    orderby: '',
+    sort: '',
+  })
+
+  const [page, setPage] = useState<number>(1)
+  const [rowsPerPage, setRowsPerPage] = useState<string | null>('10')
+
+  const [search, setSearch] = useState('')
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
+
+  const {
+    data: materialTypes,
+    isFetching,
+    isError,
+  } = useFetchMaterialTypes({
+    search: debouncedSearchValue,
+    page,
+    rowsPerPage,
+    sort,
+  })
+
+  const deleteMutation = useDeleteMaterialType({
+    onSuccess: (data) => {
+      if (materialTypes?.data.length === 1 && page !== 1) {
+        setPage((prevState) => prevState - 1)
+      } else {
+        queryClient.invalidateQueries([
+          'material-types',
+          sort,
+          page,
+          rowsPerPage,
+          debouncedSearchValue,
+        ])
+      }
+
+      notifications.show({
+        title: 'Успешно',
+        message: data.message,
+        color: 'green',
+      })
+    },
+  })
+
+  const handleSort = (sort: Sort) => {
+    setSort(sort)
+  }
+
+  const handleChangePage = (value: number) => {
+    setPage(value)
+  }
+
+  const handleChangeRowsPerPage = (value: string | null) => {
+    setRowsPerPage(value)
+    setPage(1)
+  }
+
+  const debouncedSearch = useCallback(
+    debounce((value: string) => {
+      setDebouncedSearchValue(value)
+      setPage(1)
+    }, 500),
+    [],
+  )
+
+  const handleUpdate = (id: number) => {
+    modals.open({
+      title: 'Редактирование типа материала',
+      children: <UpdateMaterialType materialTypeId={id} />,
+      size: 'lg',
+      centered: true,
+    })
+  }
+
+  const handleDelete = (id: number) => {
+    modals.openContextModal({
+      modal: 'confirmDialog',
+      title: 'Подтвердите действие',
+      innerProps: {
+        modalBody: 'Вы действительно хотите удалить этот тип материала?',
+        onConfirm: async (modalId: string) => {
+          await deleteMutation.mutateAsync(id).finally(() => {
+            modals.close(modalId)
+          })
+        },
+      },
+    })
+  }
+
+  const columns: Column[] = [
+    {
+      key: 'id',
+      title: 'ID',
+      sortable: true,
+      width: 80,
+    },
+    {
+      key: 'name',
+      title: 'Название',
+      sortable: true,
+    },
+    {
+      key: 'action',
+      title: 'Действия',
+      align: 'right',
+      component: (item: any) => {
+        return (
+          <Actions
+            onUpdate={() => handleUpdate(item.id)}
+            onDelete={() => handleDelete(item.id)}
+          />
+        )
+      },
+      width: 100,
+    },
+  ]
+
+  return (
+    <Card shadow="sm" withBorder padding={0}>
+      <Box p="md">
+        <TextInput
+          value={search}
+          onChange={(event) => {
+            const value = event.target.value
+            debouncedSearch(value)
+            setSearch(value)
+          }}
+          placeholder="Поиск"
+        />
+      </Box>
+      <Table
+        columns={columns}
+        data={materialTypes?.data}
+        onSort={handleSort}
+        sort={sort}
+        total={materialTypes?.pagination.last_page || 1}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        isLoading={isFetching}
+        isError={isError}
+      />
+    </Card>
+  )
+}
