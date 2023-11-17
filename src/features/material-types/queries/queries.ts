@@ -14,6 +14,8 @@ import { MaterialTypesService } from '../service/material-types-service'
 import { MaterialType } from '../types/material-type'
 import { MaterialTypeFields } from '../types/material-type-fields'
 
+import { Filters } from '@/shared/api/filters/filters'
+
 import {
   ResponseWithData,
   ResponseWithMessage,
@@ -55,6 +57,33 @@ export const useFetchMaterialTypes = (
     },
     retry: 0,
     keepPreviousData: true,
+    ...options,
+  })
+}
+
+export const useFetchMaterialTypesForSelect = (
+  options?: UseQueryOptions<
+    ResponseWithData<{ id: number; name: string }[]>,
+    Error,
+    ResponseWithData<{ value: string; label: string }[]>
+  >,
+) => {
+  return useQuery({
+    queryFn: Filters.getMaterialTypes,
+    queryKey: ['material-types-for-select'],
+    select: (data) => {
+      const newData = data.data.map((type) => {
+        return {
+          value: String(type.id),
+          label: type.name,
+        }
+      })
+
+      return {
+        data: newData,
+        status: data.status,
+      }
+    },
     ...options,
   })
 }

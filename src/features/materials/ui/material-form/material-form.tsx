@@ -4,16 +4,16 @@ import {
   Grid,
   Group,
   NumberInput,
-  Select,
   TextInput,
 } from '@mantine/core'
 import { isNotEmpty, useForm } from '@mantine/form'
-import { useQuery } from '@tanstack/react-query'
 
+import { MaterialTypesSelect } from '@/features/material-types'
+
+import { UnitsSelect } from '../units-select/units-select'
 import { MaterialFields } from '../../types/material-fields'
 import { initialValues } from './initial-values'
 
-import { Filters } from '@/shared/api/filters/filters'
 import { Error } from '@/shared/http/types'
 
 interface MaterialFormProps {
@@ -60,42 +60,6 @@ export const MaterialForm = (props: MaterialFormProps) => {
     }
   }
 
-  const { data: materialTypes } = useQuery({
-    queryFn: Filters.getMaterialTypes,
-    queryKey: ['material-types-select'],
-    select: (data) => {
-      const newData = data.data.map((type) => {
-        return {
-          value: String(type.id),
-          label: type.name,
-        }
-      })
-
-      return {
-        data: newData,
-        status: data.status,
-      }
-    },
-  })
-
-  const { data: materialUnits } = useQuery({
-    queryFn: Filters.getMaterialUnits,
-    queryKey: ['material-units'],
-    select: (data) => {
-      const newData = data.data.map((unit) => {
-        return {
-          value: unit.value,
-          label: unit.title,
-        }
-      })
-
-      return {
-        data: newData,
-        status: data.status,
-      }
-    },
-  })
-
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
       {error && (
@@ -113,21 +77,20 @@ export const MaterialForm = (props: MaterialFormProps) => {
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, lg: 6 }}>
-          <Select
+          <MaterialTypesSelect
             label={'Тип материала'}
-            data={materialTypes?.data}
-            size={'md'}
             withAsterisk
             searchable
+            size={'md'}
             {...getInputProps('type_id')}
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, lg: 6 }}>
-          <Select
+          <UnitsSelect
             label={'Ед. измерения'}
-            data={materialUnits?.data}
-            size={'md'}
             withAsterisk
+            searchable
+            size={'md'}
             {...getInputProps('unit')}
           />
         </Grid.Col>

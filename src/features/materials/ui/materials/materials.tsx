@@ -7,6 +7,7 @@ import { notifications } from '@mantine/notifications'
 import { useQueryClient } from '@tanstack/react-query'
 import debounce from 'lodash.debounce'
 
+import { MaterialFilters } from '../material-filters/material-filters'
 import { useDeleteMaterial, useFetchMaterials } from '../../queries/queries'
 
 import { Table } from '@/shared/ui/table/table'
@@ -167,6 +168,18 @@ export const Materials = () => {
 
   return (
     <Card shadow="sm" withBorder padding={0}>
+      <MaterialFilters
+        search={search}
+        onChangeSearch={(value) => {
+          debouncedSearch(value)
+          setSearch(value)
+        }}
+        type_id={typeId}
+        onChangeTypeId={(value) => {
+          setTypeId(value)
+          setPage(1)
+        }}
+      />
       <Table
         columns={columns}
         data={materials?.data}

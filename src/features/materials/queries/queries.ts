@@ -20,6 +20,7 @@ import {
   ResponseWithData,
   ResponseWithMessage,
 } from '@/shared/http/types'
+import { Filters } from '@/shared/api/filters/filters'
 
 export const useFetchMaterials = (
   {
@@ -150,6 +151,38 @@ export const useDeleteMaterial = (
           message: error?.message,
           color: 'red',
         })
+      }
+    },
+    ...options,
+  })
+}
+
+export const useFetchUnits = (
+  options?: UseQueryOptions<
+    ResponseWithData<{ title: string; value: string }[]>,
+    Error,
+    ResponseWithData<
+      {
+        value: string
+        label: string
+      }[]
+    >
+  >,
+) => {
+  return useQuery({
+    queryFn: Filters.getMaterialUnits,
+    queryKey: ['material-units'],
+    select: (data) => {
+      const newData = data.data.map((unit) => {
+        return {
+          value: unit.value,
+          label: unit.title,
+        }
+      })
+
+      return {
+        data: newData,
+        status: data.status,
       }
     },
     ...options,
