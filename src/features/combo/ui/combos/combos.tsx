@@ -144,18 +144,10 @@ export const Combos = () => {
       component: (item: any) => {
         return (
           <Group gap="xs" justify="flex-end">
-            <ActionIcon
-              onClick={() => handleViewCombo(item.id)}
-              color="gray"
-              size="lg"
-              variant="subtle"
-              radius="xl"
-            >
-              <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon>
             <Actions
               onUpdate={() => handleUpdate(item.id)}
               onDelete={() => handleDelete(item.id)}
+              onPreview={() => handleViewCombo(item.id)}
             />
           </Group>
         )
