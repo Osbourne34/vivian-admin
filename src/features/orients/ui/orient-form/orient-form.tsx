@@ -28,7 +28,7 @@ export const OrientForm = (props: OrientFormProps) => {
     submitTitle,
   } = props
 
-  const { getInputProps, onSubmit, values, setFieldError } = useForm({
+  const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
       name: (value) => {
@@ -82,7 +82,7 @@ export const OrientForm = (props: OrientFormProps) => {
         <Button disabled={isLoading} variant="outline" onClick={onCancel}>
           Отмена
         </Button>
-        <Button loading={isLoading} type="submit">
+        <Button disabled={!isDirty()} loading={isLoading} type="submit">
           {submitTitle}
         </Button>
       </Group>

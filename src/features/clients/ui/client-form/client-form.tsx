@@ -58,6 +58,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
     reset,
     values,
     setFieldError,
+    isDirty,
   } = useForm<ClientFields>({
     validate: {
       name: (value) => {
@@ -231,7 +232,7 @@ export const ClientFrom = (props: EmployeeFormProps) => {
         </Grid.Col>
       </Grid>
       <Group justify="flex-end" mt="xl">
-        <Button loading={loading} type="submit">
+        <Button disabled={!isDirty()} loading={loading} type="submit">
           {titleSubmit}
         </Button>
       </Group>

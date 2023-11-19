@@ -27,7 +27,7 @@ export const CategoryForm = (props: CategoryFormProps) => {
     submitTitle,
   } = props
 
-  const { getInputProps, onSubmit, values, setFieldError } = useForm({
+  const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
       name: (value) => {
@@ -72,7 +72,7 @@ export const CategoryForm = (props: CategoryFormProps) => {
         <Button disabled={isLoading} variant="outline" onClick={onCancel}>
           Отмена
         </Button>
-        <Button loading={isLoading} type="submit">
+        <Button disabled={!isDirty()} loading={isLoading} type="submit">
           {submitTitle}
         </Button>
       </Group>

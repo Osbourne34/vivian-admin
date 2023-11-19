@@ -51,6 +51,7 @@ export const ProductForm = (props: ProductFormProps) => {
     setFieldError,
     errors,
     reset,
+    isDirty,
   } = useForm<ProductFields>({
     initialValues: initialData,
     validate: {
@@ -301,7 +302,7 @@ export const ProductForm = (props: ProductFormProps) => {
       </Grid>
 
       <Group justify="flex-end" mt="xl">
-        <Button loading={loading} type="submit">
+        <Button disabled={!isDirty()} loading={loading} type="submit">
           {titleSubmit}
         </Button>
       </Group>

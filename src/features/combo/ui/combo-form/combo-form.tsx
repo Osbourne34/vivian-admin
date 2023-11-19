@@ -131,7 +131,12 @@ export const ComboForm = (props: ComboFormProps) => {
           </Grid.Col>
         </Grid>
         <Group mt="lg" justify="flex-end">
-          <Button loading={isLoading} size="md" type="submit">
+          <Button
+            disabled={!form.isDirty()}
+            loading={isLoading}
+            size="md"
+            type="submit"
+          >
             {submitTitle}
           </Button>
         </Group>
