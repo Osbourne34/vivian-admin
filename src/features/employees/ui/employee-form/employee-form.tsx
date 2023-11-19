@@ -13,22 +13,21 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { DatePickerInput } from '@mantine/dates'
-import { useQuery } from '@tanstack/react-query'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 
 import { GroupBranchesSelect } from '@/features/branches'
+import { RolesSelect } from '@/features/roles'
 
 import { initialValues } from './initial-values'
 import { EmployeeFields } from '../../types/employee-fields'
 
-import { Filters } from '@/shared/api/filters/filters'
 import { UploadAvatar } from '@/shared/ui/upload-avatar/upload-avatar'
 import { PhoneInput } from '@/shared/ui/phone-input/phone-input'
 import { isEmpty } from '@/shared/utils/is-empty'
 import { minLength } from '@/shared/utils/min-length'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface EmployeeFormProps {
   initialData?: EmployeeFields
@@ -111,23 +110,6 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
       }
     }
   }
-
-  const { data: roles } = useQuery(
-    ['rolesForSelect'],
-    () => Filters.getRoles('client'),
-    {
-      select: (data) => {
-        const newData = data.data.map((role) => {
-          return role.name
-        })
-
-        return {
-          data: newData,
-          status: data.status,
-        }
-      },
-    },
-  )
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
@@ -234,14 +216,18 @@ export const EmployeeFrom = (props: EmployeeFormProps) => {
               />
             </Grid.Col>
             <Grid.Col span={{ base: 12, xl: 6 }}>
-              <MultiSelect
-                name="roles"
-                label="Роль"
-                data={roles?.data}
-                size="md"
-                withAsterisk
-                {...getInputProps('roles')}
-              />
+              <RolesSelect>
+                {(roles) => (
+                  <MultiSelect
+                    name="roles"
+                    label="Роль"
+                    data={roles}
+                    size="md"
+                    withAsterisk
+                    {...getInputProps('roles')}
+                  />
+                )}
+              </RolesSelect>
             </Grid.Col>
           </Grid>
         </Grid.Col>

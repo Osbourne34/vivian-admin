@@ -5,7 +5,7 @@ import { useFetchGroupBranches } from '../../queries/queries'
 interface GroupBranchesSelectProps extends SelectProps {}
 
 export const GroupBranchesSelect = (props: GroupBranchesSelectProps) => {
-  const { data: branches } = useFetchGroupBranches()
+  const { data: groupBranches } = useFetchGroupBranches()
 
-  return <Select {...props} data={branches?.data} />
+  return <Select {...props} data={groupBranches} />
 }

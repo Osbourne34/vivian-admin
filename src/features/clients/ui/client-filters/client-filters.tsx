@@ -1,14 +1,12 @@
 import { ChangeEvent } from 'react'
 
 import { Box, Grid, Select, TextInput } from '@mantine/core'
-import { useQuery } from '@tanstack/react-query'
 
 import { SortedBranchesSelect } from '@/features/branches'
+import { ManagersSelect } from '@/features/employees'
 
 import { Status, Verify } from '../../types/filters'
 import { statusValues, verifyValues } from './filter-values'
-
-import { Filters } from '@/shared/api/filters/filters'
 
 interface ClientFiltersProps {
   search: string
@@ -48,22 +46,6 @@ export const ClientFilters = (props: ClientFiltersProps) => {
   const handleChangeStatus = (value: string | null) => {
     onChangeStatus(value as Status)
   }
-
-  const { data: managers } = useQuery(['managers'], Filters.getManagers, {
-    select: (data) => {
-      const newData = data.data.map((manager) => {
-        return {
-          value: String(manager.id),
-          label: manager.name,
-        }
-      })
-
-      return {
-        status: data.status,
-        data: newData,
-      }
-    },
-  })
 
   return (
     <Box p="md">
@@ -105,14 +87,18 @@ export const ClientFilters = (props: ClientFiltersProps) => {
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
-          <Select
-            value={manager}
-            onChange={onChangeManager}
-            data={managers?.data}
-            allowDeselect={false}
-            clearable
-            placeholder="Менеджер"
-          />
+          <ManagersSelect>
+            {(managers) => (
+              <Select
+                value={manager}
+                onChange={onChangeManager}
+                data={managers}
+                allowDeselect={false}
+                clearable
+                placeholder="Менеджер"
+              />
+            )}
+          </ManagersSelect>
         </Grid.Col>
       </Grid>
     </Box>

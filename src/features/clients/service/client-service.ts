@@ -6,7 +6,7 @@ import {
   ResponseWithData,
   ResponseWithMessage,
   ResponseWithPagination,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 
 export const ClientsService = {
   getClients: async (params: {

@@ -20,7 +20,7 @@ import { initialValues } from './initial-values'
 import { ProductFields } from '../../types/product-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 import { CategoriesSelect } from '@/features/categories'
 
 interface ProductFormProps {

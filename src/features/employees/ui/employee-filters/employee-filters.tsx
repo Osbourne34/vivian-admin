@@ -1,14 +1,12 @@
 import { ChangeEvent } from 'react'
 
 import { Box, Grid, Select, TextInput } from '@mantine/core'
-import { useQuery } from '@tanstack/react-query'
 
 import { SortedBranchesSelect } from '@/features/branches'
+import { RolesSelect } from '@/features/roles'
 
 import { statusValues, verifyValues } from './filter-values'
 import { Status, Verify } from '../../types/filters'
-
-import { Filters } from '@/shared/api/filters/filters'
 
 interface EmployeeFiltersProps {
   search: string
@@ -48,23 +46,6 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
   const handleChangeStatus = (value: string | null) => {
     onChangeStatus(value as Status)
   }
-
-  const { data: roles } = useQuery(
-    ['rolesForSelect'],
-    () => Filters.getRoles('client'),
-    {
-      select: (data) => {
-        const newData = data.data.map((role) => {
-          return role.name
-        })
-
-        return {
-          data: newData,
-          status: data.status,
-        }
-      },
-    },
-  )
 
   return (
     <Box p="md">
@@ -106,14 +87,18 @@ export const EmployeeFilters = (props: EmployeeFiltersProps) => {
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6, xl: 4 }}>
-          <Select
-            value={role}
-            onChange={onChangeRole}
-            data={roles?.data}
-            allowDeselect={false}
-            clearable
-            placeholder="Роль"
-          />
+          <RolesSelect>
+            {(roles) => (
+              <Select
+                value={role}
+                onChange={onChangeRole}
+                data={roles}
+                allowDeselect={false}
+                clearable
+                placeholder="Роль"
+              />
+            )}
+          </RolesSelect>
         </Grid.Col>
       </Grid>
     </Box>

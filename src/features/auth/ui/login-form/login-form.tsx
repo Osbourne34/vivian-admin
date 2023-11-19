@@ -10,7 +10,7 @@ import { AuthService } from '../../service/auth-service'
 import { PhoneInput } from '@/shared/ui/phone-input/phone-input'
 import { isEmpty } from '@/shared/utils/is-empty'
 import { minLength } from '@/shared/utils/min-length'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 export const LoginForm = () => {
   const { push } = useRouter()

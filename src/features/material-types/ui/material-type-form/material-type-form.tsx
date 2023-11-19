@@ -5,7 +5,7 @@ import { MaterialTypeFields } from '../../types/material-type-fields'
 import { initialValues } from './initial-values'
 
 import { isEmpty } from '@/shared/utils/is-empty'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface MaterialTypeFormProps {
   initialData?: MaterialTypeFields

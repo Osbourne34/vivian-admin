@@ -13,21 +13,21 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { DatePickerInput } from '@mantine/dates'
-import { useQuery } from '@tanstack/react-query'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 
 import { GroupBranchesSelect } from '@/features/branches'
+import { ManagersSelect } from '@/features/employees'
+
 import { initialValues } from './initial-values'
 import { ClientFields } from '../../types/client-fields'
 
-import { Filters } from '@/shared/api/filters/filters'
 import { UploadAvatar } from '@/shared/ui/upload-avatar/upload-avatar'
 import { PhoneInput } from '@/shared/ui/phone-input/phone-input'
 import { isEmpty } from '@/shared/utils/is-empty'
 import { minLength } from '@/shared/utils/min-length'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface EmployeeFormProps {
   initialData?: ClientFields
@@ -107,22 +107,6 @@ export const ClientFrom = (props: EmployeeFormProps) => {
       }
     }
   }
-
-  const { data: managers } = useQuery(['managers'], Filters.getManagers, {
-    select: (data) => {
-      const newData = data.data.map((manager) => {
-        return {
-          value: String(manager.id),
-          label: manager.name,
-        }
-      })
-
-      return {
-        status: data.status,
-        data: newData,
-      }
-    },
-  })
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
@@ -219,15 +203,19 @@ export const ClientFrom = (props: EmployeeFormProps) => {
               />
             </Grid.Col>
             <Grid.Col span={{ base: 12, xl: 6 }}>
-              <Select
-                name="manager_id"
-                label="Менеджер"
-                data={managers?.data}
-                size="md"
-                allowDeselect={false}
-                clearable
-                {...getInputProps('manager_id')}
-              />
+              <ManagersSelect>
+                {(managers) => (
+                  <Select
+                    name="manager_id"
+                    label="Менеджер"
+                    data={managers}
+                    size="md"
+                    allowDeselect={false}
+                    clearable
+                    {...getInputProps('manager_id')}
+                  />
+                )}
+              </ManagersSelect>
             </Grid.Col>
             <Grid.Col>
               <Textarea

@@ -7,5 +7,5 @@ interface SortedBranchesSelect extends SelectProps {}
 export const SortedBranchesSelect = (props: SortedBranchesSelect) => {
   const { data: branches } = useFetchSortedBranches()
 
-  return <Select {...props} data={branches?.data} />
+  return <Select {...props} data={branches} />
 }

@@ -14,7 +14,7 @@ import { initialValues } from './initial-values'
 import { BranchFields } from '../../types/branch-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface OrientFormProps {
   initialData?: BranchFields
@@ -80,8 +80,8 @@ export const BranchForm = (props: OrientFormProps) => {
           label="Родительский регион"
           data={branches}
           clearable
-          {...getInputProps('parent_id')}
           size="md"
+          {...getInputProps('parent_id')}
         />
         <Checkbox
           label="Имеется склад?"

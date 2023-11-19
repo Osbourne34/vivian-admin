@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useState } from 'react'
 
-import { Box, Card, Grid, TextInput } from '@mantine/core'
+import { Box, Card, Grid, Select, TextInput } from '@mantine/core'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 import { Table } from '@/shared/ui/table/table'
@@ -9,7 +9,7 @@ import {
   Error,
   ResponseWithMessage,
   ResponseWithPagination,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 import { Column, Sort } from '@/shared/ui/table/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import debounce from 'lodash.debounce'

@@ -15,7 +15,7 @@ import '@mantine/dates/styles.css'
 import '@mantine/dropzone/styles.css'
 import '@fontsource/open-sans'
 
-import { AppPropsWithLayout } from '@/shared/layout/types/page-layout'
+import { AppPropsWithLayout } from '@/shared/types/page-layout'
 import { theme } from '@/shared/theme/theme'
 
 const ctx = createCtx()

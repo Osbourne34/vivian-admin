@@ -5,7 +5,7 @@ import {
   ResponseWithData,
   ResponseWithMessage,
   ResponseWithPagination,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 
 export const BranchesService = {
   getBranches: async (params: {

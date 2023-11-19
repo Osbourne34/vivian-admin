@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-query'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
+import { ComboboxItem } from '@mantine/core'
 
 import { MaterialTypesService } from '../service/material-types-service'
 import { MaterialType } from '../types/material-type'
@@ -21,8 +22,9 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
   Error,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 import { Sort } from '@/shared/ui/table/types'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 export const useFetchMaterialTypes = (
   {
@@ -65,24 +67,14 @@ export const useFetchMaterialTypesForSelect = (
   options?: UseQueryOptions<
     ResponseWithData<{ id: number; name: string }[]>,
     Error,
-    ResponseWithData<{ value: string; label: string }[]>
+    ComboboxItem[]
   >,
 ) => {
   return useQuery({
     queryFn: Filters.getMaterialTypes,
     queryKey: ['material-types-for-select'],
     select: (data) => {
-      const newData = data.data.map((type) => {
-        return {
-          value: String(type.id),
-          label: type.name,
-        }
-      })
-
-      return {
-        data: newData,
-        status: data.status,
-      }
+      return selectItemsDto(data.data, 'id', 'name')
     },
     ...options,
   })

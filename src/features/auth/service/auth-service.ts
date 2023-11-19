@@ -2,7 +2,7 @@ import { http } from '@/shared/http/http'
 
 import { User } from '../types/user'
 
-import { ResponseWithData } from '@/shared/http/types'
+import { ResponseWithData } from '@/shared/types/http'
 
 export const AuthService = {
   login: async (body: { phone: string; password: string }) => {

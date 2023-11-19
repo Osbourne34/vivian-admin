@@ -14,7 +14,7 @@ import { UnitsSelect } from '../units-select/units-select'
 import { MaterialFields } from '../../types/material-fields'
 import { initialValues } from './initial-values'
 
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface MaterialFormProps {
   initialData?: MaterialFields
@@ -89,7 +89,6 @@ export const MaterialForm = (props: MaterialFormProps) => {
           <UnitsSelect
             label={'Ед. измерения'}
             withAsterisk
-            searchable
             size={'md'}
             {...getInputProps('unit')}
           />

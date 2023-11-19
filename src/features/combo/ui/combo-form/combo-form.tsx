@@ -14,7 +14,7 @@ import { FormProvider, useForm } from './form-context'
 import { initialValues } from './initial-values'
 import { ComboFields } from '../../types/combo-fields'
 
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface ComboFormProps {
   initialData?: ComboFields

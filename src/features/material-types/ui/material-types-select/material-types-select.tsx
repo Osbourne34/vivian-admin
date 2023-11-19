@@ -7,5 +7,5 @@ interface MaterialTypesSelectProps extends SelectProps {}
 export const MaterialTypesSelect = (props: MaterialTypesSelectProps) => {
   const { data: materialTypes } = useFetchMaterialTypesForSelect()
 
-  return <Select data={materialTypes?.data} {...props} />
+  return <Select data={materialTypes} {...props} />
 }

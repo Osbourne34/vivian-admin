@@ -22,7 +22,7 @@ import {
   ResponseWithData,
   ResponseWithMessage,
   ResponseWithPagination,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 import { Sort } from '@/shared/ui/table/types'
 
 export const useFetchPrices = (

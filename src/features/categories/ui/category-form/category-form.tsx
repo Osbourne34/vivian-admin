@@ -6,7 +6,7 @@ import { initialValues } from './initial-values'
 import { CategoryFields } from '../../types/category-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 
 interface CategoryFormProps {
   initialData?: CategoryFields

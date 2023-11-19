@@ -13,8 +13,9 @@ import { initialValues } from './initial-values'
 import { RoleFields } from '../../types/role-fields'
 
 import { isEmpty } from '@/shared/utils/is-empty'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 import { Filters } from '@/shared/api/filters/filters'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 interface RoleFormProps {
   initialData?: RoleFields
@@ -62,15 +63,7 @@ export const RoleForm = (props: RoleFormProps) => {
 
   const { data: roles } = useQuery(['permissions'], Filters.getPermissions, {
     select: (data) => {
-      const newData = data.data.map((permission) => ({
-        value: String(permission.id),
-        label: permission.name,
-      }))
-
-      return {
-        data: newData,
-        status: data.status,
-      }
+      return selectItemsDto(data.data, 'id', 'name')
     },
   })
 
@@ -92,7 +85,7 @@ export const RoleForm = (props: RoleFormProps) => {
         />
         <MultiSelect
           label="Права"
-          data={roles?.data}
+          data={roles}
           size="md"
           withAsterisk
           {...getInputProps('permissions')}

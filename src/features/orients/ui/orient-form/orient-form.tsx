@@ -6,7 +6,7 @@ import { GroupBranchesSelect } from '@/features/branches'
 import { initialValues } from './initial-values'
 import { OrientFields } from '../../types/orient-fields'
 
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
 import { isEmpty } from '@/shared/utils/is-empty'
 
 interface OrientFormProps {

@@ -11,10 +11,12 @@ import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 
 import { BranchesService } from '../service/branches-service'
-import { Branch, BranchDetail } from '../types/branch'
+import { parentBranches } from '../utils/parent-branches'
+import { Branch, BranchDetail, BranchWithParent } from '../types/branch'
 import { BranchFields } from '../types/branch-fields'
 
 import { Filters } from '@/shared/api/filters/filters'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 import { Sort } from '@/shared/ui/table/types'
 import {
@@ -22,7 +24,9 @@ import {
   ResponseWithData,
   ResponseWithMessage,
   ResponseWithPagination,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
+import { groupBranches } from '@/features/branches/utils/group-branches'
+import { sortBranches } from '@/features/branches/utils/sort-branches'
 
 export const useFetchBranches = (
   {
@@ -163,25 +167,9 @@ export const useDeleteBranch = (
 export const useFetchGroupBranches = () => {
   return useQuery({
     queryFn: Filters.getBranchesTree,
-    queryKey: ['branchesWithTree'],
+    queryKey: ['group-branches'],
     select: (data) => {
-      const newData = data.data.map((branch) => {
-        const newBranches = branch.childrens.map((childBranch) => {
-          return {
-            value: String(childBranch.id),
-            label: childBranch.name,
-          }
-        })
-        return {
-          group: branch.name,
-          items: newBranches,
-        }
-      })
-
-      return {
-        status: data.status,
-        data: newData,
-      }
+      return groupBranches(data.data)
     },
   })
 }
@@ -189,35 +177,9 @@ export const useFetchGroupBranches = () => {
 export const useFetchSortedBranches = () => {
   return useQuery({
     queryFn: Filters.getBranches,
-    queryKey: ['branchesWithoutTree'],
+    queryKey: ['sorted-branches'],
     select: (data) => {
-      const parentsBranches = data.data.filter(
-        (branch) => branch.parent_id === 0,
-      )
-
-      let sortedBranches: {
-        id: number
-        parent_id: number
-        name: string
-        parent_name: string | null
-      }[] = []
-
-      parentsBranches.forEach((parent) => {
-        sortedBranches.push(parent)
-        sortedBranches = sortedBranches.concat(
-          data.data.filter((branch) => parent.id === branch.parent_id),
-        )
-      })
-
-      const newData = sortedBranches.map((branch) => ({
-        value: String(branch.id),
-        label: branch.name,
-      }))
-
-      return {
-        status: data.status,
-        data: newData,
-      }
+      return sortBranches(data.data)
     },
   })
 }
@@ -225,18 +187,9 @@ export const useFetchSortedBranches = () => {
 export const useFetchParentBranches = () => {
   return useQuery({
     queryFn: Filters.getBranches,
-    queryKey: ['parentBranches'],
+    queryKey: ['parent-branches'],
     select: (data) => {
-      return data.data
-        .filter(
-          (branch) => branch.parent_id === 0 && branch.parent_name === null,
-        )
-        .map((branch) => {
-          return {
-            value: String(branch.id),
-            label: branch.name,
-          }
-        })
+      return selectItemsDto(parentBranches(data.data), 'id', 'name')
     },
   })
 }

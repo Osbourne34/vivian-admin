@@ -1,38 +1,27 @@
 import { http } from '@/shared/http/http'
-import { ResponseWithData } from '@/shared/http/types'
+import { ResponseWithData } from '@/shared/types/http'
+import {
+  BranchWithParent,
+  BranchWithParentAndChildrends,
+} from '@/features/branches'
 
 export const Filters = {
   getBranches: async () => {
-    const { data } = await http<
-      ResponseWithData<
-        {
-          id: number
-          name: string
-          parent_id: number
-          parent_name: string | null
-          warehouse: boolean
-        }[]
-      >
-    >('v1/filter/branches', {
-      params: {
-        tree: 0,
+    const { data } = await http<ResponseWithData<BranchWithParent[]>>(
+      'v1/filter/branches',
+      {
+        params: {
+          tree: 0,
+        },
       },
-    })
+    )
 
     return data
   },
 
   getBranchesTree: async () => {
     const { data } = await http<
-      ResponseWithData<
-        {
-          id: number
-          name: string
-          parent_id: number
-          warehouse: boolean
-          childrens: { id: number; name: string; parent_id: number }[]
-        }[]
-      >
+      ResponseWithData<BranchWithParentAndChildrends[]>
     >('v1/filter/branches', {
       params: {
         tree: 1,

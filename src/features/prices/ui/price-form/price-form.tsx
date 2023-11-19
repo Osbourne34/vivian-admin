@@ -25,7 +25,8 @@ import { initialValues } from './initial-values'
 import { PriceFields } from '../../types/price-fields'
 
 import { Filters } from '@/shared/api/filters/filters'
-import { Error } from '@/shared/http/types'
+import { Error } from '@/shared/types/http'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 interface PriceForm {
   initialData?: PriceFields
@@ -56,26 +57,6 @@ export const PriceForm = (props: PriceForm) => {
     },
   })
 
-  const { data: employees } = useQuery(
-    ['managersAndDeliveryman'],
-    Filters.getManagersAndDeliveryman,
-    {
-      select: (data) => {
-        const newData = data.data.map((employee) => {
-          return {
-            value: String(employee.id),
-            label: employee.name,
-          }
-        })
-
-        return {
-          data: newData,
-          status: data.status,
-        }
-      },
-    },
-  )
-
   const handleSubmit = async (data: typeof form.values) => {
     if (form.values.products.length === 0) {
       form.setFieldError('products', 'Добавьте продукты')
@@ -95,6 +76,16 @@ export const PriceForm = (props: PriceForm) => {
       }
     }
   }
+
+  const { data: employees } = useQuery(
+    ['managersAndDeliveryman'],
+    Filters.getManagersAndDeliveryman,
+    {
+      select: (data) => {
+        return selectItemsDto(data.data, 'id', 'name')
+      },
+    },
+  )
 
   return (
     <FormProvider form={form}>
@@ -123,7 +114,7 @@ export const PriceForm = (props: PriceForm) => {
                 <MultiSelect
                   label="Сотрудники"
                   searchable
-                  data={employees?.data}
+                  data={employees}
                   {...form.getInputProps('employees')}
                 />
                 <Switch

@@ -1,6 +1,7 @@
-import { ContextModalProps } from '@mantine/modals'
-import { Button, Group, Text } from '@mantine/core'
 import { useState } from 'react'
+
+import { Button, Group, Text } from '@mantine/core'
+import { ContextModalProps } from '@mantine/modals'
 
 export const ConfirmDialog = (
   props: ContextModalProps<{

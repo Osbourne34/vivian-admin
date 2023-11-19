@@ -16,7 +16,7 @@ import {
   ResponseWithData,
   ResponseWithMessage,
   ResponseWithPagination,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 import { useRouter } from 'next/router'
 
 export const useFetchClients = (

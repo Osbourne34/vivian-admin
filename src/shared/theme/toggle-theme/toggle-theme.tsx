@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  ActionIconProps,
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core'

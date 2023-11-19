@@ -19,7 +19,7 @@ import {
   Error,
   ResponseWithData,
   ResponseWithMessage,
-} from '@/shared/http/types'
+} from '@/shared/types/http'
 import { Filters } from '@/shared/api/filters/filters'
 
 export const useFetchMaterials = (

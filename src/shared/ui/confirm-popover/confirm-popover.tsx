@@ -1,9 +1,9 @@
+import { ReactNode, useState } from 'react'
+
 import { Popover, Text, Group, Button } from '@mantine/core'
 
-import { useState } from 'react'
-
 interface ConfirmPopoverProps {
-  children: (open: () => void) => JSX.Element
+  children: (open: () => void) => ReactNode
   ok: () => void
 }
 

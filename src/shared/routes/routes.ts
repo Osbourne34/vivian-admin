@@ -6,28 +6,11 @@ import {
   IconMapPin,
   IconUsersGroup,
   IconBuildingFactory2,
-  TablerIconsProps,
   IconCash,
   IconBuildingFactory,
 } from '@tabler/icons-react'
 
-type RouteBase = {
-  id: string
-  title: string
-  icon?: (props: TablerIconsProps) => JSX.Element
-}
-
-type RouteWithLink = RouteBase & {
-  link: string
-  children?: never
-}
-
-type RouteWithChildren = RouteBase & {
-  link?: never
-  children: Route[]
-}
-
-type Route = RouteWithLink | RouteWithChildren
+import { Route } from '@/shared/types/route'
 
 export const routes: Route[] = [
   {
