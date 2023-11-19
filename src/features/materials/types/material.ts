@@ -5,5 +5,7 @@ export interface Material {
   unit: string
   count: number
   price: number
+  remainder: number
+  losses: number
   transport_costs: number
 }

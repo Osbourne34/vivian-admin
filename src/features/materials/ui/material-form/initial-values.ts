@@ -7,4 +7,5 @@ export const initialValues: MaterialFields = {
   transport_costs: '',
   type_id: '',
   unit: '',
+  losses: '',
 }

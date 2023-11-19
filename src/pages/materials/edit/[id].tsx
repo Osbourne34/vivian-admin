@@ -23,9 +23,7 @@ const MaterialUpdatePage = () => {
         </Button>
       </Group>
 
-      <Card withBorder shadow={'sm'}>
-        <UpdateMaterial />
-      </Card>
+      <UpdateMaterial />
     </>
   )
 }

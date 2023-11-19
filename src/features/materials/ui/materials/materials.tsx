@@ -143,12 +143,20 @@ export const Materials = () => {
       sortable: true,
     },
     {
+      key: 'losses',
+      title: 'Потери',
+    },
+    {
       key: 'transport_costs',
       title: 'Транспортные расходы',
       valueGetter: (item) => {
         return pricePrint(item.price)
       },
       sortable: true,
+    },
+    {
+      key: 'remainder',
+      title: 'Остаток',
     },
     {
       key: 'action',

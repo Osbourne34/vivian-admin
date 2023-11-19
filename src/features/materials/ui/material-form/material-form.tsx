@@ -5,6 +5,7 @@ import {
   Group,
   NumberInput,
   TextInput,
+  Text,
 } from '@mantine/core'
 import { isNotEmpty, useForm } from '@mantine/form'
 
@@ -22,6 +23,7 @@ interface MaterialFormProps {
   loading: boolean
   error: string
   titleSubmit: string
+  additionally?: number
 }
 
 export const MaterialForm = (props: MaterialFormProps) => {
@@ -31,6 +33,7 @@ export const MaterialForm = (props: MaterialFormProps) => {
     loading,
     titleSubmit,
     error,
+    additionally,
   } = props
 
   const { setFieldError, reset, getInputProps, isDirty, onSubmit } =
@@ -123,8 +126,17 @@ export const MaterialForm = (props: MaterialFormProps) => {
             hideControls
             {...getInputProps('transport_costs')}
           />
+        </Grid.Col>{' '}
+        <Grid.Col span={{ base: 12, lg: 12 }}>
+          <NumberInput
+            label="Потери"
+            size="md"
+            hideControls
+            {...getInputProps('losses')}
+          />
         </Grid.Col>
       </Grid>
+      {additionally && <Text mt={'lg'}>Остаток в базе: {additionally}</Text>}
       <Group mt={'xl'} justify={'flex-end'}>
         <Button loading={loading} disabled={!isDirty()} type={'submit'}>
           {titleSubmit}

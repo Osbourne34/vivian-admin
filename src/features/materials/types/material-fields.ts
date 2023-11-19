@@ -4,5 +4,6 @@ export interface MaterialFields {
   unit: string
   count: string
   price: string
+  losses: string
   transport_costs: string
 }

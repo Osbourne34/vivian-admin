@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { Alert, Center, Loader } from '@mantine/core'
+import { Alert, Card, Center, Loader } from '@mantine/core'
 
 import { MaterialForm } from '../material-form/material-form'
 import { useFetchMaterial, useUpdateMaterial } from '../../queries/queries'
@@ -31,7 +31,7 @@ export const UpdateMaterial = () => {
   const isSuccess = status === 'success'
 
   return (
-    <>
+    <Card withBorder shadow={'sm'}>
       {isLoading && (
         <Center>
           <Loader />
@@ -54,13 +54,15 @@ export const UpdateMaterial = () => {
               ? String(data.data.transport_costs)
               : '',
             type_id: String(data?.data.type_id),
+            losses: data?.data.losses ? String(data?.data.losses) : '',
           }}
           submit={handleSubmit}
           loading={updateMutation.isLoading}
           error={updateMutation.error?.message || ''}
           titleSubmit={'Сохранить'}
+          additionally={data?.data.remainder}
         />
       )}
-    </>
+    </Card>
   )
 }
