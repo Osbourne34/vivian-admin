@@ -14,7 +14,7 @@ import { Table } from '@/shared/ui/table/table'
 import { Actions } from '@/shared/ui/actions/actions'
 import { Column, Sort } from '@/shared/ui/table/types'
 
-import { priceFormat } from '@/shared/utils/price-format'
+import { pricePrint } from '@/shared/utils/price-print'
 
 export const Materials = () => {
   const { push } = useRouter()
@@ -133,7 +133,7 @@ export const Materials = () => {
       key: 'price',
       title: 'Цена',
       valueGetter: (item) => {
-        return priceFormat(item.price) + ' UZC'
+        return pricePrint(item.price)
       },
       sortable: true,
     },
@@ -146,7 +146,7 @@ export const Materials = () => {
       key: 'transport_costs',
       title: 'Транспортные расходы',
       valueGetter: (item) => {
-        return priceFormat(item.transport_costs) + ' UZC'
+        return pricePrint(item.price)
       },
       sortable: true,
     },

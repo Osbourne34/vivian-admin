@@ -13,7 +13,7 @@ import { useDeleteProduct, useFetchProducts } from '../../queries/queries'
 import { Table } from '@/shared/ui/table/table'
 import { Column, Sort } from '@/shared/ui/table/types'
 import { Actions } from '@/shared/ui/actions/actions'
-import { priceFormat } from '@/shared/utils/price-format'
+import { pricePrint } from '@/shared/utils/price-print'
 
 export const Products = () => {
   const { push } = useRouter()
@@ -141,7 +141,7 @@ export const Products = () => {
       key: 'price',
       title: 'Цена',
       valueGetter: (item) => {
-        return priceFormat(item.price) + ' UZC'
+        return pricePrint(item.price)
       },
       sortable: true,
     },

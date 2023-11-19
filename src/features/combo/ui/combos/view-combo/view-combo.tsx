@@ -13,7 +13,7 @@ import { ProductCard } from '@/features/products'
 
 import { useFetchCombo } from '../../../queries/queries'
 
-import { priceFormat } from '@/shared/utils/price-format'
+import { pricePrint } from '@/shared/utils/price-print'
 
 interface ViewComboProps {
   comboId: number
@@ -55,7 +55,7 @@ export const ViewCombo = (props: ViewComboProps) => {
                   <Text size="xs" c="dimmed">
                     Цена:
                   </Text>
-                  <Text>{priceFormat(combo.price) + ' UZC'}</Text>
+                  <Text>{pricePrint(combo.price)}</Text>
                 </Grid.Col>
                 <Grid.Col span={6}>
                   <Text size="xs" c="dimmed">

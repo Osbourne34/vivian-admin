@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { Avatar, Group, Text } from '@mantine/core'
 
 import { Product } from '../../types/product'
-import { priceFormat } from '@/shared/utils/price-format'
+import { pricePrint } from '@/shared/utils/price-print'
 
 interface ProductCardProps extends Product {
   action?: ReactNode
@@ -26,7 +26,7 @@ export const ProductCard = (product: ProductCardProps) => {
       <Group wrap="nowrap">
         <div>
           <Text ta={'end'} style={{ whiteSpace: 'nowrap' }}>
-            {priceFormat(product.price) + ' UZC'}
+            {pricePrint(product.price)}
           </Text>
           <Text size="sm" ta={'end'} style={{ whiteSpace: 'nowrap' }}>
             {product.point} Балл
