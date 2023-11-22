@@ -1,4 +1,5 @@
-import { notifications } from '@mantine/notifications'
+import { useRouter } from 'next/router'
+
 import {
   UseMutationOptions,
   UseQueryOptions,
@@ -6,6 +7,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
+import { notifications } from '@mantine/notifications'
 
 import { ClientsService } from '../service/client-service'
 import { Client, ClientDetail } from '../types/client'
@@ -17,7 +19,7 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/types/http'
-import { useRouter } from 'next/router'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchClients = (
   {
@@ -102,7 +104,7 @@ export const useCreateClient = (
     mutationFn: ClientsService.createClient,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['clients'])
-      push('/clients')
+      push(ROUTES.CLIENTS)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -111,7 +113,7 @@ export const useCreateClient = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -138,7 +140,7 @@ export const useUpdateClient = (
     onSuccess: (data) => {
       queryClient.invalidateQueries(['clients'])
       queryClient.invalidateQueries(['client', clientId])
-      push('/clients')
+      push(ROUTES.CLIENTS)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -147,7 +149,7 @@ export const useUpdateClient = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -163,7 +165,7 @@ export const useDeleteClient = (
     mutationFn: ClientsService.deleteClient,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

@@ -27,6 +27,7 @@ import {
 } from '@/shared/types/http'
 import { groupBranches } from '@/features/branches/utils/group-branches'
 import { sortBranches } from '@/features/branches/utils/sort-branches'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchBranches = (
   {
@@ -99,7 +100,7 @@ export const useCreateBranch = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -135,7 +136,7 @@ export const useUpdateBranch = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -151,7 +152,7 @@ export const useDeleteBranch = (
     mutationFn: BranchesService.deleteBranch,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

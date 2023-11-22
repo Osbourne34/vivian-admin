@@ -7,6 +7,7 @@ import { IconArrowBackUp } from '@tabler/icons-react'
 import { CreatePrice } from '@/features/prices'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { ROUTES } from '@/shared/constants/routes'
 
 const CreatePricePage = () => {
   return (
@@ -14,7 +15,7 @@ const CreatePricePage = () => {
       <Group justify="space-between" mb="lg">
         <Title order={3}>Создание индивидуальной цены</Title>
         <Button
-          href="/prices"
+          href={ROUTES.PRICES}
           component={NextLink}
           rightSection={<IconArrowBackUp />}
         >

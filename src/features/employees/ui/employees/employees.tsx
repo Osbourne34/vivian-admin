@@ -14,6 +14,7 @@ import { Status, Verify } from '../../types/filters'
 import { Table } from '@/shared/ui/table/table'
 import { Column, Sort } from '@/shared/ui/table/types'
 import { Actions } from '@/shared/ui/actions/actions'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const Employees = () => {
   const { push } = useRouter()
@@ -98,7 +99,7 @@ export const Employees = () => {
   )
 
   const handleUpdate = (id: number) => {
-    push(`/employees/edit/${id}`)
+    push(ROUTES.EDIT_EMPLOYEES(id))
   }
 
   const handleDelete = (id: number) => {

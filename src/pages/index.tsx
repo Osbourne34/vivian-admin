@@ -18,6 +18,7 @@ import { notifications } from '@mantine/notifications'
 
 import { modals } from '@mantine/modals'
 import { useRouter } from 'next/router'
+import { ROUTES } from '@/shared/constants/routes'
 
 export interface Employee {
   id: number
@@ -119,7 +120,7 @@ const Home = () => {
     },
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

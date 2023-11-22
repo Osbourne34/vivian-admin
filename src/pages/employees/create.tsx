@@ -7,6 +7,7 @@ import { IconArrowBackUp } from '@tabler/icons-react'
 import { CreateEmployee } from '@/features/employees'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { ROUTES } from '@/shared/constants/routes'
 
 const EmployeeCreatePage = () => {
   return (
@@ -14,7 +15,7 @@ const EmployeeCreatePage = () => {
       <Group justify="space-between" mb="lg">
         <Title order={3}>Создание сотрудника</Title>
         <Button
-          href="/employees"
+          href={ROUTES.EMPLOYEES}
           component={NextLink}
           rightSection={<IconArrowBackUp />}
         >

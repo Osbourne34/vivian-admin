@@ -7,6 +7,7 @@ import { IconArrowBackUp } from '@tabler/icons-react'
 import { CreateMaterial } from '@/features/materials'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { ROUTES } from '@/shared/constants/routes'
 
 const MaterialCreatePage = () => {
   return (
@@ -14,7 +15,7 @@ const MaterialCreatePage = () => {
       <Group justify="space-between" mb="lg">
         <Title order={3}>Создание материала</Title>
         <Button
-          href="/materials"
+          href={ROUTES.MATERIALS}
           component={NextLink}
           rightSection={<IconArrowBackUp />}
         >

@@ -1,9 +1,10 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import NextLink from 'next/link'
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 import { Button, Group, Title } from '@mantine/core'
 import { IconArrowBackUp } from '@tabler/icons-react'
 import { UpdateCombo } from '@/features/combo'
+import { ROUTES } from '@/shared/constants/routes'
 
 const UpdateComboPage = () => {
   return (
@@ -12,7 +13,7 @@ const UpdateComboPage = () => {
         <Title order={3}>Редактирование комбинаций</Title>
 
         <Button
-          href="/combo"
+          href={ROUTES.COMBO}
           component={NextLink}
           rightSection={<IconArrowBackUp />}
         >

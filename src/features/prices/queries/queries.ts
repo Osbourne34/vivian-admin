@@ -24,6 +24,7 @@ import {
   ResponseWithPagination,
 } from '@/shared/types/http'
 import { Sort } from '@/shared/ui/table/types'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchPrices = (
   {
@@ -101,7 +102,7 @@ export const useCreatePrice = (
     mutationFn: PricesService.createPrice,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['individual-prices'])
-      push('/prices')
+      push(ROUTES.PRICES)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -110,7 +111,7 @@ export const useCreatePrice = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -137,7 +138,7 @@ export const useUpdatePrice = (
     onSuccess: (data) => {
       queryClient.invalidateQueries(['individual-prices'])
       queryClient.invalidateQueries(['individual-price', priceId, 'show'])
-      push('/prices')
+      push(ROUTES.PRICES)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -146,7 +147,7 @@ export const useUpdatePrice = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -162,7 +163,7 @@ export const useDeletePrice = (
     mutationFn: PricesService.deletePrice,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

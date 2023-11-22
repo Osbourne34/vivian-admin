@@ -20,6 +20,7 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/types/http'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchProducts = (
   {
@@ -87,7 +88,7 @@ export const useCreateProduct = (
     mutationFn: ProductsService.createProduct,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['products'])
-      push('/products')
+      push(ROUTES.PRODUCTS)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -96,7 +97,7 @@ export const useCreateProduct = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -123,7 +124,7 @@ export const useUpdateProduct = (
     onSuccess: (data) => {
       queryClient.invalidateQueries(['products'])
       queryClient.invalidateQueries(['product', productId])
-      push('/products')
+      push(ROUTES.PRODUCTS)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -132,7 +133,7 @@ export const useUpdateProduct = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -148,7 +149,7 @@ export const useDeleteProduct = (
     mutationFn: ProductsService.deleteProduct,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

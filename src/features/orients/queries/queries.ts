@@ -21,6 +21,7 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/types/http'
+import {ROUTES} from "@/shared/constants/routes";
 
 export const useFetchOrients = (
   {
@@ -98,7 +99,7 @@ export const useCreateOrient = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -134,7 +135,7 @@ export const useUpdateOrient = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -150,7 +151,7 @@ export const useDeleteOrient = (
     mutationFn: OrientsService.deleteOrient,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

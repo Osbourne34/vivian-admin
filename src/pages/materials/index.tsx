@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import NextLink from 'next/link'
 
 import { Button, Group, Title } from '@mantine/core'
@@ -6,13 +6,14 @@ import { Button, Group, Title } from '@mantine/core'
 import { Materials } from '@/features/materials'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { ROUTES } from '@/shared/constants/routes'
 
 const MaterialsPage = () => {
   return (
     <>
       <Group justify="space-between" mb="lg">
         <Title order={3}>Материалы</Title>
-        <Button href="/materials/create" component={NextLink}>
+        <Button href={ROUTES.CREATE_MATERIALS} component={NextLink}>
           Создать материал
         </Button>
       </Group>

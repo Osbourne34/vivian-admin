@@ -11,30 +11,31 @@ import {
 } from '@tabler/icons-react'
 
 import { Route } from '@/shared/types/route'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const routes: Route[] = [
   {
     id: nanoid(),
     title: 'Дашбоард',
-    link: '/',
+    link: ROUTES.HOME,
     icon: IconLayoutDashboard,
   },
   {
     id: nanoid(),
     title: 'Регионы',
-    link: '/branches',
+    link: ROUTES.BRANCHES,
     icon: IconCompass,
   },
   {
     id: nanoid(),
     title: 'Ориентиры',
-    link: '/orients',
+    link: ROUTES.ORIENTS,
     icon: IconMapPin,
   },
   {
     id: nanoid(),
     title: 'Индивидуальные цены',
-    link: '/prices',
+    link: ROUTES.PRICES,
     icon: IconCash,
   },
   {
@@ -45,17 +46,17 @@ export const routes: Route[] = [
       {
         id: nanoid(),
         title: 'Сотрудники',
-        link: '/employees',
+        link: ROUTES.EMPLOYEES,
       },
       {
         id: nanoid(),
         title: 'Клиенты',
-        link: '/clients',
+        link: ROUTES.CLIENTS,
       },
       {
         id: nanoid(),
         title: 'Роли',
-        link: '/roles',
+        link: ROUTES.ROLES,
       },
     ],
   },
@@ -67,17 +68,17 @@ export const routes: Route[] = [
       {
         id: nanoid(),
         title: 'Продукты',
-        link: '/products',
+        link: ROUTES.PRODUCTS,
       },
       {
         id: nanoid(),
         title: 'Категорий',
-        link: '/categories',
+        link: ROUTES.CATEGORIES,
       },
       {
         id: nanoid(),
         title: 'Комбо',
-        link: '/combo',
+        link: ROUTES.COMBO,
       },
     ],
   },
@@ -89,12 +90,12 @@ export const routes: Route[] = [
       {
         id: nanoid(),
         title: 'Типы материалов',
-        link: '/material-types',
+        link: ROUTES.MATERIAL_TYPES,
       },
       {
         id: nanoid(),
         title: 'Материалы',
-        link: '/materials',
+        link: ROUTES.MATERIALS,
       },
     ],
   },

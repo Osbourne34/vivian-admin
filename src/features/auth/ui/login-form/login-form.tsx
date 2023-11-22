@@ -11,6 +11,7 @@ import { PhoneInput } from '@/shared/ui/phone-input/phone-input'
 import { isEmpty } from '@/shared/utils/is-empty'
 import { minLength } from '@/shared/utils/min-length'
 import { Error } from '@/shared/types/http'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const LoginForm = () => {
   const { push } = useRouter()
@@ -51,7 +52,7 @@ export const LoginForm = () => {
         path: '/',
         expires: 7,
       })
-      push('/')
+      push(ROUTES.HOME)
     } catch (error) {
       const err = error as Error
 

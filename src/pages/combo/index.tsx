@@ -1,17 +1,18 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import NextLink from 'next/link'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 import { Group, Title, Button } from '@mantine/core'
 
 import { Combos } from '@/features/combo'
+import { ROUTES } from '@/shared/constants/routes'
 
 const ComboPage = () => {
   return (
     <>
       <Group justify="space-between" mb="lg">
         <Title order={3}>Комбо</Title>{' '}
-        <Button href="/combo/create" component={NextLink}>
+        <Button href={ROUTES.CREATE_COMBO} component={NextLink}>
           Создать комбинацию
         </Button>
       </Group>
@@ -26,5 +27,3 @@ ComboPage.getLayout = (page: ReactElement) => {
 }
 
 export default ComboPage
-
-const ProductsList = () => {}

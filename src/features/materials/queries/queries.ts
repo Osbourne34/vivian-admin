@@ -21,6 +21,7 @@ import {
   ResponseWithMessage,
 } from '@/shared/types/http'
 import { Filters } from '@/shared/api/filters/filters'
+import {ROUTES} from "@/shared/constants/routes";
 
 export const useFetchMaterials = (
   {
@@ -84,7 +85,7 @@ export const useCreateMaterial = (
     mutationFn: MaterialsService.createMaterial,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['materials'])
-      push('/materials')
+      push(ROUTES.MATERIALS)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -93,7 +94,7 @@ export const useCreateMaterial = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -119,7 +120,7 @@ export const useUpdateMaterial = (
     onSuccess: (data) => {
       queryClient.invalidateQueries(['materials'])
       queryClient.invalidateQueries(['material', materialId])
-      push('/materials')
+      push(ROUTES.MATERIALS)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -128,7 +129,7 @@ export const useUpdateMaterial = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -144,7 +145,7 @@ export const useDeleteMaterial = (
     mutationFn: MaterialsService.deleteMaterial,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

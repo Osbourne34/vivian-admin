@@ -19,6 +19,7 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/types/http'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchEmployees = (
   {
@@ -105,7 +106,7 @@ export const useCreateEmployee = (
     mutationFn: EmployeesService.createEmployee,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['employees'])
-      push('/employees')
+      push(ROUTES.EMPLOYEES)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -114,7 +115,7 @@ export const useCreateEmployee = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -141,7 +142,7 @@ export const useUpdateEmployee = (
     onSuccess: (data) => {
       queryClient.invalidateQueries(['employees'])
       queryClient.invalidateQueries(['employee', employeeId])
-      push('/employees')
+      push(ROUTES.EMPLOYEES)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -150,7 +151,7 @@ export const useUpdateEmployee = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -166,7 +167,7 @@ export const useDeleteEmployee = (
     mutationFn: EmployeesService.deleteEmployee,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

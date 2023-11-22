@@ -21,6 +21,7 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/types/http'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchRoles = (
   {
@@ -95,7 +96,7 @@ export const useCreateRole = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -131,7 +132,7 @@ export const useUpdateRole = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -147,7 +148,7 @@ export const useDeleteRole = (
     mutationFn: RolesService.deleteRole,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

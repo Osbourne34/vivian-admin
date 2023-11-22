@@ -25,6 +25,7 @@ import {
 } from '@/shared/types/http'
 import { Sort } from '@/shared/ui/table/types'
 import { selectItemsDto } from '@/shared/utils/select-items-dto'
+import {ROUTES} from "@/shared/constants/routes";
 
 export const useFetchMaterialTypes = (
   {
@@ -112,7 +113,7 @@ export const useCreateMaterialType = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -144,7 +145,7 @@ export const useUpdateMaterialType = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -160,7 +161,7 @@ export const useDeleteMaterialType = (
     mutationFn: MaterialTypesService.deleteMaterialType,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

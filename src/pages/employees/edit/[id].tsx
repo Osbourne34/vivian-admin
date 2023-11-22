@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import NextLink from 'next/link'
 
 import { Button, Card, Group, Title } from '@mantine/core'
@@ -7,6 +7,7 @@ import { IconArrowBackUp } from '@tabler/icons-react'
 import { UpdateEmployee } from '@/features/employees'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { ROUTES } from '@/shared/constants/routes'
 
 const EmployeeUpdatePage = () => {
   return (
@@ -15,7 +16,7 @@ const EmployeeUpdatePage = () => {
         <Title order={3}>Редактирование сотрудника</Title>
 
         <Button
-          href="/employees"
+          href={ROUTES.EMPLOYEES}
           component={NextLink}
           rightSection={<IconArrowBackUp />}
         >

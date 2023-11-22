@@ -15,6 +15,7 @@ import { Actions } from '@/shared/ui/actions/actions'
 import { Column, Sort } from '@/shared/ui/table/types'
 
 import { pricePrint } from '@/shared/utils/price-print'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const Materials = () => {
   const { push } = useRouter()
@@ -89,7 +90,7 @@ export const Materials = () => {
   )
 
   const handleUpdate = (id: number) => {
-    push(`/materials/edit/${id}`)
+    push(ROUTES.EDIT_MATERIALS(id))
   }
 
   const handleDelete = (id: number) => {

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 
 import { Group, Title } from '@mantine/core'
 

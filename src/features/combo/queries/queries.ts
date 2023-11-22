@@ -20,6 +20,7 @@ import {
   ResponseWithPagination,
 } from '@/shared/types/http'
 import { Sort } from '@/shared/ui/table/types'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchCombos = (
   {
@@ -82,7 +83,7 @@ export const useCreateCombo = (
     mutationFn: ComboService.createCombo,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['combos'])
-      push('/combo')
+      push(ROUTES.COMBO)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -91,7 +92,7 @@ export const useCreateCombo = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -118,7 +119,7 @@ export const useUpdateCombo = (
     onSuccess: (data) => {
       queryClient.invalidateQueries(['combos'])
       queryClient.invalidateQueries(['combo', comboId])
-      push('/combo')
+      push(ROUTES.COMBO)
       notifications.show({
         title: 'Успешно',
         message: data.message,
@@ -127,7 +128,7 @@ export const useUpdateCombo = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -143,7 +144,7 @@ export const useDeleteCombo = (
     mutationFn: ComboService.deleteCombo,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

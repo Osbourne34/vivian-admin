@@ -14,6 +14,7 @@ import { Status, Verify } from '../../types/filters'
 import { Table } from '@/shared/ui/table/table'
 import { Actions } from '@/shared/ui/actions/actions'
 import { Column, Sort } from '@/shared/ui/table/types'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const Clients = () => {
   const { push } = useRouter()
@@ -97,7 +98,7 @@ export const Clients = () => {
   )
 
   const handleUpdate = (id: number) => {
-    push(`/clients/edit/${id}`)
+    push(ROUTES.EDIT_CLIENT(id))
   }
 
   const handleDelete = (id: number) => {

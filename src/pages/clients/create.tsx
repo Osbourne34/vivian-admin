@@ -7,6 +7,7 @@ import { IconArrowBackUp } from '@tabler/icons-react'
 import { CreateClient } from '@/features/clients'
 
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { ROUTES } from '@/shared/constants/routes'
 
 const ClientCreatePage = () => {
   return (
@@ -14,7 +15,7 @@ const ClientCreatePage = () => {
       <Group justify="space-between" mb="lg">
         <Title order={3}>Создание клиента</Title>
         <Button
-          href="/clients"
+          href={ROUTES.CLIENTS}
           component={NextLink}
           rightSection={<IconArrowBackUp />}
         >

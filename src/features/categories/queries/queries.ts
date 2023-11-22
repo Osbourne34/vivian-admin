@@ -21,6 +21,7 @@ import {
   ResponseWithMessage,
   ResponseWithPagination,
 } from '@/shared/types/http'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const useFetchCategories = (
   {
@@ -93,7 +94,7 @@ export const useCreateCategory = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -129,7 +130,7 @@ export const useUpdateCategory = (
     },
     onError: (error) => {
       if (error.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       }
     },
     ...options,
@@ -145,7 +146,7 @@ export const useDeleteCategory = (
     mutationFn: CategoriesService.deleteCategoty,
     onError: (error) => {
       if (error?.status === 401) {
-        push('/login')
+        push(ROUTES.LOGIN)
       } else {
         notifications.show({
           title: 'Ошибка',

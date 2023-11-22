@@ -1,5 +1,5 @@
-import { TablerIconsProps } from '@tabler/icons-react'
 import { ReactNode } from 'react'
+import { TablerIconsProps } from '@tabler/icons-react'
 
 type RouteBase = {
   id: string
