@@ -1,10 +1,9 @@
 import { Alert, Button, Group, Stack, TextInput } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { isNotEmpty, useForm } from '@mantine/form'
 
 import { MaterialTypeFields } from '../../types/material-type-fields'
 import { initialValues } from './initial-values'
 
-import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/types/http'
 
 interface MaterialTypeFormProps {
@@ -29,9 +28,7 @@ export const MaterialTypeForm = (props: MaterialTypeFormProps) => {
   const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
-      name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
+      name: isNotEmpty('Обязательное поле'),
     },
   })
 

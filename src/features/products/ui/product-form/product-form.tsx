@@ -12,16 +12,16 @@ import {
   Text,
   Image,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { isNotEmpty, useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
 
 import { initialValues } from './initial-values'
 import { ProductFields } from '../../types/product-fields'
 
-import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/types/http'
 import { CategoriesSelect } from '@/features/categories'
+import { notifications } from '@mantine/notifications'
 
 interface ProductFormProps {
   initialData?: ProductFields
@@ -55,33 +55,15 @@ export const ProductForm = (props: ProductFormProps) => {
   } = useForm<ProductFields>({
     initialValues: initialData,
     validate: {
-      name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      category_id: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      price: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      point: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      brand: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      keeping: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      mode_app: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      conditions: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      image: (value) => {
-        if (!value) return 'Обязательное поле'
-      },
+      name: isNotEmpty('Обязательное поле'),
+      category_id: isNotEmpty('Обязательное поле'),
+      price: isNotEmpty('Обязательное поле'),
+      point: isNotEmpty('Обязательное поле'),
+      brand: isNotEmpty('Обязательное поле'),
+      keeping: isNotEmpty('Обязательное поле'),
+      mode_app: isNotEmpty('Обязательное поле'),
+      conditions: isNotEmpty('Обязательное поле'),
+      image: isNotEmpty('Обязательное поле'),
     },
   })
 
@@ -227,7 +209,11 @@ export const ProductForm = (props: ProductFormProps) => {
               setFieldValue('image', file[0])
             }}
             onReject={(file) => {
-              setFieldError('image', file[0].errors[0].message)
+              notifications.show({
+                message: file[0].errors[0].message,
+                title: 'Ошибка валидаций',
+                color: 'red',
+              })
             }}
           >
             <Group

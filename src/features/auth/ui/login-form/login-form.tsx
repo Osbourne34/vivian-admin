@@ -2,14 +2,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Alert, Button, PasswordInput, Stack } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { hasLength, isNotEmpty, useForm } from '@mantine/form'
 import Cookies from 'js-cookie'
 
 import { AuthService } from '../../service/auth-service'
 
 import { PhoneInput } from '@/shared/ui/phone-input/phone-input'
-import { isEmpty } from '@/shared/utils/is-empty'
-import { minLength } from '@/shared/utils/min-length'
 import { Error } from '@/shared/types/http'
 import { ROUTES } from '@/shared/constants/routes'
 
@@ -27,12 +25,16 @@ export const LoginForm = () => {
       },
       validate: {
         phone: (value) => {
-          if (isEmpty(value)) return 'Обязательное поле'
-          if (minLength(value, 9)) return 'Невалидный номер телефона'
+          return (
+            isNotEmpty('Обязательное поле')(value) ||
+            hasLength(9, 'Невалидный номер телефона')(value)
+          )
         },
         password: (value) => {
-          if (!value.length) return 'Обязательное поле'
-          if (minLength(value, 6)) return 'Минимум 6 символов'
+          return (
+            isNotEmpty('Обязательное поле')(value) ||
+            hasLength({ min: 6 }, 'Минимум 6 символов')(value)
+          )
         },
       },
       transformValues: (values) => {

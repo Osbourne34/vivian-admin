@@ -1,5 +1,5 @@
 import { Alert, Button, Group, Stack, TextInput } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { isNotEmpty, useForm } from '@mantine/form'
 
 import { GroupBranchesSelect } from '@/features/branches'
 
@@ -7,7 +7,6 @@ import { initialValues } from './initial-values'
 import { OrientFields } from '../../types/orient-fields'
 
 import { Error } from '@/shared/types/http'
-import { isEmpty } from '@/shared/utils/is-empty'
 
 interface OrientFormProps {
   initialData?: OrientFields
@@ -31,12 +30,8 @@ export const OrientForm = (props: OrientFormProps) => {
   const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
-      name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      branch_id: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
+      name: isNotEmpty('Обязательное поле'),
+      branch_id: isNotEmpty('Обязательное поле'),
     },
   })
 

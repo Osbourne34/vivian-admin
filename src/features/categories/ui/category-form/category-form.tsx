@@ -1,11 +1,10 @@
 import { Alert, Button, Group, Stack, TextInput } from '@mantine/core'
 
-import { useForm } from '@mantine/form'
+import { isNotEmpty, useForm } from '@mantine/form'
 
 import { initialValues } from './initial-values'
 import { CategoryFields } from '../../types/category-fields'
 
-import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/types/http'
 
 interface CategoryFormProps {
@@ -30,9 +29,7 @@ export const CategoryForm = (props: CategoryFormProps) => {
   const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
-      name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
+      name: isNotEmpty('Обязательное поле'),
     },
   })
 

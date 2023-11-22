@@ -6,13 +6,12 @@ import {
   Stack,
   TextInput,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { isNotEmpty, useForm } from '@mantine/form'
 import { useQuery } from '@tanstack/react-query'
 
 import { initialValues } from './initial-values'
 import { RoleFields } from '../../types/role-fields'
 
-import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/types/http'
 import { Filters } from '@/shared/api/filters/filters'
 import { selectItemsDto } from '@/shared/utils/select-items-dto'
@@ -39,12 +38,8 @@ export const RoleForm = (props: RoleFormProps) => {
   const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
-      name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
-      permissions: (value) => {
-        if (isEmpty(value as [])) return 'Обязательное поле'
-      },
+      name: isNotEmpty('Обязательное поле'),
+      permissions: isNotEmpty('Обязательное поле'),
     },
   })
 

@@ -11,7 +11,7 @@ import {
   TextInput,
   Textarea,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { hasLength, isNotEmpty, useForm } from '@mantine/form'
 import { DatePickerInput } from '@mantine/dates'
 
 import dayjs from 'dayjs'
@@ -25,8 +25,6 @@ import { ClientFields } from '../../types/client-fields'
 
 import { UploadAvatar } from '@/shared/ui/upload-avatar/upload-avatar'
 import { PhoneInput } from '@/shared/ui/phone-input/phone-input'
-import { isEmpty } from '@/shared/utils/is-empty'
-import { minLength } from '@/shared/utils/min-length'
 import { Error } from '@/shared/types/http'
 
 interface EmployeeFormProps {
@@ -59,23 +57,32 @@ export const ClientFrom = (props: EmployeeFormProps) => {
     values,
     setFieldError,
     isDirty,
+    errors,
   } = useForm<ClientFields>({
     validate: {
       name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-        if (minLength(value, 3)) return 'Имя должно содержать минимум 3 символа'
+        return (
+          isNotEmpty('Обязательное поле')(value) ||
+          hasLength({ min: 3 }, 'Имя должно содержать минимум 3 символа')(value)
+        )
       },
       phone: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-        if (minLength(value, 9)) return 'Невалидный номер телефона'
+        return (
+          isNotEmpty('Обязательное поле')(value) ||
+          hasLength(9, 'Невалидный номер телефона')(value)
+        )
       },
       password: (value) => {
-        if (isEmpty(value) && requiredPassword) return 'Обязательное поле'
-        if (minLength(value, 6) && (requiredPassword || !isEmpty(value)))
-          return 'Пароль должен содержать минимум 6 символов'
+        return (
+          (requiredPassword && isNotEmpty('Обязательное поле')(value)) ||
+          ((requiredPassword || !!value.length) &&
+            hasLength(
+              { min: 6 },
+              'Пароль должен содержать минимум 6 символов',
+            )(value))
+        )
       },
       password_confirmation: (value, values) => {
-        if (isEmpty(value) && requiredPassword) return 'Обязательное поле'
         if (value !== values.password) return 'Пароли не совпадают'
       },
     },

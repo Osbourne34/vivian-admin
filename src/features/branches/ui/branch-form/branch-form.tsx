@@ -7,13 +7,12 @@ import {
   Stack,
   TextInput,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { isNotEmpty, useForm } from '@mantine/form'
 
 import { useFetchParentBranches } from '../../queries/queries'
 import { initialValues } from './initial-values'
 import { BranchFields } from '../../types/branch-fields'
 
-import { isEmpty } from '@/shared/utils/is-empty'
 import { Error } from '@/shared/types/http'
 
 interface OrientFormProps {
@@ -38,9 +37,7 @@ export const BranchForm = (props: OrientFormProps) => {
   const { getInputProps, onSubmit, values, setFieldError, isDirty } = useForm({
     initialValues: initialData,
     validate: {
-      name: (value) => {
-        if (isEmpty(value)) return 'Обязательное поле'
-      },
+      name: isNotEmpty('Обязательное поле'),
     },
   })
 
