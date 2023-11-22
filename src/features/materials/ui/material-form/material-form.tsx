@@ -16,6 +16,7 @@ import { MaterialFields } from '../../types/material-fields'
 import { initialValues } from './initial-values'
 
 import { Error } from '@/shared/types/http'
+import { PriceInput } from '@/shared/ui/price-input/price-input'
 
 interface MaterialFormProps {
   initialData?: MaterialFields
@@ -97,13 +98,10 @@ export const MaterialForm = (props: MaterialFormProps) => {
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, lg: 6 }}>
-          <NumberInput
+          <PriceInput
             label="Цена"
             size="md"
             withAsterisk
-            thousandSeparator=" "
-            allowNegative={false}
-            hideControls
             {...getInputProps('price')}
           />
         </Grid.Col>

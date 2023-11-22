@@ -1,9 +1,9 @@
+import { TextInput, TextInputProps } from '@mantine/core'
 import {
   InputAttributes,
   PatternFormat,
   PatternFormatProps,
 } from 'react-number-format'
-import { TextInput, TextInputProps } from '@mantine/core'
 
 interface PhoneInputProps
   extends Omit<

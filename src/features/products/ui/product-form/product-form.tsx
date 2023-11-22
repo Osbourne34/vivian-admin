@@ -12,6 +12,7 @@ import {
   Text,
   Image,
 } from '@mantine/core'
+import { notifications } from '@mantine/notifications'
 import { isNotEmpty, useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react'
@@ -21,7 +22,7 @@ import { ProductFields } from '../../types/product-fields'
 
 import { Error } from '@/shared/types/http'
 import { CategoriesSelect } from '@/features/categories'
-import { notifications } from '@mantine/notifications'
+import { PriceInput } from '@/shared/ui/price-input/price-input'
 
 interface ProductFormProps {
   initialData?: ProductFields
@@ -134,14 +135,11 @@ export const ProductForm = (props: ProductFormProps) => {
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, lg: 6 }}>
-          <NumberInput
+          <PriceInput
             name="price"
             label="Цена"
             size="md"
             withAsterisk
-            thousandSeparator=" "
-            allowNegative={false}
-            hideControls
             {...getInputProps('price')}
           />
         </Grid.Col>

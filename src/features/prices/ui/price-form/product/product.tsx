@@ -6,6 +6,7 @@ import { useFormContext } from '../form-context'
 import { DeleteProduct } from '../delete-product/delete-product'
 
 import styles from './product.module.css'
+import { PriceInput } from '@/shared/ui/price-input/price-input'
 
 interface ProductProps extends ProductType {
   index: number
@@ -28,16 +29,15 @@ export const Product = (props: ProductProps) => {
       </Grid.Col>
       <Grid.Col span={{ base: 12, lg: 6 }}>
         <Group wrap={'nowrap'} align={'flex-start'}>
-          <NumberInput
-            label="Цена"
+          <PriceInput
+            label={'Цена'}
+            withAsterisk
             className={styles.input}
-            thousandSeparator=" "
-            allowNegative={false}
-            hideControls
             {...form.getInputProps(`products.${index}.price`)}
           />
           <NumberInput
             label="Поинт"
+            withAsterisk
             className={styles.input}
             allowNegative={false}
             hideControls

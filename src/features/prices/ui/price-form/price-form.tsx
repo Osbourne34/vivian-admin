@@ -110,9 +110,14 @@ export const PriceForm = (props: PriceForm) => {
                     {error}
                   </Alert>
                 )}
-                <TextInput label="Название" {...form.getInputProps('name')} />
+                <TextInput
+                  label="Название"
+                  withAsterisk
+                  {...form.getInputProps('name')}
+                />
                 <MultiSelect
                   label="Сотрудники"
+                  withAsterisk
                   searchable
                   data={employees}
                   {...form.getInputProps('employees')}

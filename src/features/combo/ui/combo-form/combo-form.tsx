@@ -15,6 +15,7 @@ import { initialValues } from './initial-values'
 import { ComboFields } from '../../types/combo-fields'
 
 import { Error } from '@/shared/types/http'
+import { PriceInput } from '@/shared/ui/price-input/price-input'
 
 interface ComboFormProps {
   initialData?: ComboFields
@@ -90,12 +91,9 @@ export const ComboForm = (props: ComboFormProps) => {
             />
           </Grid.Col>
           <Grid.Col span={{ base: 12, lg: 3, xl: 2 }}>
-            <NumberInput
+            <PriceInput
               label="Цена"
               withAsterisk
-              thousandSeparator=" "
-              allowNegative={false}
-              hideControls
               size="md"
               {...form.getInputProps('price')}
             />
