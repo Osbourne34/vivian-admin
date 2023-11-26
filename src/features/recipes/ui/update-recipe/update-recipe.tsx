@@ -2,18 +2,18 @@ import { useRouter } from 'next/router'
 
 import { Alert, Center, Loader } from '@mantine/core'
 
-import { PriceForm } from '../price-form/price-form'
-import { useFetchPrice, useUpdatePrice } from '../../queries/queries'
-import { PriceFields } from '../../types/price-fields'
+import { RecipeForm } from '../recipe-form/recipe-form'
+import { useFetchRecipe, useUpdateRecipe } from '../../queries/queries'
+import { RecipeFields } from '../../types/recipe-fields'
 
-export const UpdatePrice = () => {
+export const UpdateRecipe = () => {
   const {
     query: { id },
   } = useRouter()
 
-  const updateMutation = useUpdatePrice(Number(id))
+  const updateMutation = useUpdateRecipe(Number(id))
 
-  const handleSubmit = async (body: PriceFields) => {
+  const handleSubmit = async (body: RecipeFields) => {
     try {
       await updateMutation.mutateAsync({
         id: Number(id),
@@ -24,7 +24,7 @@ export const UpdatePrice = () => {
     }
   }
 
-  const { data: price, status, error, isFetching } = useFetchPrice(Number(id))
+  const { data: recipe, status, error, isFetching } = useFetchRecipe(Number(id))
 
   const isError = status === 'error'
   const isSuccess = status === 'success'
@@ -44,16 +44,13 @@ export const UpdatePrice = () => {
       )}
 
       {isSuccess && !isFetching && (
-        <PriceForm
-          error={updateMutation.error?.message || ''}
-          loading={updateMutation.isLoading}
+        <RecipeForm
           submit={handleSubmit}
-          submitTitle="Сохранить"
+          loading={updateMutation.isLoading}
+          error={updateMutation.error?.message || ''}
+          submitTitle={'Сохранить'}
           initialData={{
-            active: price?.data.active!,
-            employees: price?.data.employees!,
-            name: price?.data.name!,
-            products: price?.data.products!,
+            ...recipe!.data,
           }}
         />
       )}

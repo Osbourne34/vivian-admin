@@ -1,3 +1,5 @@
 export * from './ui/materials/materials'
 export * from './ui/create-material/create-material'
 export * from './ui/update-material/update-material'
+export * from './types/material'
+export * from './ui/materials-list/materials-list'

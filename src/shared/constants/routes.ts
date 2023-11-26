@@ -36,4 +36,8 @@ export const ROUTES = {
   EDIT_PRODUCTS: (id: number) => `/products/edit/${id}`,
 
   ROLES: '/roles',
+
+  RECIPES: '/recipes',
+  CREATE_RECIPES: '/recipes/create',
+  EDIT_RECIPES: (id: number) => `/recipes/edit/${id}`,
 }

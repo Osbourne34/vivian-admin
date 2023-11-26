@@ -97,6 +97,11 @@ export const routes: Route[] = [
         title: 'Материалы',
         link: ROUTES.MATERIALS,
       },
+      {
+        id: nanoid(),
+        title: 'Рецепты',
+        link: ROUTES.RECIPES,
+      },
     ],
   },
 ]

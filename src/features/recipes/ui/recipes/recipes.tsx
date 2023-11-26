@@ -1,23 +1,21 @@
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 
-import { Card } from '@mantine/core'
+import { Box, Card, TextInput } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import { useQueryClient } from '@tanstack/react-query'
 import debounce from 'lodash.debounce'
 
-import { MaterialFilters } from '../material-filters/material-filters'
-import { useDeleteMaterial, useFetchMaterials } from '../../queries/queries'
+import { useDeleteRecipe, useFetchRecipes } from '../../queries/queries'
+import { ViewRecipe } from './view-recipe/view-recipe'
 
 import { Table } from '@/shared/ui/table/table'
-import { Actions } from '@/shared/ui/actions/actions'
 import { Column, Sort } from '@/shared/ui/table/types'
-
-import { pricePrint } from '@/shared/utils/price-print'
+import { Actions } from '@/shared/ui/actions/actions'
 import { ROUTES } from '@/shared/constants/routes'
 
-export const Materials = () => {
+export const Recipes = () => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
 
@@ -31,32 +29,29 @@ export const Materials = () => {
 
   const [search, setSearch] = useState('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
-  const [typeId, setTypeId] = useState<string | null>(null)
 
   const {
-    data: materials,
-    isError,
+    data: recipes,
     isFetching,
-  } = useFetchMaterials({
+    isError,
+  } = useFetchRecipes({
     page,
-    search: debouncedSearchValue,
-    type_id: typeId,
-    perpage: rowsPerPage,
     sort,
+    search: debouncedSearchValue,
+    perpage: rowsPerPage,
   })
 
-  const deleteMutation = useDeleteMaterial({
+  const deleteMutation = useDeleteRecipe({
     onSuccess: (data) => {
-      if (materials?.data.length === 1 && page !== 1) {
+      if (recipes?.data.length === 1 && page !== 1) {
         setPage((prevState) => prevState - 1)
       } else {
         queryClient.invalidateQueries([
-          'materials',
+          'recipes',
+          sort,
           page,
           rowsPerPage,
-          search,
-          sort,
-          typeId,
+          debouncedSearchValue,
         ])
       }
 
@@ -90,7 +85,7 @@ export const Materials = () => {
   )
 
   const handleUpdate = (id: number) => {
-    push(ROUTES.EDIT_MATERIALS(id))
+    push(ROUTES.EDIT_RECIPES(id))
   }
 
   const handleDelete = (id: number) => {
@@ -98,13 +93,21 @@ export const Materials = () => {
       modal: 'confirmDialog',
       title: 'Подтвердите действие',
       innerProps: {
-        modalBody: 'Вы действительно хотите удалить этот материал?',
+        modalBody: 'Вы действительно хотите удалить этот рецепт?',
         onConfirm: async (modalId: string) => {
           await deleteMutation.mutateAsync(id).finally(() => {
             modals.close(modalId)
           })
         },
       },
+    })
+  }
+
+  const handleViewPrice = (id: number) => {
+    modals.open({
+      title: 'Просмотр рецепта',
+      children: <ViewRecipe recipeIp={id} />,
+      size: 'xl',
     })
   }
 
@@ -121,43 +124,15 @@ export const Materials = () => {
       sortable: true,
     },
     {
-      key: 'type_id',
-      title: 'Тип материала',
+      key: 'created_at',
+      title: 'Дата создания',
       sortable: true,
     },
     {
-      key: 'unit',
-      title: 'Ед. измерения',
+      key: 'active',
+      title: 'Активен',
       sortable: true,
-    },
-    {
-      key: 'price',
-      title: 'Цена',
-      valueGetter: (item) => {
-        return pricePrint(item.price)
-      },
-      sortable: true,
-    },
-    {
-      key: 'count',
-      title: 'Количество',
-      sortable: true,
-    },
-    {
-      key: 'losses',
-      title: 'Потери',
-    },
-    {
-      key: 'transport_costs',
-      title: 'Транспортные расходы',
-      valueGetter: (item) => {
-        return pricePrint(item.transport_costs)
-      },
-      sortable: true,
-    },
-    {
-      key: 'remainder',
-      title: 'Остаток',
+      boolean: true,
     },
     {
       key: 'action',
@@ -166,35 +141,35 @@ export const Materials = () => {
       component: (item: any) => {
         return (
           <Actions
-            onDelete={() => handleDelete(item.id)}
             onUpdate={() => handleUpdate(item.id)}
+            onDelete={() => handleDelete(item.id)}
+            onPreview={() => handleViewPrice(item.id)}
           />
         )
       },
-      width: 100,
+      width: 150,
     },
   ]
 
   return (
     <Card shadow="sm" withBorder padding={0}>
-      <MaterialFilters
-        search={search}
-        onChangeSearch={(value) => {
-          debouncedSearch(value)
-          setSearch(value)
-        }}
-        type_id={typeId}
-        onChangeTypeId={(value) => {
-          setTypeId(value)
-          setPage(1)
-        }}
-      />
+      <Box p="md">
+        <TextInput
+          value={search}
+          onChange={(event) => {
+            const value = event.target.value
+            debouncedSearch(value)
+            setSearch(value)
+          }}
+          placeholder="Поиск"
+        />
+      </Box>
       <Table
         columns={columns}
-        data={materials?.data}
+        data={recipes?.data}
         onSort={handleSort}
         sort={sort}
-        total={materials?.pagination.last_page || 1}
+        total={recipes?.pagination.last_page || 1}
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
