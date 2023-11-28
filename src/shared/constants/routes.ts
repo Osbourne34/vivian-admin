@@ -40,4 +40,8 @@ export const ROUTES = {
   RECIPES: '/recipes',
   CREATE_RECIPES: '/recipes/create',
   EDIT_RECIPES: (id: number) => `/recipes/edit/${id}`,
+
+  PACKAGES: '/packages',
+  CREATE_PACKAGES: '/packages/create',
+  EDIT_PACKAGES: (id: number) => `/packages/edit/${id}`,
 }

@@ -102,6 +102,11 @@ export const routes: Route[] = [
         title: 'Рецепты',
         link: ROUTES.RECIPES,
       },
+      {
+        id: nanoid(),
+        title: 'Упаковка',
+        link: ROUTES.PACKAGES,
+      },
     ],
   },
 ]
