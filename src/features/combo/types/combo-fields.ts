@@ -1,9 +1,9 @@
-import { Product } from '@/features/products'
+import { ProductWithState } from './combo'
 
 export interface ComboItem {
   id: number | string
   limit: string
-  products: Product[]
+  products: ProductWithState[]
 }
 
 export interface ComboFields {

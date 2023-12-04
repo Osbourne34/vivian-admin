@@ -7,6 +7,7 @@ import {
   Card,
   Grid,
   Divider,
+  Badge,
 } from '@mantine/core'
 
 import { ProductCard } from '@/features/products'
@@ -69,7 +70,14 @@ export const ViewCombo = (props: ViewComboProps) => {
 
               <Stack>
                 {combo.products.map((product) => (
-                  <ProductCard key={product.id} {...product} />
+                  <div key={product.id}>
+                    <ProductCard {...product} />
+                    {product.deleted && (
+                      <Badge color={'red'} mt={'xs'}>
+                        УДАЛЕН
+                      </Badge>
+                    )}
+                  </div>
                 ))}
               </Stack>
             </Card>

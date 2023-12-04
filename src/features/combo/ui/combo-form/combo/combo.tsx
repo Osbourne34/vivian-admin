@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Badge,
   Card,
   Group,
   NumberInput,
@@ -92,11 +93,17 @@ export const Combo = (props: ComboProps) => {
         )}
 
         {products.map((product, index) => (
-          <ProductCard
-            key={product.id}
-            action={<DeleteProduct productIdx={index} comboIdx={comboIdx} />}
-            {...product}
-          />
+          <div key={product.id}>
+            <ProductCard
+              action={<DeleteProduct productIdx={index} comboIdx={comboIdx} />}
+              {...product}
+            />
+            {product.deleted && (
+              <Badge color={'red'} mt={'xs'}>
+                УДАЛЕН
+              </Badge>
+            )}
+          </div>
         ))}
       </Stack>
     </Card>
