@@ -51,6 +51,7 @@ export const UpdateRecipe = () => {
           submitTitle={'Сохранить'}
           initialData={{
             ...recipe!.data,
+            count: String(recipe!.data.count),
           }}
         />
       )}
