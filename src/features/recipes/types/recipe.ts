@@ -8,6 +8,7 @@ export interface Recipe {
   id: number
   name: string
   created_at: string
+  count: number
   active: boolean
 }
 

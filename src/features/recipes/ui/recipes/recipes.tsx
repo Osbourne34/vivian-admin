@@ -124,6 +124,11 @@ export const Recipes = () => {
       sortable: true,
     },
     {
+      key: 'count',
+      title: 'Количество',
+      sortable: true,
+    },
+    {
       key: 'created_at',
       title: 'Дата создания',
       sortable: true,

@@ -45,6 +45,7 @@ export const RecipeForm = (props: RecipeFormProps) => {
     initialValues: initialData,
     validate: {
       name: isNotEmpty('Обязательное поле'),
+      count: isNotEmpty('Обязательное поле'),
       materials: {
         count: isNotEmpty('Обязательное поле'),
       },
@@ -88,6 +89,16 @@ export const RecipeForm = (props: RecipeFormProps) => {
                 size={'md'}
                 {...form.getInputProps('name')}
               />
+
+              <NumberInput
+                label={'Количество'}
+                withAsterisk
+                size={'md'}
+                hideControls
+                allowNegative={false}
+                {...form.getInputProps('count')}
+              />
+
               <Switch
                 label={'Активен'}
                 {...form.getInputProps('active', {
