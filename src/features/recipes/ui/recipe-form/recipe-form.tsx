@@ -11,6 +11,7 @@ import {
   NumberInput,
   Button,
   ScrollArea,
+  Badge,
 } from '@mantine/core'
 import { isNotEmpty } from '@mantine/form'
 
@@ -132,6 +133,16 @@ export const RecipeForm = (props: RecipeFormProps) => {
                           />
                           <DeleteMaterial index={index} mt={26} size={'lg'} />
                         </Group>
+                        {(material.states.deleted || material.states.empty) && (
+                          <Group mt={'xs'} gap={'xs'}>
+                            {material.states.deleted && (
+                              <Badge color={'red'}>УДАЛЕН</Badge>
+                            )}
+                            {material.states.empty && (
+                              <Badge color={'red'}>ОТСУТСТВУЕТ</Badge>
+                            )}
+                          </Group>
+                        )}
                       </Card>
                     </Grid.Col>
                   ))}

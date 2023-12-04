@@ -1,4 +1,13 @@
-import { Card, Center, Grid, Group, Loader, Text, Alert } from '@mantine/core'
+import {
+  Card,
+  Center,
+  Grid,
+  Group,
+  Loader,
+  Text,
+  Alert,
+  Badge,
+} from '@mantine/core'
 
 import { useShowRecipe } from '../../../queries/queries'
 
@@ -53,6 +62,16 @@ export const ViewRecipe = (props: ViewRecipeProps) => {
                     </Text>
                   </div>
                 </Group>
+                {(material.states.deleted || material.states.empty) && (
+                  <Group mt={'xs'} gap={'xs'}>
+                    {material.states.deleted && (
+                      <Badge color={'red'}>УДАЛЕН</Badge>
+                    )}
+                    {material.states.empty && (
+                      <Badge color={'red'}>ОТСУТСТВУЕТ</Badge>
+                    )}
+                  </Group>
+                )}
               </Card>
             </Grid.Col>
           ))}

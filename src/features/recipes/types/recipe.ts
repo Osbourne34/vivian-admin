@@ -1,7 +1,11 @@
 import { Material } from '@/features/materials'
 
-interface RecipeMaterial extends Material {
+export interface RecipeMaterial extends Material {
   type: string
+  states: {
+    deleted: boolean
+    empty: boolean
+  }
 }
 
 export interface Recipe {

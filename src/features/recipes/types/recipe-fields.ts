@@ -1,8 +1,8 @@
-import { Material } from '@/features/materials'
+import { RecipeMaterial } from './recipe'
 
 export interface RecipeFields {
   name: string
   count: string
   active: boolean
-  materials: Material[]
+  materials: RecipeMaterial[]
 }
