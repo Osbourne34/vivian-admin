@@ -124,6 +124,9 @@ export const RecipeForm = (props: RecipeFormProps) => {
                           mt={'xs'}
                         >
                           <NumberInput
+                            disabled={
+                              material.states.empty || material.states.deleted
+                            }
                             w={'100%'}
                             label={`Количество (${material.unit})`}
                             allowNegative={false}
