@@ -1,8 +1,8 @@
-import { Product } from '@/features/products'
+import { EmployeeWithState, ProductWithState } from './individual-price'
 
 export interface PriceFields {
   name: string
   active: boolean
-  products: Product[]
-  employees: string[]
+  products: ProductWithState[]
+  employees: EmployeeWithState[]
 }

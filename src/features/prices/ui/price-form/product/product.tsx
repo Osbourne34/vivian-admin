@@ -1,19 +1,18 @@
 import { Avatar, Grid, Group, NumberInput, Text } from '@mantine/core'
 
-import { Product as ProductType } from '@/features/products'
-
 import { useFormContext } from '../form-context'
 import { DeleteProduct } from '../delete-product/delete-product'
+import { ProductWithState } from '../../../types/individual-price'
 
 import styles from './product.module.css'
 import { PriceInput } from '@/shared/ui/price-input/price-input'
 
-interface ProductProps extends ProductType {
+interface ProductProps extends ProductWithState {
   index: number
 }
 
 export const Product = (props: ProductProps) => {
-  const { name, image, index } = props
+  const { name, image, index, deleted } = props
   const form = useFormContext()
 
   return (
@@ -30,12 +29,14 @@ export const Product = (props: ProductProps) => {
       <Grid.Col span={{ base: 12, lg: 6 }}>
         <Group wrap={'nowrap'} align={'flex-start'}>
           <PriceInput
+            disabled={deleted}
             label={'Цена'}
             withAsterisk
             className={styles.input}
             {...form.getInputProps(`products.${index}.price`)}
           />
           <NumberInput
+            disabled={deleted}
             label="Поинт"
             withAsterisk
             className={styles.input}

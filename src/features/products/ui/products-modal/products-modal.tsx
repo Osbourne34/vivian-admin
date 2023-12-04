@@ -3,18 +3,15 @@ import { ReactNode } from 'react'
 import { Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
-import { ProductsList } from '@/features/products'
-
-import { AddProduct } from '../add-product/add-product'
+import { ProductsList, Product } from '@/features/products'
 
 interface ProductsModalProps {
   children: (open: () => void) => ReactNode
-  comboIdx: number
-  comboId: number | string
+  productAction?: (product: Product) => ReactNode
 }
 
 export const ProductsModal = (props: ProductsModalProps) => {
-  const { children, comboIdx, comboId } = props
+  const { children, productAction } = props
   const [opened, { open, close }] = useDisclosure(false)
 
   return (
@@ -23,7 +20,7 @@ export const ProductsModal = (props: ProductsModalProps) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Выберите продукты"
+        title="Продукты"
         size="xl"
         yOffset={20}
         styles={{
@@ -32,16 +29,7 @@ export const ProductsModal = (props: ProductsModalProps) => {
           },
         }}
       >
-        <ProductsList
-          forModal={true}
-          productAction={(product) => (
-            <AddProduct
-              product={product}
-              comboIdx={comboIdx}
-              comboId={comboId}
-            />
-          )}
-        />
+        <ProductsList forModal={true} productAction={productAction} />
       </Modal>
     </>
   )

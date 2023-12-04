@@ -9,10 +9,10 @@ import {
 } from '@mantine/core'
 import { IconPlus, IconTrashFilled } from '@tabler/icons-react'
 
-import { ProductCard } from '@/features/products'
+import { ProductCard, ProductsModal } from '@/features/products'
 
 import { useFormContext } from '../form-context'
-import { ProductsModal } from '../products-modal/products-modal'
+import { AddProduct } from '../add-product/add-product'
 import { DeleteProduct } from '../delete-product/delete-product'
 
 import { ComboItem } from '../../../types/combo-fields'
@@ -40,7 +40,11 @@ export const Combo = (props: ComboProps) => {
           Комбо
         </Text>
         <Group gap="sm">
-          <ProductsModal comboIdx={comboIdx} comboId={id}>
+          <ProductsModal
+            productAction={(product) => (
+              <AddProduct product={product} comboIdx={comboIdx} comboId={id} />
+            )}
+          >
             {(open) => (
               <Tooltip label="Добавить продукты">
                 <ActionIcon onClick={open} size="lg">

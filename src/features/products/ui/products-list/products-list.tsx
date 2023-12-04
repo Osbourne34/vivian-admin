@@ -37,7 +37,7 @@ export const ProductsList = (props: ProductsListProps) => {
       category_id: category,
     },
     {
-      keepPreviousData: false,
+      keepPreviousData: true,
       staleTime: 10_000,
     },
   )
@@ -75,7 +75,9 @@ export const ProductsList = (props: ProductsListProps) => {
       />
 
       {isFetching && (
-        <Stack mb={'md'}>
+        <Stack
+          mb={!isSuccess || products?.pagination.last_page === 1 ? 'md' : ''}
+        >
           {[...Array(10).keys()].map((i) => (
             <Skeleton key={i} h={50} />
           ))}
@@ -91,41 +93,38 @@ export const ProductsList = (props: ProductsListProps) => {
       {isSuccess && !isFetching && (
         <>
           {products.data.length > 0 ? (
-            <>
-              <Stack>
-                {products.data.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    action={props.productAction && props.productAction(product)}
-                    {...product}
-                  />
-                ))}
-              </Stack>
-
-              {products.pagination.last_page !== 1 && (
-                <Center
-                  px="0"
-                  py={'md'}
-                  style={{
-                    position: 'sticky',
-                    bottom: 0,
-                    backgroundColor: 'var(--mantine-color-body)',
-                  }}
-                >
-                  <Pagination
-                    value={page}
-                    onChange={setPage}
-                    total={products?.pagination.last_page || 1}
-                  />
-                </Center>
-              )}
-            </>
+            <Stack mb={products.pagination.last_page === 1 ? 'md' : ''}>
+              {products.data.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  action={props.productAction && props.productAction(product)}
+                  {...product}
+                />
+              ))}
+            </Stack>
           ) : (
-            <Text ta="center" size="lg">
+            <Text ta="center" size="lg" pb={'md'}>
               Ничего не найдено
             </Text>
           )}
         </>
+      )}
+      {isSuccess && products.pagination.last_page > 1 && (
+        <Center
+          px="0"
+          py={'md'}
+          style={{
+            position: 'sticky',
+            bottom: 0,
+            backgroundColor: 'var(--mantine-color-body)',
+          }}
+        >
+          <Pagination
+            value={page}
+            onChange={setPage}
+            total={products?.pagination.last_page || 1}
+          />
+        </Center>
       )}
     </>
   )

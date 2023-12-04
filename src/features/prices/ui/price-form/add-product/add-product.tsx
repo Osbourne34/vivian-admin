@@ -17,8 +17,6 @@ export const AddProduct = ({ product }: AddProductProps) => {
   const handleAddProduct = () => {
     form.insertListItem('products', {
       ...product,
-      price: '',
-      point: '',
     })
     form.clearFieldError('products')
   }

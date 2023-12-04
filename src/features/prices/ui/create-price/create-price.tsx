@@ -7,7 +7,12 @@ export const CreatePrice = () => {
 
   const handleSubmit = async (data: PriceFields) => {
     try {
-      await createMutation.mutateAsync(data)
+      const body = {
+        ...data,
+        employees: data.employees.map((employee) => employee.id),
+      }
+      //@ts-ignore
+      await createMutation.mutateAsync(body)
     } catch (error) {
       return Promise.reject(error)
     }

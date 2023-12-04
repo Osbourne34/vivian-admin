@@ -13,10 +13,15 @@ export const UpdatePrice = () => {
 
   const updateMutation = useUpdatePrice(Number(id))
 
-  const handleSubmit = async (body: PriceFields) => {
+  const handleSubmit = async (data: PriceFields) => {
     try {
+      const body = {
+        ...data,
+        employees: data.employees.map((employee) => employee.id),
+      }
       await updateMutation.mutateAsync({
         id: Number(id),
+        //@ts-ignore
         body,
       })
     } catch (error) {

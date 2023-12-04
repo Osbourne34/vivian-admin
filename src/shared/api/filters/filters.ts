@@ -4,6 +4,7 @@ import {
   BranchWithParent,
   BranchWithParentAndChildrends,
 } from '@/features/branches'
+import { IndividualPriceEmployee } from '@/features/prices'
 
 export const Filters = {
   getBranches: async () => {
@@ -81,13 +82,14 @@ export const Filters = {
   },
 
   getManagersAndDeliveryman: async () => {
-    const { data } = await http<
-      ResponseWithData<{ id: number; name: string }[]>
-    >('v1/filter/employees', {
-      params: {
-        roles: 'manager,deliveryman',
+    const { data } = await http<ResponseWithData<IndividualPriceEmployee[]>>(
+      'v1/filter/employees',
+      {
+        params: {
+          roles: 'manager,deliveryman',
+        },
       },
-    })
+    )
 
     return data
   },
