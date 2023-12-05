@@ -21,6 +21,8 @@ import {
   ResponseWithPagination,
 } from '@/shared/types/http'
 import { ROUTES } from '@/shared/constants/routes'
+import { Filters } from '@/shared/api/filters/filters'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 export const useFetchProducts = (
   {
@@ -159,5 +161,15 @@ export const useDeleteProduct = (
       }
     },
     ...options,
+  })
+}
+
+export const useFetchProductUnits = () => {
+  return useQuery({
+    queryFn: Filters.getProductUnits,
+    queryKey: ['product-units'],
+    select: (data) => {
+      return selectItemsDto(data.data, 'value', 'title')
+    },
   })
 }

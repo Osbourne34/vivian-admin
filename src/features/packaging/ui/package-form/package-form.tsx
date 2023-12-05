@@ -11,6 +11,7 @@ import {
   NumberInput,
   Button,
   ScrollArea,
+  Badge,
 } from '@mantine/core'
 import { isNotEmpty } from '@mantine/form'
 
@@ -104,7 +105,16 @@ export const PackageForm = (props: RecipeFormProps) => {
                   {form.values.materials.map((material, index) => (
                     <Grid.Col key={material.id} span={{ base: 12, sm: 6 }}>
                       <Card shadow={'sm'} withBorder py={'xs'} px={'sm'}>
-                        <Text lineClamp={2}>{material.name}</Text>
+                        <Group justify={'space-between'} wrap={'nowrap'}>
+                          <Text lineClamp={2}>{material.name}</Text>
+                          <Switch
+                            label={'Хорека'}
+                            {...form.getInputProps(
+                              `materials.${index}.is_horeca`,
+                              { type: 'checkbox' },
+                            )}
+                          />
+                        </Group>
                         <Group
                           align={'flex-start'}
                           justify={'space-between'}
@@ -112,6 +122,9 @@ export const PackageForm = (props: RecipeFormProps) => {
                           mt={'xs'}
                         >
                           <NumberInput
+                            disabled={
+                              material.states?.empty || material.states?.deleted
+                            }
                             w={'100%'}
                             label={`Количество (${material.unit})`}
                             allowNegative={false}
@@ -121,6 +134,16 @@ export const PackageForm = (props: RecipeFormProps) => {
                           />
                           <DeleteMaterial index={index} mt={26} size={'lg'} />
                         </Group>
+                        {(material.states?.deleted || material.states?.empty) && (
+                          <Group mt={'xs'} gap={'xs'}>
+                            {material.states.deleted && (
+                              <Badge color={'red'}>УДАЛЕН</Badge>
+                            )}
+                            {material.states.empty && (
+                              <Badge color={'red'}>ОТСУТСТВУЕТ</Badge>
+                            )}
+                          </Group>
+                        )}
                       </Card>
                     </Grid.Col>
                   ))}

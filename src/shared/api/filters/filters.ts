@@ -76,7 +76,7 @@ export const Filters = {
   getCategories: async () => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
-    >('v1/filter/categories')
+    >('v1/filter/products/categories')
 
     return data
   },
@@ -106,6 +106,14 @@ export const Filters = {
     const { data } = await http<
       ResponseWithData<{ title: string; value: string }[]>
     >('v1/filter/material/units')
+
+    return data
+  },
+
+  getProductUnits: async () => {
+    const { data } = await http<
+      ResponseWithData<{ title: string; value: string }[]>
+    >('v1/filter/products/units')
 
     return data
   },

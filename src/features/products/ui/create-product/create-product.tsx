@@ -14,6 +14,7 @@ export const CreateProduct = () => {
     const formData = new FormData(event?.currentTarget!)
     formData.set('image', data.image!)
     formData.set('price', data.price)
+    formData.set('horeca_price', data.horeca_price)
 
     try {
       await createMutation.mutateAsync(formData)

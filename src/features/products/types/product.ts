@@ -3,6 +3,10 @@ export interface Product {
   name: string
   price: number
   point: number
+  horeca_price: number
+  horeca_point: number
+  unit: string
+  volume: number
   image: string
 }
 

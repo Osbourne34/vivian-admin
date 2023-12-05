@@ -11,4 +11,8 @@ export const initialValues: ProductFields = {
   name: '',
   point: '',
   price: '',
+  horeca_price: '',
+  horeca_point: '',
+  unit: '',
+  volume: '',
 }

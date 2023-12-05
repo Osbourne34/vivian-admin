@@ -23,6 +23,7 @@ import { ProductFields } from '../../types/product-fields'
 import { Error } from '@/shared/types/http'
 import { CategoriesSelect } from '@/features/categories'
 import { PriceInput } from '@/shared/ui/price-input/price-input'
+import { ProductUnitsSelect } from '@/features/products/ui/product-units-select/product-units-select'
 
 interface ProductFormProps {
   initialData?: ProductFields
@@ -60,6 +61,10 @@ export const ProductForm = (props: ProductFormProps) => {
       category_id: isNotEmpty('Обязательное поле'),
       price: isNotEmpty('Обязательное поле'),
       point: isNotEmpty('Обязательное поле'),
+      horeca_price: isNotEmpty('Обязательное поле'),
+      horeca_point: isNotEmpty('Обязательное поле'),
+      unit: isNotEmpty('Обязательное поле'),
+      volume: isNotEmpty('Обязательное поле'),
       brand: isNotEmpty('Обязательное поле'),
       keeping: isNotEmpty('Обязательное поле'),
       mode_app: isNotEmpty('Обязательное поле'),
@@ -152,6 +157,46 @@ export const ProductForm = (props: ProductFormProps) => {
             allowNegative={false}
             hideControls
             {...getInputProps('point')}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
+          <PriceInput
+            name="horeca_price"
+            label="(Хорека) Цена"
+            size="md"
+            withAsterisk
+            {...getInputProps('horeca_price')}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
+          <NumberInput
+            name="horeca_point"
+            label="(Хорека) Поинт"
+            size="md"
+            withAsterisk
+            allowNegative={false}
+            hideControls
+            {...getInputProps('horeca_point')}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
+          <ProductUnitsSelect
+            name={'unit'}
+            label={'Ед. измерения'}
+            size="md"
+            withAsterisk
+            {...getInputProps('unit')}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, lg: 6 }}>
+          <NumberInput
+            name={'volume'}
+            label={'Объём'}
+            size="md"
+            withAsterisk
+            allowNegative={false}
+            hideControls
+            {...getInputProps('volume')}
           />
         </Grid.Col>
         <Grid.Col span={{ base: 12, lg: 6 }}>

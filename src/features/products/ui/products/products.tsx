@@ -152,6 +152,24 @@ export const Products = () => {
       sortable: true,
     },
     {
+      key: 'horeca_price',
+      title: 'Хорека (Цена)',
+      sortable: true,
+    },
+    {
+      key: 'horeca_point',
+      title: 'Хорека (Поинт)',
+      sortable: true,
+    },
+    {
+      key: 'unit',
+      title: 'Ед.изм',
+    },
+    {
+      key: 'volume',
+      title: 'Объём',
+    },
+    {
       key: 'action',
       title: 'Действия',
       align: 'right',

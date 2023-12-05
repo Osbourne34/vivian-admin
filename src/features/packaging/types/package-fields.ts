@@ -1,7 +1,7 @@
-import { Material } from '@/features/materials'
+import { PackageMaterial } from './package'
 
 export interface PackageFields {
   name: string
   active: boolean
-  materials: Material[]
+  materials: PackageMaterial[]
 }

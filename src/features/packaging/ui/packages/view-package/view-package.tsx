@@ -1,6 +1,16 @@
-import { Card, Center, Grid, Group, Loader, Text, Alert } from '@mantine/core'
+import {
+  Card,
+  Center,
+  Grid,
+  Group,
+  Loader,
+  Text,
+  Alert,
+  Badge,
+} from '@mantine/core'
 
 import { useShowPackage } from '../../../queries/queries'
+import { IconCheck, IconX } from '@tabler/icons-react'
 
 interface ViewRecipeProps {
   packageId: number
@@ -48,11 +58,29 @@ export const ViewPackage = (props: ViewRecipeProps) => {
                     </Text>
                   </div>
                   <div style={{ flexShrink: 0 }}>
-                    <Text size={'sm'} c={'dimmed'}>
+                    <Text ta={'end'} size={'sm'} c={'dimmed'}>
                       Тип: {material.type}
                     </Text>
+                    <Group gap={'xs'} mt={'xs'}>
+                      <Text size={'sm'}>Хорека:</Text>
+                      {material.is_horeca ? (
+                        <IconCheck size={20} />
+                      ) : (
+                        <IconX size={20} />
+                      )}
+                    </Group>
                   </div>
                 </Group>
+                {(material.states.deleted || material.states.empty) && (
+                  <Group mt={'xs'} gap={'xs'}>
+                    {material.states.deleted && (
+                      <Badge color={'red'}>УДАЛЕН</Badge>
+                    )}
+                    {material.states.empty && (
+                      <Badge color={'red'}>ОТСУТСТВУЕТ</Badge>
+                    )}
+                  </Group>
+                )}
               </Card>
             </Grid.Col>
           ))}

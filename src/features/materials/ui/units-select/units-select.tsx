@@ -7,5 +7,5 @@ interface UnitsSelectProps extends SelectProps {}
 export const UnitsSelect = (props: UnitsSelectProps) => {
   const { data: materialUnits } = useFetchUnits()
 
-  return <Select data={materialUnits?.data} {...props} />
+  return <Select data={materialUnits} {...props} />
 }

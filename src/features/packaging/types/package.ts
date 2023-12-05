@@ -1,7 +1,12 @@
 import { Material } from '@/features/materials'
 
-interface PackageMaterial extends Material {
+export interface PackageMaterial extends Material {
   type: string
+  is_horeca: boolean
+  states: {
+    deleted: boolean
+    empty: boolean
+  }
 }
 
 export interface Package {

@@ -21,7 +21,8 @@ import {
   ResponseWithMessage,
 } from '@/shared/types/http'
 import { Filters } from '@/shared/api/filters/filters'
-import {ROUTES} from "@/shared/constants/routes";
+import { ROUTES } from '@/shared/constants/routes'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 export const useFetchMaterials = (
   {
@@ -158,34 +159,12 @@ export const useDeleteMaterial = (
   })
 }
 
-export const useFetchUnits = (
-  options?: UseQueryOptions<
-    ResponseWithData<{ title: string; value: string }[]>,
-    Error,
-    ResponseWithData<
-      {
-        value: string
-        label: string
-      }[]
-    >
-  >,
-) => {
+export const useFetchUnits = () => {
   return useQuery({
     queryFn: Filters.getMaterialUnits,
     queryKey: ['material-units'],
     select: (data) => {
-      const newData = data.data.map((unit) => {
-        return {
-          value: unit.value,
-          label: unit.title,
-        }
-      })
-
-      return {
-        data: newData,
-        status: data.status,
-      }
+      return selectItemsDto(data.data, 'value', 'title')
     },
-    ...options,
   })
 }

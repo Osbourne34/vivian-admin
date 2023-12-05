@@ -21,6 +21,7 @@ export const UpdateProduct = () => {
       formData.set('image', data.image!)
     }
     formData.set('price', data.price)
+    formData.set('horeca_price', data.horeca_price)
     formData.append('_method', 'PUT')
 
     try {
@@ -62,6 +63,9 @@ export const UpdateProduct = () => {
             image: data?.data.image ? data.data.image : null,
             price: String(data?.data.price),
             point: String(data?.data.point),
+            horeca_price: String(data?.data.horeca_price),
+            horeca_point: String(data?.data.horeca_point),
+            volume: String(data?.data.volume),
             keeping: String(data?.data.keeping),
           }}
           submit={handleSubmit}

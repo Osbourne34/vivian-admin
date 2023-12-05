@@ -125,7 +125,7 @@ export const RecipeForm = (props: RecipeFormProps) => {
                         >
                           <NumberInput
                             disabled={
-                              material.states.empty || material.states.deleted
+                              material.states?.empty || material.states?.deleted
                             }
                             w={'100%'}
                             label={`Количество (${material.unit})`}
@@ -136,7 +136,8 @@ export const RecipeForm = (props: RecipeFormProps) => {
                           />
                           <DeleteMaterial index={index} mt={26} size={'lg'} />
                         </Group>
-                        {(material.states.deleted || material.states.empty) && (
+                        {(material.states?.deleted ||
+                          material.states?.empty) && (
                           <Group mt={'xs'} gap={'xs'}>
                             {material.states.deleted && (
                               <Badge color={'red'}>УДАЛЕН</Badge>
