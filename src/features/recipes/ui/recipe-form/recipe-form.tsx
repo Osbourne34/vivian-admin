@@ -92,7 +92,7 @@ export const RecipeForm = (props: RecipeFormProps) => {
               />
 
               <NumberInput
-                label={'Количество'}
+                label={'Количество (кг)'}
                 withAsterisk
                 size={'md'}
                 hideControls

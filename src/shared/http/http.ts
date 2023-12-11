@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Router from 'next/router'
 
 export const http = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -28,6 +29,7 @@ http.interceptors.response.use(
       // Ошибка авторизаций
       if (error.response.status === 401) {
         Cookies.remove('token')
+        Router.replace('/login')
         return Promise.reject({
           message: error.response.data.message,
           status: error.response.status,
