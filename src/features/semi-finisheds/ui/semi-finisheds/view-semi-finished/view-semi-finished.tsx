@@ -51,7 +51,7 @@ export const ViewSemiFinished = (props: ViewSemiFinishedProps) => {
                   <Badge>{semiFinished.type}</Badge>
                 </Group>
                 <Text mt={'xs'} c={'dimmed'}>
-                  {semiFinished.used_count}
+                  Используемое кол-во: {semiFinished.used_count}
                 </Text>
               </Card>
             </Grid.Col>

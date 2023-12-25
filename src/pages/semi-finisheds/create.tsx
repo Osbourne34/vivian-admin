@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 import { IconArrowBackUp } from '@tabler/icons-react'
 import { ReactElement } from 'react'
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
+import { CreateSemiFinished } from '@/features/semi-finisheds'
 
 const CreateSemifinishedsPage = () => {
   return (
@@ -18,6 +19,8 @@ const CreateSemifinishedsPage = () => {
           Вернуться к списку полуфабрикатов
         </Button>
       </Group>
+
+      <CreateSemiFinished />
     </>
   )
 }

@@ -47,5 +47,5 @@ export const ROUTES = {
 
   SEMIFINISHEDS: '/semi-finisheds',
   CREATE_SEMIFINISHEDS: '/semi-finisheds/create',
-  EDIT_SEMIFINISHEDS: (id: number) => `/semifinisheds/edit/${id}`,
+  EDIT_SEMIFINISHEDS: (id: number) => `/semi-finisheds/edit/${id}`,
 }

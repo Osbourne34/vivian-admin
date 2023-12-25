@@ -54,6 +54,7 @@ export const UpdatePackage = () => {
           loading={updateMutation.isLoading}
           error={updateMutation.error?.message || ''}
           submitTitle={'Сохранить'}
+          //@ts-ignore
           initialData={{
             ...recipe!.data,
           }}

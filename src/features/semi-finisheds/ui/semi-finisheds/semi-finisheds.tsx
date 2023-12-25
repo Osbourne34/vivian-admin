@@ -15,6 +15,7 @@ import { SemiFinishedStatus } from '@/features/semi-finisheds/types/semi-finishe
 import { notifications } from '@mantine/notifications'
 import { modals } from '@mantine/modals'
 import { ViewSemiFinished } from '@/features/semi-finisheds/ui/semi-finisheds/view-semi-finished/view-semi-finished'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const SemiFinisheds = () => {
   const { push } = useRouter()
@@ -91,6 +92,10 @@ export const SemiFinisheds = () => {
     [],
   )
 
+  const handleUpdate = (id: number) => {
+    push(ROUTES.EDIT_SEMIFINISHEDS(id))
+  }
+
   const handleDelete = (id: number) => {
     modals.openContextModal({
       modal: 'confirmDialog',
@@ -143,7 +148,7 @@ export const SemiFinisheds = () => {
     },
     {
       key: 'losses',
-      title: 'Потерии',
+      title: 'Потери',
     },
     {
       key: 'remainder',
@@ -166,7 +171,7 @@ export const SemiFinisheds = () => {
       component: (item: any) => {
         return (
           <Actions
-            onUpdate={() => {}}
+            onUpdate={() => handleUpdate(item.id)}
             onDelete={() => handleDelete(item.id)}
             onPreview={() => handleViewSemiFinished(item.id)}
           />

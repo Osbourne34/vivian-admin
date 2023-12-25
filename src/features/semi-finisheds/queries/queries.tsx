@@ -82,7 +82,10 @@ export const useShowSemiFinished = (
 
 export const useFetchSemiFinished = (
   semiFinishedId: number,
-  options?: UseQueryOptions<ResponseWithData<SemiFinishedWithDescription>>,
+  options?: UseQueryOptions<
+    ResponseWithData<SemiFinishedWithDescription>,
+    Error
+  >,
 ) => {
   return useQuery({
     queryKey: ['semiFinished', semiFinishedId, 'edit'],
