@@ -24,6 +24,7 @@ import { initialValues } from './initial-values'
 import { RecipeFields } from '../../types/recipe-fields'
 
 import { Error } from '@/shared/types/http'
+import { RecipeUnitsSelect } from '@/features/recipes/ui/recipe-units-select/recipe-units-select'
 
 interface RecipeFormProps {
   initialData?: RecipeFields
@@ -46,7 +47,7 @@ export const RecipeForm = (props: RecipeFormProps) => {
     initialValues: initialData,
     validate: {
       name: isNotEmpty('Обязательное поле'),
-      count: isNotEmpty('Обязательное поле'),
+      unit: isNotEmpty('Обязательное поле'),
       materials: {
         count: isNotEmpty('Обязательное поле'),
       },
@@ -90,15 +91,25 @@ export const RecipeForm = (props: RecipeFormProps) => {
                 size={'md'}
                 {...form.getInputProps('name')}
               />
-
-              <NumberInput
-                label={'Количество (кг)'}
-                withAsterisk
-                size={'md'}
-                hideControls
-                allowNegative={false}
-                {...form.getInputProps('count')}
-              />
+              <Grid>
+                <Grid.Col span={{ base: 12, lg: 6 }}>
+                  <NumberInput
+                    label={'Количество'}
+                    size={'md'}
+                    hideControls
+                    allowNegative={false}
+                    {...form.getInputProps('count')}
+                  />
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, lg: 6 }}>
+                  <RecipeUnitsSelect
+                    label={'Ед.измерения'}
+                    size={'md'}
+                    withAsterisk
+                    {...form.getInputProps('unit')}
+                  />
+                </Grid.Col>
+              </Grid>
 
               <Switch
                 label={'Активен'}

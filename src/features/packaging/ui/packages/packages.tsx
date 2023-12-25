@@ -103,7 +103,7 @@ export const Packages = () => {
     })
   }
 
-  const handleViewPrice = (id: number) => {
+  const handleViewPackage = (id: number) => {
     modals.open({
       title: 'Просмотр упаковки',
       children: <ViewPackage packageId={id} />,
@@ -143,7 +143,7 @@ export const Packages = () => {
           <Actions
             onUpdate={() => handleUpdate(item.id)}
             onDelete={() => handleDelete(item.id)}
-            onPreview={() => handleViewPrice(item.id)}
+            onPreview={() => handleViewPackage(item.id)}
           />
         )
       },

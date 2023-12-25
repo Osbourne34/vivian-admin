@@ -22,6 +22,8 @@ import {
 
 import { Sort } from '@/shared/ui/table/types'
 import { ROUTES } from '@/shared/constants/routes'
+import { Filters } from '@/shared/api/filters/filters'
+import { selectItemsDto } from '@/shared/utils/select-items-dto'
 
 export const useFetchRecipes = (
   {
@@ -80,6 +82,16 @@ export const useFetchRecipe = (
     queryKey: ['recipe', recipeId, 'edit'],
     queryFn: () => RecipesService.getRecipe(recipeId),
     ...options,
+  })
+}
+
+export const useFetchRecipeUnits = () => {
+  return useQuery({
+    queryKey: ['recipe-units'],
+    queryFn: Filters.getRecipeUnits,
+    select: (data) => {
+      return selectItemsDto(data.data, 'value', 'title')
+    },
   })
 }
 

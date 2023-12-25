@@ -159,7 +159,7 @@ export const useDeleteMaterial = (
   })
 }
 
-export const useFetchUnits = () => {
+export const useFetchMaterialUnits = () => {
   return useQuery({
     queryFn: Filters.getMaterialUnits,
     queryKey: ['material-units'],

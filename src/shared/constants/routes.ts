@@ -44,4 +44,8 @@ export const ROUTES = {
   PACKAGES: '/packages',
   CREATE_PACKAGES: '/packages/create',
   EDIT_PACKAGES: (id: number) => `/packages/edit/${id}`,
+
+  SEMIFINISHEDS: '/semi-finisheds',
+  CREATE_SEMIFINISHEDS: '/semi-finisheds/create',
+  EDIT_SEMIFINISHEDS: (id: number) => `/semifinisheds/edit/${id}`,
 }

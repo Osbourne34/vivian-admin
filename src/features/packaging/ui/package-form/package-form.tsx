@@ -16,10 +16,13 @@ import {
 import { isNotEmpty } from '@mantine/form'
 
 import { MaterialsList } from '@/features/materials'
+import { ProductCard, ProductsModal } from '@/features/products'
 
 import { useForm, FormProvider } from './form-context'
 import { AddMaterial } from './add-material/add-material'
 import { DeleteMaterial } from './delete-material/delete-material'
+import { AddProduct } from './add-product/add-product'
+import { DeleteProduct } from './delete-product/delete-product'
 import { initialValues } from './initial-values'
 import { PackageFields } from '../../types/package-fields'
 
@@ -45,6 +48,7 @@ export const PackageForm = (props: RecipeFormProps) => {
   const form = useForm({
     initialValues: initialData,
     validate: {
+      product_id: isNotEmpty('Добавьте продукт'),
       name: isNotEmpty('Обязательное поле'),
       materials: {
         count: isNotEmpty('Обязательное поле'),
@@ -95,6 +99,31 @@ export const PackageForm = (props: RecipeFormProps) => {
                   type: 'checkbox',
                 })}
               />
+              <Group justify={'space-between'}>
+                <Text>Продукт:</Text>
+                <ProductsModal
+                  productAction={(product) => <AddProduct product={product} />}
+                >
+                  {(open) => (
+                    <Button variant={'light'} onClick={open}>
+                      Выбрать продукт
+                    </Button>
+                  )}
+                </ProductsModal>
+              </Group>
+              {form.errors.product_id && (
+                <Text c="red" ta="center" size="xl">
+                  {form.errors.product_id}
+                </Text>
+              )}
+              {form.values.product && (
+                <ProductCard
+                  action={<DeleteProduct />}
+                  {...form.values.product}
+                />
+              )}
+
+              <Text>Материалы:</Text>
               {form.errors.materials && (
                 <Text c="red" ta="center" size="xl">
                   {form.errors.materials}
@@ -108,6 +137,9 @@ export const PackageForm = (props: RecipeFormProps) => {
                         <Group justify={'space-between'} wrap={'nowrap'}>
                           <Text lineClamp={2}>{material.name}</Text>
                           <Switch
+                            disabled={
+                              material.states?.empty || material.states?.deleted
+                            }
                             label={'Хорека'}
                             {...form.getInputProps(
                               `materials.${index}.is_horeca`,
@@ -134,7 +166,8 @@ export const PackageForm = (props: RecipeFormProps) => {
                           />
                           <DeleteMaterial index={index} mt={26} size={'lg'} />
                         </Group>
-                        {(material.states?.deleted || material.states?.empty) && (
+                        {(material.states?.deleted ||
+                          material.states?.empty) && (
                           <Group mt={'xs'} gap={'xs'}>
                             {material.states.deleted && (
                               <Badge color={'red'}>УДАЛЕН</Badge>

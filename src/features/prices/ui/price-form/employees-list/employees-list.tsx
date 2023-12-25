@@ -33,6 +33,9 @@ export const EmployeesList = (props: EmployeesListProps) => {
   } = useQuery<ResponseWithData<IndividualPriceEmployee[]>, Error>(
     ['managersAndDeliveryman'],
     Filters.getManagersAndDeliveryman,
+    {
+      staleTime: 20_000,
+    },
   )
 
   return (

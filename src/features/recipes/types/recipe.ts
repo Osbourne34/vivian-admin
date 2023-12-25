@@ -11,8 +11,9 @@ export interface RecipeMaterial extends Material {
 export interface Recipe {
   id: number
   name: string
-  created_at: string
+  unit: string
   count: number
+  created_at: string
   active: boolean
 }
 

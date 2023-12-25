@@ -57,9 +57,7 @@ export const ViewRecipe = (props: ViewRecipeProps) => {
                     </Text>
                   </div>
                   <div style={{ flexShrink: 0 }}>
-                    <Text size={'sm'} c={'dimmed'}>
-                      Тип: {material.type}
-                    </Text>
+                    <Badge>{material.type}</Badge>
                   </div>
                 </Group>
                 {(material.states.deleted || material.states.empty) && (

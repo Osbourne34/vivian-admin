@@ -60,7 +60,7 @@ export const UpdateMaterial = () => {
           loading={updateMutation.isLoading}
           error={updateMutation.error?.message || ''}
           titleSubmit={'Сохранить'}
-          additionally={data?.data.remainder}
+          additionally={String(data!.data.remainder)}
         />
       )}
     </Card>

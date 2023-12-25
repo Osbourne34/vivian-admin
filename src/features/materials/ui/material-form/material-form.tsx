@@ -24,7 +24,7 @@ interface MaterialFormProps {
   loading: boolean
   error: string
   titleSubmit: string
-  additionally?: number
+  additionally?: string
 }
 
 export const MaterialForm = (props: MaterialFormProps) => {
@@ -46,6 +46,11 @@ export const MaterialForm = (props: MaterialFormProps) => {
         price: isNotEmpty('Обязательное поле'),
         count: isNotEmpty('Обязательное поле'),
         type_id: isNotEmpty('Обязательное поле'),
+        losses: (value, values) => {
+          return value > values.count
+            ? 'Потерии не могут быть больше количества'
+            : null
+        },
       },
     })
 

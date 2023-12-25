@@ -19,25 +19,25 @@ export const MaterialFilters = (props: MaterialFiltersProps) => {
   }
 
   return (
-      <Box p={'md'} {...props}>
-        <Grid>
-          <Grid.Col span={{ base: 12, xl: 8 }}>
-            <TextInput
-                value={search}
-                onChange={handleChangeSearch}
-                placeholder={'Поиск'}
-            />
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, xl: 4 }}>
-            <MaterialTypesSelect
-                placeholder={'Тип материала'}
-                value={type_id}
-                onChange={onChangeTypeId}
-                searchable
-                clearable
-            />
-          </Grid.Col>
-        </Grid>
-      </Box>
+    <Box p={'md'} {...props}>
+      <Grid>
+        <Grid.Col span={{ base: 12, xl: 8 }}>
+          <TextInput
+            value={search}
+            onChange={handleChangeSearch}
+            placeholder={'Поиск'}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, xl: 4 }}>
+          <MaterialTypesSelect
+            placeholder={'Тип материала'}
+            value={type_id}
+            onChange={onChangeTypeId}
+            searchable
+            clearable
+          />
+        </Grid.Col>
+      </Grid>
+    </Box>
   )
 }

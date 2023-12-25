@@ -60,6 +60,7 @@ export const RoleForm = (props: RoleFormProps) => {
     select: (data) => {
       return selectItemsDto(data.data, 'id', 'name')
     },
+    staleTime: 20_000,
   })
 
   return (

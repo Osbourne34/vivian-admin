@@ -1,21 +1,22 @@
-import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
-
-import { Box, Card, TextInput } from '@mantine/core'
-import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
 import { useQueryClient } from '@tanstack/react-query'
-import debounce from 'lodash.debounce'
-
-import { useDeleteRecipe, useFetchRecipes } from '../../queries/queries'
-import { ViewRecipe } from './view-recipe/view-recipe'
-
-import { Table } from '@/shared/ui/table/table'
+import { useCallback, useState } from 'react'
 import { Column, Sort } from '@/shared/ui/table/types'
+import debounce from 'lodash.debounce'
+import {
+  useDeleteSemiFinished,
+  useFetchSemiFinisheds,
+} from '../../queries/queries'
 import { Actions } from '@/shared/ui/actions/actions'
-import { ROUTES } from '@/shared/constants/routes'
+import { Card } from '@mantine/core'
+import { Table } from '@/shared/ui/table/table'
+import { SemiFinishedFilters } from '../semi-finished-filters/semi-finished-filters'
+import { SemiFinishedStatus } from '@/features/semi-finisheds/types/semi-finished'
+import { notifications } from '@mantine/notifications'
+import { modals } from '@mantine/modals'
+import { ViewSemiFinished } from '@/features/semi-finisheds/ui/semi-finisheds/view-semi-finished/view-semi-finished'
 
-export const Recipes = () => {
+export const SemiFinisheds = () => {
   const { push } = useRouter()
   const queryClient = useQueryClient()
 
@@ -29,28 +30,34 @@ export const Recipes = () => {
 
   const [search, setSearch] = useState('')
   const [debouncedSearchValue, setDebouncedSearchValue] = useState('')
+  const [recipeId, setRecipeId] = useState<string | null>(null)
+  const [status, setStatus] = useState<SemiFinishedStatus | null>(null)
 
   const {
-    data: recipes,
+    data: semiFinisheds,
     isFetching,
     isError,
-  } = useFetchRecipes({
+  } = useFetchSemiFinisheds({
     page,
-    sort,
-    search: debouncedSearchValue,
     perpage: rowsPerPage,
+    search: debouncedSearchValue,
+    sort,
+    recipe_id: recipeId,
+    status,
   })
 
-  const deleteMutation = useDeleteRecipe({
+  const deleteMutation = useDeleteSemiFinished({
     onSuccess: (data) => {
-      if (recipes?.data.length === 1 && page !== 1) {
+      if (semiFinisheds?.data.length === 1 && page !== 1) {
         setPage((prevState) => prevState - 1)
       } else {
         queryClient.invalidateQueries([
-          'recipes',
-          sort,
+          'semiFinisheds',
           page,
           rowsPerPage,
+          status,
+          sort,
+          recipeId,
           debouncedSearchValue,
         ])
       }
@@ -84,16 +91,12 @@ export const Recipes = () => {
     [],
   )
 
-  const handleUpdate = (id: number) => {
-    push(ROUTES.EDIT_RECIPES(id))
-  }
-
   const handleDelete = (id: number) => {
     modals.openContextModal({
       modal: 'confirmDialog',
       title: 'Подтвердите действие',
       innerProps: {
-        modalBody: 'Вы действительно хотите удалить этот рецепт?',
+        modalBody: 'Вы действительно хотите удалить этот полуфабрикат?',
         onConfirm: async (modalId: string) => {
           await deleteMutation.mutateAsync(id).finally(() => {
             modals.close(modalId)
@@ -103,10 +106,10 @@ export const Recipes = () => {
     })
   }
 
-  const handleViewPrice = (id: number) => {
+  const handleViewSemiFinished = (id: number) => {
     modals.open({
-      title: 'Просмотр рецепта',
-      children: <ViewRecipe recipeIp={id} />,
+      title: 'Просмотр полуфабриката',
+      children: <ViewSemiFinished semiFinishedId={id} />,
       size: 'xl',
     })
   }
@@ -124,6 +127,11 @@ export const Recipes = () => {
       sortable: true,
     },
     {
+      key: 'recipe_id',
+      title: 'Рецепт',
+      sortable: true,
+    },
+    {
       key: 'unit',
       title: 'Ед.измерения',
       sortable: true,
@@ -134,15 +142,22 @@ export const Recipes = () => {
       sortable: true,
     },
     {
-      key: 'created_at',
-      title: 'Дата создания',
+      key: 'losses',
+      title: 'Потерии',
+    },
+    {
+      key: 'remainder',
+      title: 'Остаток',
+    },
+    {
+      key: 'status',
+      title: 'Статус',
       sortable: true,
     },
     {
-      key: 'active',
-      title: 'Активен',
+      key: 'created_at',
+      title: 'Дата создания',
       sortable: true,
-      boolean: true,
     },
     {
       key: 'action',
@@ -151,9 +166,9 @@ export const Recipes = () => {
       component: (item: any) => {
         return (
           <Actions
-            onUpdate={() => handleUpdate(item.id)}
+            onUpdate={() => {}}
             onDelete={() => handleDelete(item.id)}
-            onPreview={() => handleViewPrice(item.id)}
+            onPreview={() => handleViewSemiFinished(item.id)}
           />
         )
       },
@@ -163,23 +178,29 @@ export const Recipes = () => {
 
   return (
     <Card shadow="sm" withBorder padding={0}>
-      <Box p="md">
-        <TextInput
-          value={search}
-          onChange={(event) => {
-            const value = event.target.value
-            debouncedSearch(value)
-            setSearch(value)
-          }}
-          placeholder="Поиск"
-        />
-      </Box>
+      <SemiFinishedFilters
+        search={search}
+        onChangeSearch={(value: string) => {
+          setSearch(value)
+          debouncedSearch(value)
+        }}
+        status={status}
+        onChangeStatus={(status: string | null) => {
+          setStatus(status as SemiFinishedStatus)
+          setPage(1)
+        }}
+        recipeId={recipeId}
+        onChangeRecipeId={(recipeId) => {
+          setRecipeId(recipeId)
+          setPage(1)
+        }}
+      />
       <Table
         columns={columns}
-        data={recipes?.data}
+        data={semiFinisheds?.data}
         onSort={handleSort}
         sort={sort}
-        total={recipes?.pagination.last_page || 1}
+        total={semiFinisheds?.pagination.last_page || 1}
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}

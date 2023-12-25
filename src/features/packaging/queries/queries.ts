@@ -148,7 +148,7 @@ export const useDeletePackage = (
   return useMutation({
     mutationFn: PackagesService.deletePackage,
     onError: (error) => {
-      if (error?.status === 401) {
+      if (error.status === 401) {
         push(ROUTES.LOGIN)
       } else {
         notifications.show({

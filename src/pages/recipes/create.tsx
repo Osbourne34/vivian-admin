@@ -9,7 +9,7 @@ import { CreateRecipe } from '@/features/recipes'
 import { MainLayout } from '@/shared/layout/main-layout/main-layout'
 import { ROUTES } from '@/shared/constants/routes'
 
-export const CreateRecipePage = () => {
+const CreateRecipePage = () => {
   return (
     <>
       <Group justify="space-between" mb="lg">

@@ -38,7 +38,7 @@ export const ProductsList = (props: ProductsListProps) => {
     },
     {
       keepPreviousData: true,
-      staleTime: 10_000,
+      staleTime: 20_000,
     },
   )
 

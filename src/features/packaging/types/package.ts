@@ -1,4 +1,5 @@
 import { Material } from '@/features/materials'
+import { Product } from '@/features/products'
 
 export interface PackageMaterial extends Material {
   type: string
@@ -12,6 +13,7 @@ export interface PackageMaterial extends Material {
 export interface Package {
   id: number
   name: string
+  product_id: string
   created_at: string
   active: boolean
 }

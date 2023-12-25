@@ -97,7 +97,7 @@ export const Filters = {
   getMaterialTypes: async () => {
     const { data } = await http<
       ResponseWithData<{ id: number; name: string }[]>
-    >('v1/filter/material/types')
+    >('v1/filter/materials/types')
 
     return data
   },
@@ -105,7 +105,7 @@ export const Filters = {
   getMaterialUnits: async () => {
     const { data } = await http<
       ResponseWithData<{ title: string; value: string }[]>
-    >('v1/filter/material/units')
+    >('v1/filter/materials/units')
 
     return data
   },
@@ -114,6 +114,40 @@ export const Filters = {
     const { data } = await http<
       ResponseWithData<{ title: string; value: string }[]>
     >('v1/filter/products/units')
+
+    return data
+  },
+
+  getRecipes: async () => {
+    const { data } = await http<
+      ResponseWithData<{
+        id: number
+        name: string
+        materials: {
+          id: number
+          name: string
+          type: string
+          unit: string
+          count: number
+          states: {
+            empty: boolean
+            deleted: boolean
+          }
+        }[]
+      }[]>
+    >('v1/filter/recipes', {
+      params: {
+        active: 1,
+      },
+    })
+
+    return data
+  },
+
+  getRecipeUnits: async () => {
+    const { data } = await http<
+      ResponseWithData<{ title: string; value: string }[]>
+    >('v1/filter/recipes/units')
 
     return data
   },
